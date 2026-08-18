@@ -1,0 +1,94 @@
+/* ==========================================================================
+   LUMINOUS EVER — DESIGN TOKENS
+   Single source of truth for color, spacing, radius, motion. Every other
+   stylesheet reads from these custom properties — never hardcode a hex
+   value or a px spacing figure outside this file.
+   ========================================================================== */
+
+:root {
+  /* ---- Color: brand-mandated black & white, near-monochromatic ---- */
+  --color-black: #050505;
+  --color-white: #ffffff;
+  --color-gray-100: #f5f5f5;   /* off-white section backgrounds */
+  --color-gray-200: #e8e8e8;   /* hairline borders on light sections */
+  --color-gray-400: #a0a0a0;   /* muted text on light sections */
+  --color-gray-700: #333333;   /* secondary text on light sections */
+
+  /* Semantic surface/text pairs — every section is either "light" or
+     "dark" (inverse); components read these two roles, never raw colors,
+     so a card or button behaves correctly on either background. */
+  --surface: var(--color-white);
+  --surface-alt: var(--color-gray-100);
+  --surface-inverse: var(--color-black);
+
+  --text: var(--color-black);
+  --text-muted: var(--color-gray-700);
+  --text-faint: var(--color-gray-400);
+  --text-inverse: var(--color-white);
+  --text-inverse-muted: rgba(255, 255, 255, 0.64);
+  --text-inverse-faint: rgba(255, 255, 255, 0.4);
+
+  --border: var(--color-gray-200);
+  --border-strong: var(--color-black);
+  --border-inverse: rgba(255, 255, 255, 0.16);
+  --border-inverse-strong: var(--color-white);
+
+  /* Reserved, near-monochromatic accent — used only for a live/active
+     state (e.g. a form focus ring or a single "new" indicator), never
+     for decoration. Kept a hair off pure black so it reads as intent. */
+  --accent: #1a1a1a;
+
+  /* ---- Spacing scale: 4px base ---- */
+  --space-1: 0.25rem;   /*  4px */
+  --space-2: 0.5rem;    /*  8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-8: 3rem;      /* 48px */
+  --space-10: 4rem;     /* 64px */
+  --space-12: 6rem;     /* 96px */
+  --space-16: 8rem;     /* 128px */
+
+  /* Section rhythm — scales down gracefully on small screens instead of
+     needing separate mobile overrides everywhere. */
+  --section-padding-y: clamp(4rem, 9vw, 9rem);
+  --section-padding-x: clamp(1.25rem, 5vw, 4rem);
+
+  /* ---- Layout ---- */
+  --container-max: 1320px;
+  --container-max-narrow: 860px; /* long-form text: blog posts, FAQ */
+
+  /* ---- Radius: restrained, per brief ---- */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ---- Motion ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 700ms;
+
+  /* ---- Elevation (used sparingly — hairline borders do most of the work) ---- */
+  --shadow-card: 0 1px 2px rgba(5, 5, 5, 0.04);
+  --shadow-card-hover: 0 24px 48px -12px rgba(5, 5, 5, 0.18);
+
+  /* ---- Z-index scale ---- */
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}
+
+/* Respect user motion preference globally — components opt out of
+   animation via this media query rather than each handling it separately. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}

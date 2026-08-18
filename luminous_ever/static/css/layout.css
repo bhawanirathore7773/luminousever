@@ -1,0 +1,1503 @@
+/* ==========================================================================
+   LUMINOUS EVER — LAYOUT
+   Persistent site chrome: header (incl. mega-menu), mobile full-screen nav,
+   footer, mobile sticky CTA bar, WhatsApp float. Reads tokens only.
+   ========================================================================== */
+
+/* ==========================================================================
+   Header — Smooth scroll state
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--z-header);
+
+  /* Keep header height/layout stable */
+  padding-block: var(--space-5);
+
+  /* Glass layer handled separately for smoother animation */
+  background: transparent;
+  border-bottom: 1px solid transparent;
+
+  /* Smooth visual transition */
+  transition:
+    background-color 500ms var(--ease-out-expo),
+    border-color 500ms var(--ease-out-expo),
+    box-shadow 500ms var(--ease-out-expo);
+}
+
+/* Smooth glass background */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 550ms var(--ease-out-expo),
+    backdrop-filter 550ms var(--ease-out-expo);
+
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+}
+
+/* Keep actual content above glass layer */
+.site-header__inner {
+  position: relative;
+  z-index: 1;
+
+  transition:
+    transform 550ms var(--ease-out-expo);
+}
+
+/* Scrolled state */
+.site-header.is-scrolled {
+  background: transparent;
+
+  border-bottom-color: transparent;
+
+  box-shadow: 0 6px 24px rgba(5, 5, 5, 0.04);
+}
+
+.site-header.is-scrolled::before {
+  opacity: 1;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Animated hairline instead of sudden border */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 1px;
+  background: var(--border);
+
+  transform: scaleX(0);
+  transform-origin: center;
+
+  transition:
+    transform 600ms var(--ease-out-expo);
+
+  pointer-events: none;
+}
+
+.site-header.is-scrolled::after {
+  transform: scaleX(1);
+}
+/* Pages can opt into a dark hero by setting <body data-hero-theme="dark">
+   — the header starts white-on-transparent and switches to the normal
+   dark-on-glass state once scrolled. Unused until Phase 4 needs it. */
+body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
+  color: var(--text-inverse);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.site-header__logo {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+/* Breakpoint is 1079px, not the more typical 960px — calculated the
+   actual content width needed for logo + 6 nav items + CTA button and it
+   left only ~35px of margin at 1024px (iPad landscape) with no flex-wrap
+   fallback. Bumped up so 1024px safely gets the mobile nav instead of a
+   navbar that's one long word away from overflowing. */
+@media (max-width: 1079px) {
+  .site-header__nav,
+  .site-header__actions .btn {
+    display: none;
+  }
+  .mobile-nav-toggle {
+    display: flex;
+  }
+}
+
+/* ---- Mega menu ---- */
+.nav-item--has-menu {
+  position: relative;
+}
+
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 1.75rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: min(760px, 88vw);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card-hover);
+  padding: var(--space-8);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo), visibility var(--duration-base);
+}
+
+.nav-item--has-menu:hover .mega-menu,
+.nav-item--has-menu:focus-within .mega-menu,
+.nav-item--has-menu.is-menu-open .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.mega-menu__group-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.mega-menu__link {
+  display: block;
+  font-size: 0.9375rem;
+  padding-block: var(--space-2);
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.mega-menu__link:hover {
+  color: var(--text);
+}
+
+/* ---- Mobile hamburger + full-screen nav ---- */
+
+.mobile-nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+
+  border: 1px solid rgba(5, 5, 5, 0.14);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-black);
+
+  position: relative;
+  z-index: 301;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease;
+}
+
+.mobile-nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+
+  background: currentColor;
+  border-radius: 10px;
+
+  transition:
+    transform 350ms var(--ease-out-expo),
+    opacity 200ms ease;
+}
+
+body.mobile-nav-open {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   MOBILE HEADER
+   --------------------------------------------------------- */
+
+@media (max-width: 1079px) {
+  .site-header__nav,
+  .site-header__actions .btn {
+    display: none !important;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .mobile-nav-toggle {
+    display: flex !important;
+  }
+
+  /* Header hamburger */
+  .site-header .mobile-nav-toggle {
+    color: var(--color-black);
+  }
+
+  /* -------------------------------------------------------
+     FULL-SCREEN RIGHT-SLIDE MOBILE MENU
+     ------------------------------------------------------- */
+
+  .mobile-nav {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 100vw;
+    max-width: none;
+
+    height: 100dvh;
+
+    z-index: var(--z-overlay);
+
+    display: flex;
+    flex-direction: column;
+
+    padding:
+      max(22px, env(safe-area-inset-top))
+      max(24px, var(--section-padding-x))
+      max(28px, env(safe-area-inset-bottom));
+
+    background: var(--color-black);
+    color: var(--color-white);
+
+    /* Closed: completely outside the viewport on the right */
+    transform: translate3d(100%, 0, 0);
+
+    transition:
+      transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    box-shadow: none;
+    will-change: transform;
+  }
+
+  /* Open: covers the complete viewport */
+  body.mobile-nav-open .mobile-nav {
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* -------------------------------------------------------
+     DRAWER TOP BAR
+     ------------------------------------------------------- */
+
+  .mobile-nav__top {
+    width: 100%;
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    flex-shrink: 0;
+  }
+
+  .mobile-nav__top .site-header__logo {
+    color: var(--color-white);
+
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Close button inside fullscreen menu */
+  .mobile-nav .mobile-nav-toggle {
+    display: flex !important;
+
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+
+    color: var(--color-white);
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+
+    background: transparent;
+
+    position: relative;
+    z-index: 10;
+
+    flex-shrink: 0;
+  }
+
+  .mobile-nav .mobile-nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* -------------------------------------------------------
+     HAMBURGER → X
+     ------------------------------------------------------- */
+
+  body.mobile-nav-open .mobile-nav-toggle span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  body.mobile-nav-open .mobile-nav-toggle span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  body.mobile-nav-open .mobile-nav-toggle span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* -------------------------------------------------------
+     NAVIGATION LINKS
+     ------------------------------------------------------- */
+
+  .mobile-nav__list {
+    width: 100%;
+
+    margin-top: clamp(42px, 8vh, 72px);
+
+    display: flex;
+    flex-direction: column;
+
+    border-top: 1px solid var(--border-inverse);
+  }
+
+  .mobile-nav__link {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 16px 0;
+
+    color: var(--color-white);
+
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 9vw, 3rem);
+    font-weight: 460;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+
+    border-bottom: 1px solid var(--border-inverse);
+
+    transition:
+      padding-left 250ms var(--ease-out),
+      opacity 200ms ease;
+  }
+
+  .mobile-nav__link:hover,
+  .mobile-nav__link:focus-visible {
+    padding-left: 8px;
+    opacity: 0.7;
+  }
+
+  /* -------------------------------------------------------
+     BOTTOM CTA
+     ------------------------------------------------------- */
+
+  .mobile-nav__cta {
+    width: 100%;
+
+    margin-top: auto;
+    padding-top: 32px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mobile-nav__cta .btn {
+    width: 100%;
+    min-height: 52px;
+
+    justify-content: center;
+  }
+
+  .mobile-nav__cta .btn-outline {
+    color: var(--color-white) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: transparent;
+  }
+}
+
+/* ---------------------------------------------------------
+   SMALL PHONES
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .mobile-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mobile-nav__list {
+    margin-top: 40px;
+  }
+
+  .mobile-nav__link {
+    padding: 14px 0;
+    font-size: 2.15rem;
+  }
+
+  .mobile-nav__cta {
+    padding-top: 26px;
+  }
+
+  .mobile-nav__cta .btn {
+    min-height: 50px;
+  }
+}
+
+@media (min-width: 1080px) {
+  .mobile-nav,
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-12) var(--space-8);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: var(--space-8);
+}
+
+@media (max-width: 960px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-10) var(--space-6);
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer-brand__desc {
+  max-width: 320px;
+  margin-top: var(--space-4);
+}
+
+.footer-col__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  margin-bottom: var(--space-4);
+}
+
+.footer-col a {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  padding-block: var(--space-2);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.footer-col a:hover {
+  color: var(--text);
+}
+
+.site-footer__bottom {
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.footer-social a:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.newsletter-form {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 380px;
+  margin-top: var(--space-4);
+}
+
+.newsletter-form .field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.newsletter-note {
+  margin-top: var(--space-2);
+  min-height: 1.2em;
+}
+
+/* ---- Mobile sticky CTA (section 22) ---- */
+.mobile-sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-header);
+  display: none;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.mobile-sticky-cta .btn-primary {
+  flex: 1;
+  justify-content: center;
+}
+
+.mobile-sticky-cta .whatsapp-btn {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-strong);
+}
+
+@media (max-width: 767px) {
+  .mobile-sticky-cta {
+    display: flex;
+  }
+  body {
+    padding-bottom: 78px;
+  }
+}
+
+/* ---- WhatsApp float (desktop) ---- */
+.whatsapp-float {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-header);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-black);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card-hover);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.06);
+}
+
+@media (max-width: 767px) {
+  .whatsapp-float {
+    display: none;
+  }
+}
+
+/* =========================================================
+   FINAL MOBILE MENU REFINEMENT
+   Reference-inspired: clean, compact, readable navigation
+   ========================================================= */
+
+@media (max-width: 1079px) {
+
+  /* Full-screen menu remains right-to-left */
+  .mobile-nav {
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100dvh !important;
+
+    padding:
+      max(22px, env(safe-area-inset-top))
+      clamp(20px, 6vw, 34px)
+      max(24px, env(safe-area-inset-bottom));
+
+    background: #050505;
+  }
+
+  /* Top area */
+  .mobile-nav__top {
+    min-height: 44px;
+    padding-bottom: 0;
+  }
+
+  .mobile-nav__top .site-header__logo {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  /* Smaller, cleaner circular close button */
+  .mobile-nav .mobile-nav-toggle {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .mobile-nav .mobile-nav-toggle span {
+    width: 17px;
+    height: 1.5px;
+  }
+
+  /* "MENU" heading + divider */
+  .mobile-nav__list {
+    position: relative;
+
+    margin-top: 34px;
+    padding-top: 42px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .mobile-nav__list::before {
+    content: "Menu";
+
+    position: absolute;
+    top: 13px;
+    left: 0;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  /* Main navigation — readable, not oversized */
+  .mobile-nav__link {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 13px 0;
+
+    color: rgba(255, 255, 255, 0.94);
+
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 450;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+
+    transition:
+      padding-left 220ms var(--ease-out),
+      color 220ms ease;
+  }
+
+  .mobile-nav__link:hover,
+  .mobile-nav__link:focus-visible {
+    padding-left: 5px;
+    color: var(--color-white);
+    opacity: 1;
+  }
+
+  /* Keep the menu comfortably spaced instead of filling the screen */
+  .mobile-nav__cta {
+    margin-top: auto;
+    padding-top: 32px;
+    gap: 10px;
+  }
+
+  .mobile-nav__cta .btn {
+    min-height: 48px;
+
+    font-size: 0.84rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .mobile-nav__cta .btn-outline {
+    border-color: rgba(255, 255, 255, 0.24) !important;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 480px) {
+
+  .mobile-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mobile-nav__list {
+    margin-top: 30px;
+    padding-top: 40px;
+  }
+
+  .mobile-nav__link {
+    min-height: 46px;
+    padding: 12px 0;
+
+    font-size: 1rem;
+  }
+
+  .mobile-nav__cta {
+    padding-top: 26px;
+  }
+}
+
+/* =========================================================
+   PREMIUM FOOTER — FINAL
+   ========================================================= */
+
+.site-footer {
+  background: #171719;
+  color: #fff;
+  padding: 90px 0 28px;
+}
+
+.site-footer__main {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.7fr) repeat(3, 1fr);
+  gap: 70px;
+}
+
+.footer-brand__logo {
+  display: inline-block;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.footer-brand__desc {
+  max-width: 430px;
+  margin-top: 22px;
+  color: rgba(255, 255, 255, .58);
+  font-size: .88rem;
+  line-height: 1.7;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: rgba(255, 255, 255, .75);
+  transition: color .2s ease, transform .2s ease;
+}
+
+.footer-social a:hover {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-col__title {
+  margin-bottom: 22px;
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+.footer-col a {
+  margin-bottom: 13px;
+  color: rgba(255, 255, 255, .58);
+  font-size: .82rem;
+  line-height: 1.4;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.footer-col a:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.site-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 70px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.footer-copyright,
+.footer-contact {
+  margin: 0;
+  color: rgba(255, 255, 255, .42);
+  font-size: .72rem;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-contact a {
+  color: inherit;
+}
+
+.footer-contact a:hover {
+  color: #fff;
+}
+
+/* Footer newsletter is intentionally hidden with the new footer structure */
+.site-footer .newsletter-form,
+.site-footer .newsletter-note {
+  display: none;
+}
+
+
+/* =========================================================
+   FOOTER — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .site-footer__main {
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: 38px;
+  }
+}
+
+
+/* =========================================================
+   FOOTER — MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  .site-footer {
+    padding: 58px 0 100px;
+  }
+
+  .site-footer__main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 44px 30px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-brand__logo {
+    font-size: 1.15rem;
+  }
+
+  .footer-brand__desc {
+    max-width: 330px;
+    margin-top: 16px;
+    font-size: .78rem;
+    line-height: 1.65;
+  }
+
+  .footer-social {
+    margin-top: 22px;
+    gap: 14px;
+  }
+
+  .footer-social a {
+    width: 28px;
+    height: 28px;
+  }
+
+  .footer-col__title {
+    margin-bottom: 17px;
+    font-size: .72rem;
+  }
+
+  .footer-col a {
+    margin-bottom: 11px;
+    font-size: .75rem;
+  }
+
+  .site-footer__bottom {
+    margin-top: 45px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-copyright,
+  .footer-contact {
+    font-size: .68rem;
+  }
+}
+
+
+/* =========================================================
+   FOOTER — SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .site-footer {
+    padding-top: 50px;
+  }
+
+  .site-footer__main {
+    gap: 36px 22px;
+  }
+
+  .footer-brand__desc {
+    max-width: 300px;
+  }
+
+  .footer-col a {
+    font-size: .72rem;
+  }
+}
+
+/* =========================================================
+   MOBILE FOOTER — FINAL COMPACT LAYOUT
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  .site-footer {
+    padding-top: 48px;
+    padding-bottom: 72px;
+  }
+
+  /* Brand stays full width */
+  .site-footer__main {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 34px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-brand__logo {
+    font-size: 1.12rem;
+  }
+
+  .footer-brand__desc {
+    max-width: 310px;
+    margin-top: 14px;
+    font-size: .76rem;
+    line-height: 1.6;
+  }
+
+  .footer-social {
+    margin-top: 18px;
+    gap: 12px;
+  }
+
+  .footer-social a {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Company | Resources | Legal — SAME ROW */
+  .footer-col {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .footer-col__title {
+    margin-bottom: 14px;
+    font-size: .68rem;
+    line-height: 1.2;
+    letter-spacing: .03em;
+  }
+
+  .footer-col a {
+    margin-bottom: 10px;
+    font-size: .70rem;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  /* Bottom area immediately follows the three columns */
+  .site-footer__bottom {
+    margin-top: 30px;
+    padding-top: 18px;
+    gap: 7px;
+  }
+
+  .footer-copyright,
+  .footer-contact {
+    font-size: .64rem;
+    line-height: 1.45;
+  }
+
+  .footer-contact {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .site-footer {
+    padding-top: 42px;
+    padding-bottom: 68px;
+  }
+
+  .site-footer__main {
+    column-gap: 14px;
+    row-gap: 30px;
+  }
+
+  .footer-brand__desc {
+    max-width: 285px;
+    font-size: .72rem;
+  }
+
+  .footer-col__title {
+    font-size: .64rem;
+  }
+
+  .footer-col a {
+    font-size: .67rem;
+    margin-bottom: 9px;
+  }
+}
+/* =========================================================
+   MOBILE FOOTER CTA — NO START YOUR PROJECT
+   WhatsApp matches the reference: floating green circle
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .mobile-sticky-cta {
+    display: none !important;
+  }
+
+  .whatsapp-float {
+    position: fixed !important;
+    left: 22px !important;
+    right: auto !important;
+    bottom: 20px !important;
+
+    width: 50px !important;
+    height: 50px !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50% !important;
+    background: #20c763 !important;
+    color: #fff !important;
+    border: 0 !important;
+
+    box-shadow:
+      0 8px 22px rgba(0, 0, 0, .18),
+      0 2px 6px rgba(0, 0, 0, .12) !important;
+
+    z-index: 9999;
+
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .whatsapp-float:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 11px 26px rgba(0, 0, 0, .22),
+      0 3px 8px rgba(0, 0, 0, .12) !important;
+  }
+
+  .whatsapp-float .icon,
+  .whatsapp-float svg {
+    width: 27px !important;
+    height: 27px !important;
+    color: #fff !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float {
+    left: 18px !important;
+    bottom: 18px !important;
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .whatsapp-float .icon,
+  .whatsapp-float svg {
+    width: 26px !important;
+    height: 26px !important;
+  }
+}
+
+/* =========================================================
+   FINAL MOBILE STICKY BAR — COMPLETELY DISABLED
+   ========================================================= */
+
+/* Never render the bottom "Start Your Project" mobile bar.
+   WhatsApp remains as the standalone floating button. */
+.mobile-sticky-cta,
+.site-footer .mobile-sticky-cta,
+body .mobile-sticky-cta {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Remove any reserved bottom spacing that may have been
+   created for the sticky CTA. */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+
+  .site-footer {
+    padding-bottom: 36px !important;
+  }
+}
+
+/* =========================================================
+   HERO — MOBILE CLEANUP
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .hero {
+    padding-top: 7rem;
+  }
+
+  .hero__content {
+    max-width: 100%;
+  }
+}
+/* =========================================================
+   WHATSAPP FLOAT — VISIBLE PREMIUM PULSE
+   ========================================================= */
+
+.whatsapp-float {
+    position: fixed !important;
+
+    right: 28px !important;
+    left: auto !important;
+    bottom: 28px !important;
+
+    width: 58px !important;
+    height: 58px !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    background: #20c763 !important;
+    color: #fff !important;
+
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    z-index: 9999 !important;
+
+    /* Important */
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   ANIMATED OUTER GLOW
+   ========================================================= */
+
+.whatsapp-float::before {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%) scale(1);
+
+    background: transparent;
+
+    box-shadow:
+        0 0 0 0 rgba(32, 199, 99, 0.45);
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    animation: whatsappPulse 2.2s ease-out infinite;
+}
+
+
+/* =========================================================
+   SECOND SOFT RING
+   ========================================================= */
+
+.whatsapp-float::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%) scale(1);
+
+    background: transparent;
+
+    box-shadow:
+        0 0 0 0 rgba(32, 199, 99, 0.22);
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    animation: whatsappPulseSoft 2.2s ease-out infinite;
+}
+
+
+/* =========================================================
+   ICON ALWAYS ABOVE ANIMATION
+   ========================================================= */
+
+.whatsapp-float .icon,
+.whatsapp-float svg {
+    position: relative;
+
+    z-index: 2;
+
+    width: 29px !important;
+    height: 29px !important;
+
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   MAIN PULSE
+   ========================================================= */
+
+@keyframes whatsappPulse {
+
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow:
+            0 0 0 0 rgba(32, 199, 99, 0.48);
+        opacity: 0.9;
+    }
+
+    60% {
+        transform: translate(-50%, -50%) scale(1.45);
+        box-shadow:
+            0 0 0 12px rgba(32, 199, 99, 0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.45);
+        box-shadow:
+            0 0 0 12px rgba(32, 199, 99, 0);
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   SOFT SECOND PULSE
+   ========================================================= */
+
+@keyframes whatsappPulseSoft {
+
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow:
+            0 0 0 0 rgba(32, 199, 99, 0.25);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.5;
+    }
+
+    75% {
+        transform: translate(-50%, -50%) scale(1.3);
+        box-shadow:
+            0 0 0 9px rgba(32, 199, 99, 0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+@media (hover: hover) {
+
+    .whatsapp-float {
+        transition:
+            transform 250ms ease,
+            box-shadow 250ms ease;
+    }
+
+    .whatsapp-float:hover {
+        transform: translateY(-4px) scale(1.05);
+
+        box-shadow:
+            0 12px 28px rgba(0, 0, 0, 0.16),
+            0 5px 18px rgba(32, 199, 99, 0.30) !important;
+    }
+}
+
+
+/* =========================================================
+   CLICK
+   ========================================================= */
+
+.whatsapp-float:active {
+    transform: scale(0.92);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .whatsapp-float {
+        right: 18px !important;
+        left: auto !important;
+        bottom: 18px !important;
+
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .whatsapp-float .icon,
+    .whatsapp-float svg {
+        width: 26px !important;
+        height: 26px !important;
+    }
+}
+
+
+@media (max-width: 380px) {
+
+    .whatsapp-float {
+        right: 16px !important;
+        bottom: 16px !important;
+
+        width: 48px !important;
+        height: 48px !important;
+    }
+}

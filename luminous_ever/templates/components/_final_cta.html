@@ -1,0 +1,16 @@
+
+<section class="section surface-inverse" style="text-align:center;">
+  <div class="container-narrow">
+    <h2 data-reveal>{{ heading|default:"Ready to build your digital growth engine?" }}</h2>
+    <p class="body-lg" data-reveal data-reveal-delay="80" style="margin-top:var(--space-5); max-width:560px; margin-inline:auto;">
+      {{ subheading|default:"Tell us where your business is today. We'll help you map where it can go next." }}
+    </p>
+    <div style="margin-top:var(--space-8); display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap;" data-reveal data-reveal-delay="160">
+      <a href="{% url 'leads:contact' %}" class="btn btn-primary" data-magnetic>
+        Start a Project
+        {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+      </a>
+      <a href="{% url 'leads:contact' %}" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,.4);">Book a Strategy Call</a>
+    </div>
+  </div>
+</section>

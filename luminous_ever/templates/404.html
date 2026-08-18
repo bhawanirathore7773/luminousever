@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block robots_meta %}noindex, follow{% endblock %}
+
+{% block content %}
+<section class="section" style="min-height:70vh; display:flex; align-items:center; padding-top:calc(var(--section-padding-y) + 4rem);">
+  <div class="container-narrow" style="text-align:center;">
+    <p class="eyebrow" data-reveal>404</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Looks like this page took a different route.</h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); color:var(--text-muted); max-width:480px; margin-inline:auto;">
+      The page you're looking for doesn't exist, or may have moved.
+    </p>
+    <div style="margin-top:var(--space-8);" data-reveal data-reveal-delay="240">
+      <a href="{% url 'core:home' %}" class="btn btn-primary" data-magnetic>
+        Back Home
+        {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

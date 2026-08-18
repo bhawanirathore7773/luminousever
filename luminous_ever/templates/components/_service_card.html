@@ -1,0 +1,9 @@
+
+<a href="{{ service.get_absolute_url }}" class="card" style="display:block;">
+  <h4>{{ service.name }}</h4>
+  <p class="body small" style="margin-top:var(--space-3);">{{ service.short_description }}</p>
+  <span class="link-arrow" style="margin-top:var(--space-5);">
+    <span class="link-arrow__label">Learn more</span>
+    {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+  </span>
+</a>

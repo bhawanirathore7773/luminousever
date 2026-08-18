@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}About — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}We combine strategy, design, technology, marketing and analytics into one process — built around your business, not our template.{% endblock %}
+{% block og_title %}About — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}We combine strategy, design, technology, marketing and analytics into one process — built around your business, not our template.{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem); padding-bottom: var(--space-6);">
+  <div class="container">
+    <p class="eyebrow" data-reveal>About us</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:800px;">
+      Built around your business, not our template.
+    </h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:560px; color:var(--text-muted);">
+      We combine strategy, design, technology, marketing and analytics into
+      one process — so nothing gets lost in a handoff between teams.
+    </p>
+
+    <div class="pillar-row" data-reveal data-reveal-delay="240">
+      <span class="badge">Strategy</span>
+      <span class="badge">Design</span>
+      <span class="badge">Technology</span>
+      <span class="badge">Marketing</span>
+      <span class="badge">Analytics</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="section-tight surface-alt">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>How we work</p>
+    <p class="body-lg" data-reveal data-reveal-delay="80" style="margin-top:var(--space-5);">
+      Most agencies hand off between separate website, marketing and design
+      teams — and something gets lost at every handoff. {{ site_settings.site_name|default:"Luminous Ever" }}
+      exists to close that gap: one team that carries a business from
+      strategy through to the website, the brand, the marketing that brings
+      customers, and the reporting that shows what's actually working.
+    </p>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5);">
+      We work with businesses who are serious about their next stage of
+      growth — whether that's a first real website, a rebuild that finally
+      reflects where the business is today, or a full digital growth system
+      built from the ground up.
+    </p>
+  </div>
+</section>
+
+<!-- ============ MISSION / VISION ============ -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div data-reveal>
+        <p class="eyebrow">Mission</p>
+        <p class="body-lg" style="margin-top:var(--space-4);">
+          {{ site_settings.mission_statement }}
+        </p>
+      </div>
+      <div data-reveal data-reveal-delay="100">
+        <p class="eyebrow">Vision</p>
+        <p class="body-lg" style="margin-top:var(--space-4);">
+          {{ site_settings.vision_statement }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALUES ============ -->
+<section class="section surface-alt">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Values</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">What guides how we work.</h2>
+
+    <div class="values-grid">
+      <div class="card" data-reveal>
+        <h4>Clarity</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Straightforward strategy and reporting — no jargon standing in for a real answer.</p>
+      </div>
+      <div class="card" data-reveal data-reveal-delay="60">
+        <h4>Craft</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Details matter, from a headline down to a hover state.</p>
+      </div>
+      <div class="card" data-reveal data-reveal-delay="120">
+        <h4>Performance</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Design and code that's judged by results, not just how it looks in a preview.</p>
+      </div>
+      <div class="card" data-reveal data-reveal-delay="180">
+        <h4>Transparency</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Clear reporting on what's working, what isn't, and why.</p>
+      </div>
+      <div class="card" data-reveal data-reveal-delay="240">
+        <h4>Long-term Thinking</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Built to compound over years, not just launch well.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM TEASER ============ -->
+<section class="section" style="text-align:center;">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>The people</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">A small team, working directly with you.</h2>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); color:var(--text-muted);">
+      No layers of account managers between you and the people doing the work.
+    </p>
+    <a href="{% url 'team:index' %}" class="link-arrow" style="margin-top:var(--space-6); justify-content:center;">
+      <span class="link-arrow__label">Meet the team</span>
+      {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+    </a>
+  </div>
+</section>
+
+{% include "components/_final_cta.html" %}
+{% endblock %}

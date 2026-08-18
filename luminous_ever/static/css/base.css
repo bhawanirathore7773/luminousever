@@ -1,0 +1,230 @@
+/* ==========================================================================
+   LUMINOUS EVER — BASE
+   Reset, type scale, and base element styling. Font pairing: Fraunces
+   (editorial serif, display only, used with restraint at large sizes) +
+   Inter (body/UI — everything that needs to be read quickly and clearly).
+   The serif carries the "premium editorial" brief; Inter keeps the agency
+   feeling technical and trustworthy rather than purely decorative.
+   ========================================================================== */
+
+:root {
+  --font-display: "Fraunces", "Iowan Old Style", "Georgia", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto; /* Lenis owns smooth scrolling; native stays instant */
+  scroll-padding-top: 100px; /* clears the fixed header on anchor jumps, e.g. #build, #grow from the mega-menu */
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-wrap: break-word; /* long emails/URLs/unbroken admin content never force horizontal scroll */
+}
+
+img,
+picture,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ---- Selection & focus ---- */
+::selection {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 3px;
+}
+
+.surface-inverse :focus-visible {
+  outline-color: var(--color-white);
+}
+
+/* ---- Type scale ---- */
+/* Display headings — Fraunces, used only here. Optical sizing + a
+   slightly negative tracking at large sizes is what keeps an oversized
+   serif from feeling loose or "wedding invitation." */
+h1,
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 460;
+  font-size: clamp(2.75rem, 6vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+h2,
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 460;
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+h3,
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h4,
+.h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+/* Body copy */
+.body-lg {
+  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+p,
+.body {
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Eyebrow / index labels — the structural device used above headings to
+   name a section ("02 — Grow", "Process", "Case Study"). Uppercase here
+   is intentional and reserved for exactly this role, nowhere else. */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.surface-inverse .eyebrow {
+  color: var(--text-inverse-faint);
+}
+
+.caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-faint);
+}
+
+/* Oversized index numerals — reserved for genuinely sequential content
+   only (the 7-step process, a numbered case-study list). Not a default
+   decoration for every card grid. */
+.index-number {
+  font-family: var(--font-display);
+  font-weight: 340;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Inverse (dark) sections ---- */
+.surface-inverse {
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+}
+
+.surface-inverse p,
+.surface-inverse .body {
+  color: var(--text-inverse-muted);
+}
+
+.surface-inverse .caption {
+  color: var(--text-inverse-faint);
+}
+
+.surface-alt {
+  background: var(--surface-alt);
+}
+
+/* ---- Layout utilities ---- */
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--section-padding-x);
+}
+
+.container-narrow {
+  max-width: var(--container-max-narrow);
+  margin-inline: auto;
+  padding-inline: var(--section-padding-x);
+}
+
+.section {
+  padding-block: var(--section-padding-y);
+}
+
+.section-tight {
+  padding-block: calc(var(--section-padding-y) * 0.6);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}

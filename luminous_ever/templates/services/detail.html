@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.meta_title|default:service.name }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}{{ service.meta_description|default:service.short_description }}{% endblock %}
+{% block og_title %}{{ service.meta_title|default:service.name }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}{{ service.meta_description|default:service.short_description }}{% endblock %}
+
+{% block extra_meta %}
+{% if service_schema_json %}<script type="application/ld+json">{{ service_schema_json|safe }}</script>{% endif %}
+{% if breadcrumb_schema_json %}<script type="application/ld+json">{{ breadcrumb_schema_json|safe }}</script>{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem); padding-bottom: var(--space-8);">
+  <div class="container-narrow">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{% url 'core:home' %}">Home</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href="{% url 'services:index' %}">Services</a>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current">{{ service.name }}</span>
+    </nav>
+
+    <p class="eyebrow" data-reveal>{{ service.category.name }}</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">{{ service.name }}</h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); color:var(--text-muted); max-width:600px;">
+      {{ service.hero_subtitle }}
+    </p>
+    <div style="margin-top:var(--space-8);" data-reveal data-reveal-delay="240">
+      <a href="{% url 'leads:contact' %}" class="btn btn-primary" data-magnetic>
+        Get a Free Consultation
+        {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM / SOLUTION ============ -->
+<section class="section-tight surface-alt">
+  <div class="container">
+    <div class="grid-2">
+      <div data-reveal>
+        <p class="eyebrow">The problem</p>
+        <p class="body-lg" style="margin-top:var(--space-4);">{{ service.problem }}</p>
+      </div>
+      <div data-reveal data-reveal-delay="100">
+        <p class="eyebrow">Our approach</p>
+        <p class="body-lg" style="margin-top:var(--space-4);">{{ service.solution }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+{% if service.features %}
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>What we provide</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">A closer look at what's included.</h2>
+
+    <div class="feature-grid">
+      {% for feature in service.features %}
+      <div class="card" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <h4>{{ feature.title }}</h4>
+        <p class="body small" style="margin-top:var(--space-3);">{{ feature.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ============ PROCESS ============ -->
+<section class="section surface-alt">
+  <div class="container-narrow">
+    {% include "components/_process.html" %}
+  </div>
+</section>
+
+<!-- ============ TECHNOLOGY, BENEFITS, WHO IT'S FOR, DELIVERABLES ============ -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      {% if service.technologies %}
+      <div data-reveal>
+        <p class="eyebrow">Technology</p>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-3); margin-top:var(--space-5);">
+          {% for tech in service.technologies %}
+          <span class="badge">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if service.who_its_for %}
+      <div data-reveal data-reveal-delay="80">
+        <p class="eyebrow">Who it's for</p>
+        <ul class="checklist">
+          {% for item in service.who_its_for %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="grid-2" style="margin-top:var(--space-10);">
+      {% if service.benefits %}
+      <div data-reveal>
+        <p class="eyebrow">Benefits</p>
+        <ul class="checklist">
+          {% for item in service.benefits %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if service.deliverables %}
+      <div data-reveal data-reveal-delay="80">
+        <p class="eyebrow">Deliverables</p>
+        <ul class="checklist">
+          {% for item in service.deliverables %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+{% if service.faqs %}
+<section class="section surface-alt">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>FAQ</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Questions about {{ service.name|lower }}.</h2>
+
+    <div class="faq-list" style="margin-top:var(--space-8);">
+      {% for faq in service.faqs %}
+      <details class="faq-item">
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ============ RELATED CASE STUDIES ============ -->
+{% if service.case_studies.all %}
+<section class="section surface-alt">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Case studies</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">{{ service.name }} in action.</h2>
+
+    <div class="work-grid">
+      {% for cs in service.case_studies.all|slice:":3" %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <a href="{{ cs.get_absolute_url }}" style="display:block;">
+          <div class="media-reveal work-card__media" style="background: linear-gradient(135deg, var(--color-gray-200), var(--color-gray-100));">
+            {% if cs.featured_image %}<img src="{{ cs.featured_image.url }}" alt="{{ cs.title }}" loading="lazy">{% endif %}
+            <div class="media-reveal__meta">
+              <p class="small" style="color:#fff; font-weight:600;">{{ cs.title }}</p>
+            </div>
+          </div>
+          <div class="work-card__info">
+            <p class="small" style="font-weight:600;">{{ cs.title }}</p>
+            <span class="badge">{{ cs.get_category_display }}</span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ============ RELATED SERVICES ============ -->
+{% if related_services %}
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Related services</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Often paired with {{ service.name|lower }}.</h2>
+
+    <div class="grid-3" style="margin-top:var(--space-8);">
+      {% for rel in related_services %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        {% include "components/_service_card.html" with service=rel %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "components/_final_cta.html" with heading="Ready to get started with "|add:service.name subheading="Tell us about your business and we'll put together a tailored plan." %}
+
+{% endblock %}

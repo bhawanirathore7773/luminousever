@@ -1,0 +1,29 @@
+# Environment
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+venv/
+env/
+.venv/
+
+# Django
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
+logs/*.log
+*.log
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Migrations are kept in git on purpose (comment out the line below only
+# if the team prefers to regenerate them per environment instead)

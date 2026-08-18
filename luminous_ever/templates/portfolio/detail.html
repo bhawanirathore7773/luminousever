@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}{{ case_study.meta_title|default:case_study.title }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}{{ case_study.meta_description|default:case_study.short_description }}{% endblock %}
+{% block og_title %}{{ case_study.meta_title|default:case_study.title }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}{{ case_study.meta_description|default:case_study.short_description }}{% endblock %}
+
+{% block extra_meta %}
+{% if breadcrumb_schema_json %}<script type="application/ld+json">{{ breadcrumb_schema_json|safe }}</script>{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem); padding-bottom: var(--space-8);">
+  <div class="container-narrow">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{% url 'core:home' %}">Home</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href="{% url 'portfolio:index' %}">Work</a>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current">{{ case_study.title }}</span>
+    </nav>
+
+    <span class="badge" data-reveal>Demo Case Study</span>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">{{ case_study.title }}</h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); color:var(--text-muted); max-width:600px;">
+      {{ case_study.short_description }}
+    </p>
+
+    <div style="display:flex; flex-wrap:wrap; gap:var(--space-8); margin-top:var(--space-8);" data-reveal data-reveal-delay="240">
+      <div>
+        <p class="caption">Client</p>
+        <p class="small" style="font-weight:600; margin-top:var(--space-1);">{{ case_study.client_name }}</p>
+      </div>
+      {% if case_study.industry %}
+      <div>
+        <p class="caption">Industry</p>
+        <p class="small" style="font-weight:600; margin-top:var(--space-1);"><a href="{{ case_study.industry.get_absolute_url }}" class="link-quiet">{{ case_study.industry.name }}</a></p>
+      </div>
+      {% endif %}
+      {% if case_study.services.all %}
+      <div>
+        <p class="caption">Services</p>
+        <p class="small" style="font-weight:600; margin-top:var(--space-1);">{% for s in case_study.services.all %}{{ s.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<div class="media-reveal container" style="aspect-ratio:16/7; background: linear-gradient(135deg, var(--color-gray-200), var(--color-gray-100)); border-radius: var(--radius-lg); max-width:var(--container-max);">
+  {% if case_study.featured_image %}
+  <picture>
+    {% if case_study.featured_image_webp %}<source srcset="{{ case_study.featured_image_webp.url }}" type="image/webp">{% endif %}
+    <img src="{{ case_study.featured_image.url }}" alt="{{ case_study.title }}" loading="eager" fetchpriority="high">
+  </picture>
+  {% endif %}
+</div>
+
+<!-- ============ CHALLENGE / OBJECTIVE / STRATEGY ============ -->
+<section class="section">
+  <div class="container">
+    <div class="grid-3" style="gap:var(--space-8);">
+      <div data-reveal>
+        <p class="eyebrow">Challenge</p>
+        <p class="body" style="margin-top:var(--space-4);">{{ case_study.challenge }}</p>
+      </div>
+      <div data-reveal data-reveal-delay="80">
+        <p class="eyebrow">Objective</p>
+        <p class="body" style="margin-top:var(--space-4);">{{ case_study.objective }}</p>
+      </div>
+      <div data-reveal data-reveal-delay="160">
+        <p class="eyebrow">Strategy</p>
+        <p class="body" style="margin-top:var(--space-4);">{{ case_study.strategy }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section class="section surface-alt">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>What we built</p>
+    <p class="body-lg" data-reveal data-reveal-delay="80" style="margin-top:var(--space-5);">{{ case_study.solution }}</p>
+
+    {% if case_study.technologies %}
+    <div style="display:flex; flex-wrap:wrap; gap:var(--space-3); margin-top:var(--space-6);" data-reveal data-reveal-delay="160">
+      {% for tech in case_study.technologies %}
+      <span class="badge">{{ tech }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="section">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>Results</p>
+    <p class="body-lg" data-reveal data-reveal-delay="80" style="margin-top:var(--space-5);">{{ case_study.results }}</p>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+{% if case_study.gallery.all %}
+<section class="section surface-alt">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Gallery</p>
+    <div class="grid-3" style="gap:var(--space-4); margin-top:var(--space-8);">
+      {% for img in case_study.gallery.all %}
+      <div class="media-reveal" style="aspect-ratio:4/3;" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <img src="{{ img.image.url }}" alt="{{ img.caption|default:case_study.title }}" loading="lazy">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ============ TESTIMONIAL ============ -->
+{% if case_study.has_testimonial %}
+<section class="section surface-inverse" style="text-align:center;">
+  <div class="container-narrow">
+    <span class="badge" style="border-color:rgba(255,255,255,.3); color:var(--text-inverse-muted);" data-reveal>Demo Testimonial</span>
+    <p class="h3" data-reveal data-reveal-delay="80" style="margin-top:var(--space-5);">&ldquo;{{ case_study.testimonial_quote }}&rdquo;</p>
+    <p class="small" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); color:var(--text-inverse-muted);">
+      {{ case_study.testimonial_author }} — {{ case_study.testimonial_role }}
+    </p>
+  </div>
+</section>
+{% endif %}
+
+<!-- ============ RELATED CASE STUDIES ============ -->
+{% if related_case_studies %}
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>More work</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Related case studies.</h2>
+
+    <div class="work-grid">
+      {% for rel in related_case_studies %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <a href="{{ rel.get_absolute_url }}" style="display:block;">
+          <div class="media-reveal work-card__media" style="background: linear-gradient(135deg, var(--color-gray-200), var(--color-gray-100));">
+            {% if rel.featured_image %}<img src="{{ rel.featured_image.url }}" alt="{{ rel.title }}" loading="lazy">{% endif %}
+            <div class="media-reveal__meta">
+              <p class="small" style="color:#fff; font-weight:600;">{{ rel.title }}</p>
+            </div>
+          </div>
+          <div class="work-card__info">
+            <p class="small" style="font-weight:600;">{{ rel.title }}</p>
+            <span class="badge">{{ rel.get_category_display }}</span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "components/_final_cta.html" %}
+{% endblock %}

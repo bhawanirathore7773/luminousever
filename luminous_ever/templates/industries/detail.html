@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ industry.meta_title|default:industry.name }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}{{ industry.meta_description|default:industry.description|truncatechars:160 }}{% endblock %}
+{% block og_title %}{{ industry.meta_title|default:industry.name }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}{{ industry.meta_description|default:industry.description|truncatechars:160 }}{% endblock %}
+
+{% block extra_meta %}
+{% if breadcrumb_schema_json %}<script type="application/ld+json">{{ breadcrumb_schema_json|safe }}</script>{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem); padding-bottom: var(--space-8);">
+  <div class="container-narrow">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{% url 'core:home' %}">Home</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href="{% url 'services:industries' %}">Industries</a>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current">{{ industry.name }}</span>
+    </nav>
+
+    <p class="eyebrow" data-reveal>Industry</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Digital solutions for {{ industry.name }}.</h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); color:var(--text-muted);">
+      {{ industry.description }}
+    </p>
+  </div>
+</section>
+
+{% if industry.challenges %}
+<section class="section-tight surface-alt">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>Common challenges</p>
+    <ul class="checklist" data-reveal data-reveal-delay="80">
+      {% for challenge in industry.challenges %}
+      <li>{{ challenge }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{% if industry.relevant_services.all %}
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Relevant services</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">How we help {{ industry.name|lower }} businesses.</h2>
+
+    <div class="grid-3" style="margin-top:var(--space-8);">
+      {% for service in industry.relevant_services.all %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        {% include "components/_service_card.html" with service=service %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "components/_final_cta.html" with heading="Ready to grow your "|add:industry.name subheading="Tell us about your business and we'll put together a tailored plan." %}
+{% endblock %}

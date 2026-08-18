@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Work — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}Case studies across websites, e-commerce, branding, social media, SEO and ads — work that moves businesses forward.{% endblock %}
+{% block og_title %}Work — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}Case studies across websites, e-commerce, branding, social media, SEO and ads — work that moves businesses forward.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem);">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Selected work</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:800px;">
+      Work that moves businesses forward.
+    </h1>
+    <p class="caption" style="margin-top:var(--space-5);">Demo case studies shown during development — replaced with real client work from Django Admin as projects launch.</p>
+
+    <div class="filter-tabs" data-filter-tabs>
+      <button type="button" class="filter-tab is-active" data-filter-tab="all">All</button>
+      {% for value, label in categories %}
+      <button type="button" class="filter-tab" data-filter-tab="{{ value }}">{{ label }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="work-grid">
+      {% for cs in case_studies %}
+      <div data-filter-item="{{ cs.category }}" class="filterable-item" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <a href="{{ cs.get_absolute_url }}" style="display:block;">
+          <div class="media-reveal work-card__media" style="background: linear-gradient(135deg, var(--color-gray-200), var(--color-gray-100));">
+            {% if cs.featured_image %}<img src="{{ cs.featured_image.url }}" alt="{{ cs.title }}" loading="lazy">{% endif %}
+            <div class="media-reveal__meta">
+              <p class="small" style="color:#fff; font-weight:600;">{{ cs.title }}</p>
+              <p class="caption" style="color:rgba(255,255,255,.7);">{{ cs.short_description }}</p>
+            </div>
+          </div>
+          <div class="work-card__info">
+            <div>
+              <p class="small" style="font-weight:600;">{{ cs.title }}</p>
+              <p class="caption">{{ cs.industry.name|default:"" }}</p>
+            </div>
+            <span class="badge">{{ cs.get_category_display }}</span>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="empty-state">
+        <p class="h4">New work is on the way.</p>
+        <p class="body small" style="margin-top:var(--space-3); color:var(--text-muted);">Check back soon, or get in touch to start a project of your own.</p>
+        <a href="{% url 'leads:contact' %}" class="link-arrow" style="margin-top:var(--space-5); justify-content:center;">
+          <span class="link-arrow__label">Start a project</span>
+          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "components/_final_cta.html" %}
+{% endblock %}

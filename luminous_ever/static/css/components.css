@@ -1,0 +1,858 @@
+/* ==========================================================================
+   LUMINOUS EVER — COMPONENTS
+   Buttons, the signature arrow-link, cards, badges, forms. Every component
+   is written to work on both light and dark (.surface-inverse) sections
+   using the same class — no separate "-dark" variants to remember.
+   ========================================================================== */
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.9rem 1.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  transition: background-color var(--duration-base) var(--ease-out-expo),
+    color var(--duration-base) var(--ease-out-expo),
+    border-color var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn .btn__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.btn:hover .btn__icon {
+  transform: translateX(4px);
+}
+
+.btn-primary {
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 1px solid var(--color-black);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.surface-inverse .btn-primary {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.surface-inverse .btn-primary:hover {
+  background: var(--color-gray-200);
+  border-color: var(--color-gray-200);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border-strong);
+}
+
+.btn-outline:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.surface-inverse .btn-outline {
+  color: var(--text-inverse);
+  border-color: var(--border-inverse-strong);
+}
+
+.surface-inverse .btn-outline:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.btn-sm {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.875rem;
+  min-height: 44px;
+}
+
+/* ---- Signature interaction: arrow-link ----
+   Used for nav links, "View project", "Read more", footer links — one
+   consistent hover language across the whole site. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.link-arrow__label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: background-size var(--duration-base) var(--ease-out-expo);
+}
+
+.link-arrow:hover .link-arrow__label {
+  background-size: 100% 1px;
+}
+
+.link-arrow__icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.link-arrow:hover .link-arrow__icon {
+  transform: translateX(4px);
+}
+
+/* Quiet variant — for nav items, where a full underline-draw per item is
+   too busy; the label simply fades and a hairline underline slides in. */
+.link-quiet {
+  position: relative;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  padding-bottom: 2px;
+}
+
+.link-quiet::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.link-quiet:hover::after,
+.link-quiet.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---- Cards ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration-base) var(--ease-out-expo),
+    box-shadow var(--duration-base) var(--ease-out-expo),
+    border-color var(--duration-base) var(--ease-out-expo);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--border-strong);
+}
+
+.surface-inverse .card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-inverse);
+}
+
+.surface-inverse .card:hover {
+  border-color: var(--border-inverse-strong);
+}
+
+/* Media reveal — image that scales on hover, with an optional metadata
+   panel that slides up. Used for portfolio/project cards. */
+.media-reveal {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.media-reveal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.media-reveal:hover img {
+  transform: scale(1.06);
+}
+
+.media-reveal__meta {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--space-5);
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.85), transparent);
+  color: var(--color-white);
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform var(--duration-base) var(--ease-out-expo),
+    opacity var(--duration-base) var(--ease-out-expo);
+}
+
+.media-reveal:hover .media-reveal__meta {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---- Badges / tags ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.surface-inverse .badge {
+  border-color: var(--border-inverse);
+  color: var(--text-inverse-muted);
+}
+
+/* ---- Forms ----
+   Underline-style fields: transparent background, single bottom border.
+   Reads as editorial and premium rather than boxed/SaaS. */
+.field {
+  margin-bottom: var(--space-6);
+}
+
+.field label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-2);
+  color: var(--text-muted);
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--border);
+  padding: var(--space-3) 0;
+  font-size: 1rem;
+  color: var(--text);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-bottom-color: var(--border-strong);
+}
+
+.field-hint {
+  margin-top: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+}
+
+.field.has-error input,
+.field.has-error textarea,
+.field.has-error select {
+  border-bottom-color: #b3261e;
+}
+
+.field.has-error .field-hint {
+  color: #b3261e;
+}
+
+.field.has-success input,
+.field.has-success textarea,
+.field.has-success select {
+  border-bottom-color: #1a1a1a;
+}
+
+/* ---- Process timeline (used via components/_process.html) ---- */
+.process-list {
+  margin-top: var(--space-10);
+}
+
+.process-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+
+.process-list .process-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .process-item {
+    grid-template-columns: 56px 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+  }
+}
+
+/* ---- Industries grid (homepage teaser + industries index) ---- */
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .industries-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .industries-grid { grid-template-columns: 1fr; }
+}
+
+.industry-card {
+  display: block;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: border-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+.industry-card:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-alt);
+}
+
+/* ---- Testimonial cards ---- */
+.testimonial-card__quote {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-gray-200);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+/* ---- FAQ accordion (native <details>) ---- */
+.faq-item {
+  border-top: 1px solid var(--border);
+}
+
+.faq-list .faq-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item summary {
+  padding-block: var(--space-5);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--text-faint);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+  flex-shrink: 0;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  padding-bottom: var(--space-5);
+  color: var(--text-muted);
+  max-width: 700px;
+}
+
+/* ---- Checklist (benefits / deliverables / who-it's-for lists) ---- */
+.checklist {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--border);
+}
+
+.checklist li:first-child {
+  border-top: none;
+}
+
+.checklist li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: var(--color-black);
+}
+
+/* ---- Feature grid (service detail pages) ---- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 640px) {
+  .feature-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Breadcrumb ---- */
+.breadcrumb {
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+  margin-bottom: var(--space-6);
+}
+
+.breadcrumb a {
+  color: inherit;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.breadcrumb a:hover {
+  color: var(--text);
+}
+
+.breadcrumb .breadcrumb__sep {
+  margin-inline: var(--space-2);
+}
+
+.breadcrumb .breadcrumb__current {
+  color: var(--text-muted);
+}
+
+/* ---- Filter tabs (portfolio grid) ---- */
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.filter-tab {
+  padding: 0.5rem 1.125rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.filter-tab:hover {
+  border-color: var(--border-strong);
+}
+
+.filter-tab.is-active {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.filterable-item {
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.filterable-item[hidden] {
+  display: none;
+}
+
+/* ---- Featured work / portfolio grid (homepage teaser + /work/ index) ---- */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 960px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .work-grid { grid-template-columns: 1fr; }
+}
+
+.work-card__media {
+  aspect-ratio: 4 / 3;
+}
+
+.work-card__info {
+  margin-top: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+/* ---- Team cards ---- */
+.team-card__photo {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  background: var(--color-gray-100);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.team-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-card__initials {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 460;
+  color: var(--text-faint);
+}
+
+.team-card__social {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.team-card__social a {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.team-card__social a:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+/* ---- Pillar list (About page: Strategy/Design/Technology/Marketing/Analytics) ---- */
+.pillar-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* ---- Values grid ---- */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 960px) {
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .values-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Team grid ---- */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+@media (max-width: 860px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Article prose (blog post content) ---- */
+.prose {
+  max-width: var(--container-max-narrow);
+  margin-inline: auto;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+}
+
+.prose p {
+  margin-bottom: var(--space-5);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: var(--space-5);
+  padding-left: var(--space-6);
+  list-style: revert;
+  color: var(--text-muted);
+}
+
+.prose > *:first-child {
+  margin-top: 0;
+}
+
+/* ---- Blog card ---- */
+.blog-card__meta {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-4);
+  color: var(--text-faint);
+  font-size: 0.8125rem;
+}
+
+/* ---- Responsive grid utilities ----
+   Replaces ad-hoc inline grid-template-columns (which don't get media
+   queries) anywhere two or more columns of cards/content need to stack
+   cleanly on mobile. */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+}
+
+@media (max-width: 860px) {
+  .grid-2 { grid-template-columns: 1fr; gap: var(--space-8); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+}
+
+@media (max-width: 560px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ---- Checkbox list (lead form: services required) ---- */
+.checkbox-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2) var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .checkbox-list { grid-template-columns: 1fr; }
+}
+
+.checkbox-list label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.checkbox-list input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-black);
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+/* ---- Honeypot (visually hidden, not display:none — more bot-resistant) ---- */
+.field-honeypot {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---- Form-level error ---- */
+.form-error {
+  padding: var(--space-4);
+  border: 1px solid #b3261e;
+  border-radius: var(--radius-sm);
+  color: #b3261e;
+  font-size: 0.9375rem;
+  margin-bottom: var(--space-6);
+}
+
+/* ---- Success panel ---- */
+.success-panel {
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+}
+
+.success-panel__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-black);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+}
+
+/* ---- Contact info list ---- */
+.contact-info-item {
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.contact-info-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* ---- Pagination ---- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-12);
+}
+
+.pagination a,
+.pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding-inline: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  transition: border-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+.pagination a:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-alt);
+}
+
+.pagination .pagination__current {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.pagination .pagination__disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* ---- Empty state (portfolio/blog grids when nothing is published) ---- */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+}

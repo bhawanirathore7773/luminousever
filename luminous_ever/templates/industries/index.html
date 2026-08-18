@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Industries — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}Digital solutions for different kinds of businesses — retail, e-commerce, manufacturing, real estate, healthcare, hospitality and more.{% endblock %}
+{% block og_title %}Industries — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}Digital solutions for different kinds of businesses — retail, e-commerce, manufacturing, real estate, healthcare, hospitality and more.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem);">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Solutions by industry</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:800px;">
+      Digital solutions for different kinds of businesses.
+    </h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:560px; color:var(--text-muted);">
+      Every industry buys differently. Here's how our approach adapts to yours.
+    </p>
+
+    <div class="industries-grid">
+      {% for industry in industries %}
+      <a href="{{ industry.get_absolute_url }}" class="industry-card" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        {{ industry.name }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "components/_final_cta.html" %}
+{% endblock %}

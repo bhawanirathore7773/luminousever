@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.meta_title|default:post.title }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% block og_title %}{{ post.meta_title|default:post.title }} — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+
+{% block extra_meta %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title|escapejs }}",
+  "description": "{{ post.excerpt|escapejs }}",
+  "datePublished": "{{ post.published_date|date:'c' }}",
+  "dateModified": "{{ post.updated_at|date:'c' }}"
+  {% if post.author %}, "author": {"@type": "Person", "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}"}{% endif %}
+}
+</script>
+{% if breadcrumb_schema_json %}<script type="application/ld+json">{{ breadcrumb_schema_json|safe }}</script>{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem); padding-bottom: var(--space-6);">
+  <div class="container-narrow">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{% url 'core:home' %}">Home</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href="{% url 'blog:index' %}">Insights</a>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current">{{ post.title }}</span>
+    </nav>
+
+    <span class="badge" data-reveal>{{ post.category.name }}</span>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">{{ post.title }}</h1>
+
+    <div class="blog-card__meta" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); font-size:0.9375rem;">
+      {% if post.author %}<span>{{ post.author.get_full_name|default:post.author.username }}</span><span>&middot;</span>{% endif %}
+      <span>{{ post.published_date|date:"F j, Y" }}</span>
+      <span>&middot;</span>
+      <span>{{ post.reading_time }} min read</span>
+    </div>
+  </div>
+</section>
+
+{% if post.featured_image %}
+<div class="container" style="max-width:var(--container-max);">
+  <div class="media-reveal" style="aspect-ratio:16/7; border-radius:var(--radius-lg);">
+    <picture>
+      {% if post.featured_image_webp %}<source srcset="{{ post.featured_image_webp.url }}" type="image/webp">{% endif %}
+      <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" loading="eager" fetchpriority="high">
+    </picture>
+  </div>
+</div>
+{% endif %}
+
+<section class="section">
+  <div class="container">
+    <div class="prose" data-reveal>
+      {{ post.content|safe }}
+    </div>
+  </div>
+</section>
+
+{% if related_posts %}
+<section class="section surface-alt">
+  <div class="container">
+    <p class="eyebrow" data-reveal>More insights</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Related articles.</h2>
+
+    <div class="grid-3" style="margin-top:var(--space-8);">
+      {% for rel in related_posts %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        {% include "components/_blog_card.html" with post=rel %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "components/_final_cta.html" %}
+{% endblock %}

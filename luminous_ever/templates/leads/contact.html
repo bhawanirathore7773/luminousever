@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Contact — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}Tell us about your business and we'll put together a tailored plan — website, marketing, or both.{% endblock %}
+{% block og_title %}Contact — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}Tell us about your business and we'll put together a tailored plan — website, marketing, or both.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem);">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Contact</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">
+      Let's build something worth remembering.
+    </h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:560px; color:var(--text-muted);">
+      Tell us where your business is today. We'll follow up with a plan
+      tailored to what you actually need.
+    </p>
+
+    <div class="grid-2" style="margin-top:var(--space-10); align-items:start;">
+
+      <!-- ============ FORM ============ -->
+      <div data-reveal>
+        {% if submitted %}
+        <div class="card success-panel">
+          <div class="success-panel__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Thanks — that's on its way to us.</h3>
+          <p class="body small" style="margin-top:var(--space-3); max-width:400px; margin-inline:auto;">
+            We'll be in touch shortly. If it's urgent, WhatsApp is usually the fastest way to reach us.
+          </p>
+          {% if site_settings.whatsapp_number %}
+          <a href="https://wa.me/{{ site_settings.whatsapp_number }}" class="btn btn-primary" style="margin-top:var(--space-6);" target="_blank" rel="noopener">
+            Chat on WhatsApp
+          </a>
+          {% endif %}
+        </div>
+        {% else %}
+        {% if rate_limited %}
+        <div class="form-error">Too many submissions from this connection recently — please try again in a little while, or reach out on WhatsApp instead.</div>
+        {% endif %}
+        <form method="post" data-validate novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+          <div class="form-error">{{ form.non_field_errors.0 }}</div>
+          {% endif %}
+
+          <div class="field-honeypot" aria-hidden="true">
+            <label for="{{ form.website_url.id_for_label }}">Leave this field empty</label>
+            {{ form.website_url }}
+          </div>
+
+          <div class="grid-2" style="gap:var(--space-5);">
+            <div class="field {% if form.name.errors %}has-error{% endif %}">
+              <label for="{{ form.name.id_for_label }}">Full name *</label>
+              {{ form.name }}
+              {% if form.name.errors %}<p class="field-hint">{{ form.name.errors.0 }}</p>{% endif %}
+            </div>
+            <div class="field {% if form.business_name.errors %}has-error{% endif %}">
+              <label for="{{ form.business_name.id_for_label }}">Business name</label>
+              {{ form.business_name }}
+            </div>
+          </div>
+
+          <div class="grid-2" style="gap:var(--space-5);">
+            <div class="field {% if form.phone.errors %}has-error{% endif %}">
+              <label for="{{ form.phone.id_for_label }}">Phone *</label>
+              {{ form.phone }}
+              {% if form.phone.errors %}<p class="field-hint">{{ form.phone.errors.0 }}</p>{% endif %}
+            </div>
+            <div class="field {% if form.email.errors %}has-error{% endif %}">
+              <label for="{{ form.email.id_for_label }}">Email *</label>
+              {{ form.email }}
+              {% if form.email.errors %}<p class="field-hint">{{ form.email.errors.0 }}</p>{% endif %}
+            </div>
+          </div>
+
+          <div class="grid-2" style="gap:var(--space-5);">
+            <div class="field">
+              <label for="{{ form.website.id_for_label }}">Current website (if any)</label>
+              {{ form.website }}
+            </div>
+            <div class="field">
+              <label for="{{ form.business_type.id_for_label }}">Business type</label>
+              {{ form.business_type }}
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Services you're interested in</label>
+            <div class="checkbox-list" style="margin-top:var(--space-3);">
+              {% for checkbox in form.services_required %}
+                <label>{{ checkbox.tag }} {{ checkbox.choice_label }}</label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="{{ form.budget_range.id_for_label }}">Budget range</label>
+            {{ form.budget_range }}
+          </div>
+
+          <div class="field">
+            <label for="{{ form.message.id_for_label }}">Tell us about your project</label>
+            {{ form.message }}
+          </div>
+
+          <button type="submit" class="btn btn-primary" data-magnetic>
+            Send message
+            {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+          </button>
+        </form>
+        {% endif %}
+      </div>
+
+      <!-- ============ CONTACT INFO ============ -->
+      <div data-reveal data-reveal-delay="100">
+        <div class="card">
+          {% if site_settings.contact_email %}
+          <div class="contact-info-item">
+            <p class="caption">Email</p>
+            <a href="mailto:{{ site_settings.contact_email }}" class="small" style="font-weight:600; margin-top:var(--space-1); display:block;">{{ site_settings.contact_email }}</a>
+          </div>
+          {% endif %}
+          {% if site_settings.contact_phone %}
+          <div class="contact-info-item">
+            <p class="caption">Phone</p>
+            <a href="tel:{{ site_settings.contact_phone }}" class="small" style="font-weight:600; margin-top:var(--space-1); display:block;">{{ site_settings.contact_phone }}</a>
+          </div>
+          {% endif %}
+          {% if site_settings.whatsapp_number %}
+          <div class="contact-info-item">
+            <p class="caption">WhatsApp</p>
+            <a href="https://wa.me/{{ site_settings.whatsapp_number }}" class="small" style="font-weight:600; margin-top:var(--space-1); display:block;" target="_blank" rel="noopener">Chat with us</a>
+          </div>
+          {% endif %}
+          {% if site_settings.address %}
+          <div class="contact-info-item">
+            <p class="caption">Location</p>
+            <p class="small" style="font-weight:600; margin-top:var(--space-1);">{{ site_settings.address }}</p>
+          </div>
+          {% endif %}
+          {% if site_settings.business_hours %}
+          <div class="contact-info-item">
+            <p class="caption">Business hours</p>
+            <p class="small" style="font-weight:600; margin-top:var(--space-1);">{{ site_settings.business_hours }}</p>
+          </div>
+          {% endif %}
+          {% if not site_settings.contact_email and not site_settings.contact_phone and not site_settings.whatsapp_number %}
+          <p class="body small" style="color:var(--text-faint);">Contact details are managed from Django Admin (Site Settings) and will appear here once added.</p>
+          {% endif %}
+        </div>
+
+        {% if site_settings.address %}
+        <div class="media-reveal" style="aspect-ratio:4/3; margin-top:var(--space-6); border-radius:var(--radius-lg);">
+          <iframe
+            src="https://www.google.com/maps?q={{ site_settings.address|urlencode }}&output=embed"
+            style="width:100%; height:100%; border:0;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Map to {{ site_settings.site_name }}">
+          </iframe>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

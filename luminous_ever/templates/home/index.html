@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <p class="eyebrow" data-reveal>Digital Growth Partner</p>
+      <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">
+        Your business deserves more than an online presence.
+      </h1>
+      <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:520px; color:var(--text-muted);">
+        We build the digital foundation, visibility and growth systems that
+        help ambitious businesses get discovered, trusted and chosen.
+      </p>
+      <div class="hero__actions" data-reveal data-reveal-delay="240">
+        <a href="{% url 'leads:contact' %}" class="btn btn-primary" data-magnetic>
+          Start Your Digital Journey
+          {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+        </a>
+        <a href="{% url 'portfolio:index' %}" class="btn btn-outline">Explore Our Work</a>
+      </div>
+    </div>
+
+    <div class="hero__visual" data-hero-visual data-reveal data-reveal-delay="200" aria-hidden="true">
+      <svg class="hero__svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="50" y1="50" x2="50" y2="10"/>
+        <line x1="50" y1="50" x2="87" y2="28"/>
+        <line x1="50" y1="50" x2="87" y2="72"/>
+        <line x1="50" y1="50" x2="50" y2="90"/>
+        <line x1="50" y1="50" x2="13" y2="72"/>
+        <line x1="50" y1="50" x2="13" y2="28"/>
+      </svg>
+      <div class="hero-node hero-node--center" style="left:50%; top:50%;">
+  {{ site_settings.site_name|default:"Luminous Ever" }}
+</div>
+
+<div class="hero-node" data-hero-node data-flow="1" style="left:50%; top:10%;">
+  Strategy
+</div>
+
+<div class="hero-node" data-hero-node data-flow="2" style="left:87%; top:28%;">
+  Website
+</div>
+
+<div class="hero-node" data-hero-node data-flow="3" style="left:87%; top:72%;">
+  SEO
+</div>
+
+<div class="hero-node" data-hero-node data-flow="4" style="left:50%; top:90%;">
+  Social
+</div>
+
+<div class="hero-node" data-hero-node data-flow="5" style="left:13%; top:72%;">
+  Leads
+</div>
+
+<div class="hero-node" data-hero-node data-flow="6" style="left:13%; top:28%;">
+  Analytics
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="section-tight surface-alt">
+  <div class="container">
+    <p class="eyebrow">Trusted by ambitious businesses</p>
+    <div class="trust-bar__row">
+      <span class="trust-bar__logo">Demo Client — Retail</span>
+      <span class="trust-bar__logo">Demo Client — Manufacturing</span>
+      <span class="trust-bar__logo">Demo Client — Hospitality</span>
+      <span class="trust-bar__logo">Demo Client — Healthcare</span>
+      <span class="trust-bar__logo">Demo Client — Real Estate</span>
+    </div>
+    <p class="caption" style="margin-top:var(--space-5);">Placeholder client marks shown during development — replaced with real logos from Django Admin as clients come on board.</p>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>The problem</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Being online isn't enough.</h2>
+    <div class="problem-list">
+      <div class="problem-item"><p class="body">An outdated website that doesn't reflect where the business is today</p></div>
+      <div class="problem-item"><p class="body">No consistent presence on the platforms customers actually use</p></div>
+      <div class="problem-item"><p class="body">Poor visibility on Google when people search for exactly what's offered</p></div>
+      <div class="problem-item"><p class="body">Branding and creative that looks different everywhere it appears</p></div>
+      <div class="problem-item"><p class="body">Ad spend going out with no clear read on what's actually working</p></div>
+      <div class="problem-item"><p class="body">No analytics or lead tracking — growth decisions made on guesswork</p></div>
+    </div>
+    <p class="h4" style="margin-top:var(--space-8);">That's where we come in.</p>
+  </div>
+</section>
+
+<!-- ============ SERVICES / DIGITAL ECOSYSTEM ============ -->
+<section class="section surface-alt" id="services">
+  <div class="container">
+    <p class="eyebrow" data-reveal>What we do</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">
+      Everything your business needs to grow online.
+    </h2>
+
+    <div class="grid-2" style="margin-top:var(--space-10);">
+        <span class="index-number">01</span>
+        <h4 style="margin-top:var(--space-4);">Build — Digital foundations</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Websites, e-commerce, custom web applications and landing pages, built on Django for speed and long-term maintainability.</p>
+        <a href="{% url 'services:index' %}#build" class="link-arrow" style="margin-top:var(--space-5);">
+          <span class="link-arrow__label">Explore Build services</span>
+          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+        </a>
+      </div>
+      <div class="card" id="grow" data-reveal data-reveal-delay="80">
+        <span class="index-number">02</span>
+        <h4 style="margin-top:var(--space-4);">Grow — Traffic &amp; acquisition</h4>
+        <p class="body small" style="margin-top:var(--space-3);">SEO, Google Ads, Meta Ads, social media and content built to bring the right customers, not just more traffic.</p>
+        <a href="{% url 'services:index' %}#grow" class="link-arrow" style="margin-top:var(--space-5);">
+          <span class="link-arrow__label">Explore Grow services</span>
+          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+        </a>
+      </div>
+      <div class="card" id="brand" data-reveal>
+        <span class="index-number">03</span>
+        <h4 style="margin-top:var(--space-4);">Brand — Identity &amp; creative</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Branding, graphic design, creative direction and content that looks and sounds consistent everywhere it shows up.</p>
+        <a href="{% url 'services:index' %}#brand" class="link-arrow" style="margin-top:var(--space-5);">
+          <span class="link-arrow__label">Explore Brand services</span>
+          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+        </a>
+      </div>
+      <div class="card" id="optimize" data-reveal data-reveal-delay="80">
+        <span class="index-number">04</span>
+        <h4 style="margin-top:var(--space-4);">Optimize — Performance &amp; automation</h4>
+        <p class="body small" style="margin-top:var(--space-3);">Analytics, conversion rate optimization, automation and ongoing maintenance so results compound instead of stalling.</p>
+        <a href="{% url 'services:index' %}#optimize" class="link-arrow" style="margin-top:var(--space-5);">
+          <span class="link-arrow__label">Explore Optimize services</span>
+          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Why us</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">
+      One partner. Your entire digital growth stack.
+    </h2>
+    <p class="body-lg" style="margin-top:var(--space-5); max-width:600px; color:var(--text-muted);">
+      Business-first strategy. Custom solutions. Conversion-focused design.
+      Performance-first development. SEO-ready architecture. Data-driven
+      marketing. Transparent reporting. Long-term support.
+    </p>
+
+    <div class="flow-compare">
+      <div class="flow-compare__col">
+        <p class="flow-compare__col-title small" style="color:var(--text-faint);">Typical agency</p>
+        <div class="flow-step">Website</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Marketing</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Reporting</div>
+      </div>
+      <div class="flow-compare__col flow-compare__col--ours">
+        <p class="flow-compare__col-title small">Our approach</p>
+        <div class="flow-step">Strategy</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Brand</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Website</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Content</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">SEO</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Ads</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Leads</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Analytics</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">Optimization</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section surface-alt">
+  <div class="container-narrow">
+    {% include "components/_process.html" %}
+  </div>
+</section>
+
+<!-- ============ FEATURED WORK ============ -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Selected work</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">Work that moves businesses forward.</h2>
+
+    <div class="work-grid">
+      {% for project in demo_projects %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <a href="{{ project.get_absolute_url }}" style="display:block;">
+          <div class="media-reveal work-card__media" style="background: linear-gradient(135deg, var(--color-gray-200), var(--color-gray-100));">
+            {% if project.featured_image %}<img src="{{ project.featured_image.url }}" alt="{{ project.title }}" loading="lazy">{% endif %}
+            <div class="media-reveal__meta">
+              <p class="small" style="color:#fff; font-weight:600;">{{ project.title }}</p>
+              <p class="caption" style="color:rgba(255,255,255,.7);">{{ project.short_description }}</p>
+            </div>
+          </div>
+          <div class="work-card__info">
+            <div>
+              <p class="small" style="font-weight:600;">{{ project.title }}</p>
+              <p class="caption">{{ project.industry.name|default:"" }}</p>
+            </div>
+            <span class="badge">Demo Project</span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top:var(--space-10); text-align:center;">
+      <a href="{% url 'portfolio:index' %}" class="link-arrow">
+        <span class="link-arrow__label">View all work</span>
+        {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="section surface-inverse">
+  <div class="container">
+    <p class="eyebrow" data-reveal>By the numbers</p>
+    <div class="grid-4" style="margin-top:var(--space-8);">
+      {% for stat in statistics %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <span style="display:block; font-family:var(--font-display); font-size:clamp(2.5rem, 5vw, 4rem); font-weight:460;" data-counter data-counter-to="{{ stat.value|slice:':-1'|default:stat.value }}" data-counter-suffix="{{ stat.value|last }}">0</span>
+        <span class="small" style="color:var(--text-inverse-muted);">{{ stat.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="caption" style="margin-top:var(--space-8); color:var(--text-inverse-faint);">Illustrative figures shown during development — managed from Django Admin and updated as real results come in.</p>
+  </div>
+</section>
+
+<!-- ============ SOCIAL MEDIA ============ -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Social</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">Your brand should look alive everywhere.</h2>
+
+    <div class="social-grid">
+      {% for item in social_content_types %}
+      <div class="social-grid__item" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <span class="small" style="font-weight:600;">{{ item }}</span>
+        <span class="caption">Demo content</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top:var(--space-8); text-align:center;">
+      <a href="{% url 'portfolio:index' %}" class="link-arrow">
+        <span class="link-arrow__label">View social work</span>
+        {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIGITAL MARKETING (FUNNEL) ============ -->
+<section class="section surface-alt">
+  <div class="container">
+    <p class="eyebrow" data-reveal>How growth compounds</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px; text-align:center; margin-inline:auto;">
+      SEO, ads, content and social — working the same funnel.
+    </h2>
+
+    <div class="funnel">
+      <div class="funnel__step" style="width:100%;">Reach</div>
+      <div class="funnel__step" style="width:88%;">Attention</div>
+      <div class="funnel__step" style="width:76%;">Visit</div>
+      <div class="funnel__step" style="width:64%;">Lead</div>
+      <div class="funnel__step" style="width:52%;">Customer</div>
+      <div class="funnel__step" style="width:40%;">Repeat Customer</div>
+    </div>
+    <p class="body small" style="max-width:520px; margin:var(--space-6) auto 0; text-align:center; color:var(--text-muted);">
+      Every channel — SEO, Google Ads, Meta Ads, social, content — is built
+      to move people down this same funnel, measured at every stage.
+    </p>
+  </div>
+</section>
+
+<!-- ============ WEBSITE DEVELOPMENT ============ -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2" style="align-items:center;">
+      <div data-reveal>
+        <p class="eyebrow">Built to perform</p>
+        <h2 style="margin-top:var(--space-4);">Websites built to work, not just look good.</h2>
+        <p class="body-lg" style="margin-top:var(--space-5); color:var(--text-muted);">
+          Responsive, fast and SEO-ready from the first commit — with a CMS
+          you can actually use, proper security, analytics, and room to add
+          conversion features as the business grows.
+        </p>
+      </div>
+      <div data-reveal data-reveal-delay="100">
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-3);">
+          <span class="badge">Django</span>
+          <span class="badge">Python</span>
+          <span class="badge">JavaScript</span>
+          <span class="badge">HTML5</span>
+          <span class="badge">CSS3</span>
+          <span class="badge">PostgreSQL</span>
+          <span class="badge">REST API</span>
+          <span class="badge">Redis</span>
+          <span class="badge">Cloud</span>
+          <span class="badge">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INDUSTRIES ============ -->
+<section class="section surface-alt">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Who we work with</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">Digital solutions for different kinds of businesses.</h2>
+
+    <div class="industries-grid">
+      {% for industry in industries %}
+      <a href="{% url 'services:industries' %}" class="industry-card" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">{{ industry }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>What clients say</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">Good work gets remembered.</h2>
+
+    <div class="grid-3" style="margin-top:var(--space-10);">
+      {% for t in demo_testimonials %}
+      <div class="card" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        <span class="badge" style="margin-bottom:var(--space-4);">Demo Testimonial</span>
+        <p class="testimonial-card__quote">&ldquo;{{ t.quote }}&rdquo;</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-avatar">{{ t.initials }}</div>
+          <div>
+            <p class="small" style="font-weight:600;">{{ t.client_name }}</p>
+            <p class="caption">{{ t.designation }}{% if t.designation and t.company %}, {% endif %}{{ t.company }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT + TEAM TEASER ============ -->
+<section class="section surface-alt">
+  <div class="container grid-2" style="align-items:center;">
+    <div data-reveal>
+      <p class="eyebrow">About us</p>
+      <h2 style="margin-top:var(--space-4);">Built around your business, not our template.</h2>
+      <p class="body-lg" style="margin-top:var(--space-5); color:var(--text-muted);">
+        We combine strategy, design, technology, marketing and analytics into
+        one process — so nothing gets lost in a handoff between teams.
+      </p>
+      <a href="{% url 'core:about' %}" class="link-arrow" style="margin-top:var(--space-6);">
+        <span class="link-arrow__label">More about us</span>
+        {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+      </a>
+    </div>
+    <div data-reveal data-reveal-delay="100">
+      <div style="display:flex; flex-wrap:wrap; gap:var(--space-3);">
+        <span class="badge">Clarity</span>
+        <span class="badge">Craft</span>
+        <span class="badge">Performance</span>
+        <span class="badge">Transparency</span>
+        <span class="badge">Long-term Thinking</span>
+      </div>
+      <a href="{% url 'team:index' %}" class="link-arrow" style="margin-top:var(--space-6);">
+        <span class="link-arrow__label">Meet the team</span>
+        {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIGHTS TEASER ============ -->
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Insights</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">Thinking on digital marketing, web development and growth.</h2>
+
+    <div class="grid-3" style="margin-top:var(--space-10);">
+      {% for post in latest_posts %}
+      <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+        {% include "components/_blog_card.html" with post=post %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top:var(--space-10); text-align:center;">
+      <a href="{% url 'blog:index' %}" class="link-arrow">
+        <span class="link-arrow__label">Visit Insights</span>
+        {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section surface-alt">
+  <div class="container-narrow">
+    <p class="eyebrow" data-reveal>FAQ</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Questions, answered.</h2>
+
+    <div class="faq-list" style="margin-top:var(--space-8);">
+      {% for faq in faqs %}
+      <details class="faq-item">
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top:var(--space-8); text-align:center;">
+      <a href="{% url 'faq:index' %}" class="link-arrow" style="justify-content:center;">
+        <span class="link-arrow__label">See all FAQs</span>
+        {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+{% include "components/_final_cta.html" %}
+
+{% endblock %}

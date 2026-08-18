@@ -1,0 +1,16 @@
+
+<a href="{{ post.get_absolute_url }}" style="display:block;">
+  <div class="media-reveal work-card__media" style="background: linear-gradient(135deg, var(--color-gray-200), var(--color-gray-100));">
+    {% if post.featured_image %}<img src="{{ post.featured_image.url }}" alt="{{ post.title }}" loading="lazy">{% endif %}
+  </div>
+  <div style="margin-top:var(--space-4);">
+    <span class="badge">{{ post.category.name }}</span>
+    <h4 style="margin-top:var(--space-3);">{{ post.title }}</h4>
+    <p class="body small" style="margin-top:var(--space-2);">{{ post.excerpt }}</p>
+    <div class="blog-card__meta">
+      <span>{{ post.published_date|date:"M j, Y" }}</span>
+      <span>&middot;</span>
+      <span>{{ post.reading_time }} min read</span>
+    </div>
+  </div>
+</a>

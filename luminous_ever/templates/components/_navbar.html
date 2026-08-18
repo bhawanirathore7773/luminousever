@@ -1,0 +1,91 @@
+{% load static %}
+<header class="site-header" data-site-header>
+  <div class="container site-header__inner">
+    <a href="{% url 'core:home' %}" class="site-header__logo">
+      {{ site_settings.site_name|default:"Luminous Ever" }}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+      <div class="nav-item nav-item--has-menu">
+        <a href="{% url 'services:index' %}" class="link-quiet{% if request.path == '/services/' %} is-active{% endif %}">Services</a>
+
+        <div class="mega-menu">
+          <div class="mega-menu__grid">
+            <div>
+              <p class="mega-menu__group-title">Build</p>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='web-development' %}">Websites</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='ecommerce' %}">E-commerce</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='web-development' %}">Web Apps</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='web-development' %}">Landing Pages</a>
+            </div>
+            <div>
+              <p class="mega-menu__group-title">Grow</p>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='seo' %}">SEO</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='google-ads' %}">Google Ads</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='meta-ads' %}">Meta Ads</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='social-media' %}">Social Media</a>
+            </div>
+            <div>
+              <p class="mega-menu__group-title">Brand</p>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='branding' %}">Branding</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='branding' %}">Creative Design</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='branding' %}">Content</a>
+            </div>
+            <div>
+              <p class="mega-menu__group-title">Optimize</p>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='automation' %}">Automation</a>
+              <a class="mega-menu__link" href="{% url 'services:index' %}#optimize">Analytics</a>
+              <a class="mega-menu__link" href="{% url 'services:detail' slug='web-maintenance' %}">Maintenance</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="{% url 'services:industries' %}" class="link-quiet{% if request.path == '/industries/' %} is-active{% endif %}">Solutions</a>
+      <a href="{% url 'portfolio:index' %}" class="link-quiet{% if request.path == '/work/' %} is-active{% endif %}">Work</a>
+      <a href="{% url 'core:about' %}" class="link-quiet{% if request.path == '/about/' %} is-active{% endif %}">About</a>
+      <a href="{% url 'blog:index' %}" class="link-quiet{% if request.path == '/insights/' %} is-active{% endif %}">Insights</a>
+      <a href="{% url 'leads:contact' %}" class="link-quiet{% if request.path == '/contact/' %} is-active{% endif %}">Contact</a>
+    </nav>
+
+    <div class="site-header__actions">
+      <a href="{% url 'leads:contact' %}" class="btn btn-primary btn-sm" data-magnetic>
+        Start a Project
+        {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+      </a>
+      <button type="button" class="mobile-nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" data-mobile-nav-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav" data-mobile-nav>
+  <div class="mobile-nav__top">
+    <span class="site-header__logo">{{ site_settings.site_name|default:"Luminous Ever" }}</span>
+    <button type="button" class="mobile-nav-toggle" aria-label="Close menu" data-mobile-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav__list" aria-label="Mobile">
+    <a class="mobile-nav__link" href="{% url 'services:index' %}">Services</a>
+    <a class="mobile-nav__link" href="{% url 'services:industries' %}">Solutions</a>
+    <a class="mobile-nav__link" href="{% url 'portfolio:index' %}">Work</a>
+    <a class="mobile-nav__link" href="{% url 'core:about' %}">About</a>
+    <a class="mobile-nav__link" href="{% url 'blog:index' %}">Insights</a>
+    <a class="mobile-nav__link" href="{% url 'leads:contact' %}">Contact</a>
+  </nav>
+
+  <div class="mobile-nav__cta">
+    <a href="{% url 'leads:contact' %}" class="btn btn-primary">
+      Start a Project
+      {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+    </a>
+    {% if site_settings.whatsapp_number %}
+      <a href="https://wa.me/{{ site_settings.whatsapp_number }}" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);" target="_blank" rel="noopener">
+        Chat on WhatsApp
+      </a>
+    {% endif %}
+  </div>
+</div>

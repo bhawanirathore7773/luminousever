@@ -1,0 +1,20 @@
+# Core
+Django==5.0.14
+django-environ==0.14.0
+
+# Database
+psycopg2-binary==2.9.12
+
+# Static files (WhiteNoise serves compressed static assets in production
+# without needing a separate nginx config for them)
+whitenoise==6.12.0
+
+# Caching (Phase 11) — CACHE_URL defaults to in-memory for local dev;
+# set CACHE_URL=rediscache://... in production
+django-redis==5.4.0
+
+# Images (ImageField support — logo, project galleries, blog images, etc.)
+Pillow==12.1.1
+
+# Production WSGI server (Phase 14)
+gunicorn==22.0.0

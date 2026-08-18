@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Services — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block meta_description %}Websites, e-commerce, SEO, ads, branding and automation — everything your business needs to grow online, grouped into Build, Grow, Brand and Optimize.{% endblock %}
+{% block og_title %}Services — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
+{% block og_description %}Websites, e-commerce, SEO, ads, branding and automation — everything your business needs to grow online, grouped into Build, Grow, Brand and Optimize.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem);">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Services</p>
+    <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:800px;">
+      Everything your business needs to grow online.
+    </h1>
+    <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:560px; color:var(--text-muted);">
+      Grouped into four pillars — build the foundation, grow your audience,
+      brand it consistently, and optimize what's already working.
+    </p>
+  </div>
+</section>
+
+{% for category in categories %}
+<section class="section {% cycle '' 'surface-alt' %}" id="{{ category.slug }}">
+  <div class="container">
+    <p class="eyebrow" data-reveal>{{ category.tagline }}</p>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">{{ category.name }}</h2>
+
+    <div class="grid-3" style="margin-top:var(--space-8);">
+      {% for service in category.services.all %}
+        {% if service.is_published %}
+        <div data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
+          {% include "components/_service_card.html" with service=service %}
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endfor %}
+
+{% include "components/_final_cta.html" %}
+{% endblock %}
