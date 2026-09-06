@@ -1501,3 +1501,8 @@ body .mobile-sticky-cta {
         height: 48px !important;
     }
 }
+
+body[data-hero-theme="dark"] .site-header:not(.is-scrolled) .mobile-nav-toggle {
+  color: var(--text-inverse) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}

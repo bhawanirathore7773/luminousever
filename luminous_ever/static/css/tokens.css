@@ -33,10 +33,13 @@
   --border-inverse: rgba(255, 255, 255, 0.16);
   --border-inverse-strong: var(--color-white);
 
-  /* Reserved, near-monochromatic accent — used only for a live/active
-     state (e.g. a form focus ring or a single "new" indicator), never
-     for decoration. Kept a hair off pure black so it reads as intent. */
-  --accent: #1a1a1a;
+  /* Warm gold accent — used deliberately and sparingly: the hero's
+     active-node pulse, the flowing headline gradient, eyebrow labels,
+     hover states. Ties back to "Luminous" (light/glow) without turning
+     this into a colorful site — everything else stays black & white. */
+  --accent: #b6923f;
+  --accent-light: #d9b876;   /* for use on dark/inverse backgrounds — needs more lift against black */
+  --accent-soft: #f3ead4;    /* faint tint for backgrounds, not text */
 
   /* ---- Spacing scale: 4px base ---- */
   --space-1: 0.25rem;   /*  4px */

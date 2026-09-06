@@ -1,35 +1,89 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block body_attrs %} data-hero-theme="dark" {% endblock %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
 {% block content %}
-
 <!-- ============ HERO ============ -->
-<section class="hero">
+<section class="hero" id="hero">
+
+  <!-- Vanta Animated Background -->
+  <div id="hero-vanta" aria-hidden="true"></div>
+
+
+  <!-- Hero Content -->
   <div class="container hero__grid">
-    <div>
-      <p class="eyebrow" data-reveal>Digital Growth Partner</p>
-      <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">
+
+    <!-- LEFT CONTENT -->
+    <div class="hero__content">
+
+      <p class="eyebrow" data-reveal>
+        Digital Growth Partner
+      </p>
+
+
+      <h1 class="hero-title" data-reveal data-reveal-delay="80">
         Your business deserves more than an online presence.
       </h1>
-      <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:520px; color:var(--text-muted);">
+
+
+      <p
+        class="body-lg"
+        data-reveal
+        data-reveal-delay="160"
+      >
         We build the digital foundation, visibility and growth systems that
         help ambitious businesses get discovered, trusted and chosen.
       </p>
-      <div class="hero__actions" data-reveal data-reveal-delay="240">
-        <a href="{% url 'leads:contact' %}" class="btn btn-primary" data-magnetic>
-          Start Your Digital Journey
+
+
+      <!-- Actions -->
+      <div
+        class="hero__actions"
+        data-reveal
+        data-reveal-delay="240"
+      >
+
+        <a
+          href="{% url 'leads:contact' %}"
+          class="btn btn-primary"
+          data-magnetic
+        >
+          <span>Start Your Digital Journey</span>
+
           {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
         </a>
-        <a href="{% url 'portfolio:index' %}" class="btn btn-outline">Explore Our Work</a>
+
+
+        <a
+          href="{% url 'portfolio:index' %}"
+          class="btn btn-outline"
+        >
+          Explore Our Work
+        </a>
+
       </div>
+
     </div>
 
-    <div class="hero__visual" data-hero-visual data-reveal data-reveal-delay="200" aria-hidden="true">
-      <svg class="hero__svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+
+    <!-- RIGHT NETWORK VISUAL -->
+    <div
+      class="hero__visual"
+      data-hero-visual
+      data-reveal
+      data-reveal-delay="200"
+      aria-hidden="true"
+    >
+
+      <!-- Connection Lines -->
+      <svg
+        class="hero__svg-lines"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
         <line x1="50" y1="50" x2="50" y2="10"/>
         <line x1="50" y1="50" x2="87" y2="28"/>
         <line x1="50" y1="50" x2="87" y2="72"/>
@@ -37,117 +91,580 @@
         <line x1="50" y1="50" x2="13" y2="72"/>
         <line x1="50" y1="50" x2="13" y2="28"/>
       </svg>
-      <div class="hero-node hero-node--center" style="left:50%; top:50%;">
-  {{ site_settings.site_name|default:"Luminous Ever" }}
-</div>
 
-<div class="hero-node" data-hero-node data-flow="1" style="left:50%; top:10%;">
-  Strategy
-</div>
 
-<div class="hero-node" data-hero-node data-flow="2" style="left:87%; top:28%;">
-  Website
-</div>
+      <!-- CENTER NODE -->
+      <div
+        class="hero-node hero-node--center"
+        style="left:50%; top:50%;"
+      >
+        {{ site_settings.site_name|default:"Luminous Ever" }}
+      </div>
 
-<div class="hero-node" data-hero-node data-flow="3" style="left:87%; top:72%;">
-  SEO
-</div>
 
-<div class="hero-node" data-hero-node data-flow="4" style="left:50%; top:90%;">
-  Social
-</div>
+      <!-- STRATEGY -->
+      <div
+        class="hero-node"
+        data-hero-node
+        data-flow="1"
+        style="left:50%; top:10%;"
+      >
+        Strategy
+      </div>
 
-<div class="hero-node" data-hero-node data-flow="5" style="left:13%; top:72%;">
-  Leads
-</div>
 
-<div class="hero-node" data-hero-node data-flow="6" style="left:13%; top:28%;">
-  Analytics
-</div>
+      <!-- WEBSITE -->
+      <div
+        class="hero-node"
+        data-hero-node
+        data-flow="2"
+        style="left:87%; top:28%;"
+      >
+        Website
+      </div>
+
+
+      <!-- SEO -->
+      <div
+        class="hero-node"
+        data-hero-node
+        data-flow="3"
+        style="left:87%; top:72%;"
+      >
+        SEO
+      </div>
+
+
+      <!-- SOCIAL -->
+      <div
+        class="hero-node"
+        data-hero-node
+        data-flow="4"
+        style="left:50%; top:90%;"
+      >
+        Social
+      </div>
+
+
+      <!-- LEADS -->
+      <div
+        class="hero-node"
+        data-hero-node
+        data-flow="5"
+        style="left:13%; top:72%;"
+      >
+        Leads
+      </div>
+
+
+      <!-- ANALYTICS -->
+      <div
+        class="hero-node"
+        data-hero-node
+        data-flow="6"
+        style="left:13%; top:28%;"
+      >
+        Analytics
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
 <!-- ============ TRUST BAR ============ -->
-<section class="section-tight surface-alt">
+<!-- ============ TRUST BAR ============ -->
+<section class="section-tight surface-alt trust-section">
+
   <div class="container">
-    <p class="eyebrow">Trusted by ambitious businesses</p>
-    <div class="trust-bar__row">
-      <span class="trust-bar__logo">Demo Client — Retail</span>
-      <span class="trust-bar__logo">Demo Client — Manufacturing</span>
-      <span class="trust-bar__logo">Demo Client — Hospitality</span>
-      <span class="trust-bar__logo">Demo Client — Healthcare</span>
-      <span class="trust-bar__logo">Demo Client — Real Estate</span>
+
+    <div class="trust-header">
+      <p class="eyebrow">Trusted by ambitious businesses</p>
+
+      <p class="trust-subtitle">
+        Building meaningful digital growth for ambitious brands.
+      </p>
     </div>
-    <p class="caption" style="margin-top:var(--space-5);">Placeholder client marks shown during development — replaced with real logos from Django Admin as clients come on board.</p>
+
+
+    <!-- CLIENT LOGOS -->
+    <div class="trust-bar__row">
+
+      <div class="trust-bar__logo">
+        <img
+          src="{% static 'images/clients/clients1.jpeg' %}"
+          alt="Client 1"
+          loading="lazy"
+        >
+      </div>
+
+
+      <div class="trust-bar__logo">
+        <img
+          src="{% static 'images/clients/clients2.png' %}"
+          alt="Client 2"
+          loading="lazy"
+        >
+      </div>
+
+
+      <div class="trust-bar__logo">
+        <img
+          src="{% static 'images/clients/clients3.jpg' %}"
+          alt="Client 3"
+          loading="lazy"
+        >
+      </div>
+
+
+      <div class="trust-bar__logo">
+        <img
+          src="{% static 'images/clients/clients4.png' %}"
+          alt="Client 4"
+          loading="lazy"
+        >
+      </div>
+
+
+      <div class="trust-bar__logo">
+        <img
+          src="{% static 'images/clients/clients5.webp' %}"
+          alt="Client 5"
+          loading="lazy"
+        >
+      </div>
+
+    </div>
+
+
+    <p class="caption trust-caption">
+      Proud to partner with businesses building their next chapter of growth.
+    </p>
+
   </div>
+
 </section>
 
 <!-- ============ PROBLEM ============ -->
-<section class="section">
+<!-- ============ PROBLEM ============ -->
+<section class="section problem-section">
+
   <div class="container-narrow">
-    <p class="eyebrow" data-reveal>The problem</p>
-    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">Being online isn't enough.</h2>
-    <div class="problem-list">
-      <div class="problem-item"><p class="body">An outdated website that doesn't reflect where the business is today</p></div>
-      <div class="problem-item"><p class="body">No consistent presence on the platforms customers actually use</p></div>
-      <div class="problem-item"><p class="body">Poor visibility on Google when people search for exactly what's offered</p></div>
-      <div class="problem-item"><p class="body">Branding and creative that looks different everywhere it appears</p></div>
-      <div class="problem-item"><p class="body">Ad spend going out with no clear read on what's actually working</p></div>
-      <div class="problem-item"><p class="body">No analytics or lead tracking — growth decisions made on guesswork</p></div>
+
+    <!-- Header -->
+    <div class="problem-header">
+
+      <p class="eyebrow" data-reveal>
+        The problem
+      </p>
+
+      <h2
+        class="problem-title"
+        data-reveal
+        data-reveal-delay="80"
+      >
+        Being online
+        <span>isn't enough.</span>
+      </h2>
+
+      <p
+        class="problem-intro"
+        data-reveal
+        data-reveal-delay="140"
+      >
+        A website alone doesn't create growth. Businesses need a connected
+        digital presence that turns attention into trust and trust into action.
+      </p>
+
     </div>
-    <p class="h4" style="margin-top:var(--space-8);">That's where we come in.</p>
+
+
+    <!-- Problems Grid -->
+    <div class="problem-list">
+
+      <!-- 01 -->
+      <article class="problem-item" data-reveal>
+
+        <div class="problem-number">01</div>
+
+        <div class="problem-content">
+          <h3>Outdated digital presence</h3>
+
+          <p>
+            An outdated website that doesn't reflect where the business
+            is today.
+          </p>
+        </div>
+
+      </article>
+
+
+      <!-- 02 -->
+      <article
+        class="problem-item"
+        data-reveal
+        data-reveal-delay="80"
+      >
+
+        <div class="problem-number">02</div>
+
+        <div class="problem-content">
+          <h3>Inconsistent presence</h3>
+
+          <p>
+            No consistent presence on the platforms customers actually use.
+          </p>
+        </div>
+
+      </article>
+
+
+      <!-- 03 -->
+      <article
+        class="problem-item"
+        data-reveal
+        data-reveal-delay="160"
+      >
+
+        <div class="problem-number">03</div>
+
+        <div class="problem-content">
+          <h3>Low search visibility</h3>
+
+          <p>
+            Poor visibility on Google when people search for exactly
+            what's offered.
+          </p>
+        </div>
+
+      </article>
+
+
+      <!-- 04 -->
+      <article
+        class="problem-item"
+        data-reveal
+      >
+
+        <div class="problem-number">04</div>
+
+        <div class="problem-content">
+          <h3>Disconnected branding</h3>
+
+          <p>
+            Branding and creative that looks different everywhere
+            it appears.
+          </p>
+        </div>
+
+      </article>
+
+
+      <!-- 05 -->
+      <article
+        class="problem-item"
+        data-reveal
+        data-reveal-delay="80"
+      >
+
+        <div class="problem-number">05</div>
+
+        <div class="problem-content">
+          <h3>Unclear marketing results</h3>
+
+          <p>
+            Ad spend going out with no clear read on what's actually
+            working.
+          </p>
+        </div>
+
+      </article>
+
+
+      <!-- 06 -->
+      <article
+        class="problem-item"
+        data-reveal
+        data-reveal-delay="160"
+      >
+
+        <div class="problem-number">06</div>
+
+        <div class="problem-content">
+          <h3>Decisions based on guesswork</h3>
+
+          <p>
+            No analytics or lead tracking — growth decisions made
+            on guesswork.
+          </p>
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- Bottom Statement -->
+    <div class="problem-closing" data-reveal>
+
+      <div class="problem-closing-line"></div>
+
+      <p>
+        That's where
+        <span>we come in.</span>
+      </p>
+
+    </div>
+
   </div>
+
 </section>
 
 <!-- ============ SERVICES / DIGITAL ECOSYSTEM ============ -->
-<section class="section surface-alt" id="services">
-  <div class="container">
-    <p class="eyebrow" data-reveal>What we do</p>
-    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:700px;">
-      Everything your business needs to grow online.
-    </h2>
+<!-- ============ WHAT WE DO ============ -->
+<section class="section services-section">
 
-    <div class="grid-2" style="margin-top:var(--space-10);">
-        <span class="index-number">01</span>
-        <h4 style="margin-top:var(--space-4);">Build — Digital foundations</h4>
-        <p class="body small" style="margin-top:var(--space-3);">Websites, e-commerce, custom web applications and landing pages, built on Django for speed and long-term maintainability.</p>
-        <a href="{% url 'services:index' %}#build" class="link-arrow" style="margin-top:var(--space-5);">
-          <span class="link-arrow__label">Explore Build services</span>
-          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
-        </a>
-      </div>
-      <div class="card" id="grow" data-reveal data-reveal-delay="80">
-        <span class="index-number">02</span>
-        <h4 style="margin-top:var(--space-4);">Grow — Traffic &amp; acquisition</h4>
-        <p class="body small" style="margin-top:var(--space-3);">SEO, Google Ads, Meta Ads, social media and content built to bring the right customers, not just more traffic.</p>
-        <a href="{% url 'services:index' %}#grow" class="link-arrow" style="margin-top:var(--space-5);">
-          <span class="link-arrow__label">Explore Grow services</span>
-          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
-        </a>
-      </div>
-      <div class="card" id="brand" data-reveal>
-        <span class="index-number">03</span>
-        <h4 style="margin-top:var(--space-4);">Brand — Identity &amp; creative</h4>
-        <p class="body small" style="margin-top:var(--space-3);">Branding, graphic design, creative direction and content that looks and sounds consistent everywhere it shows up.</p>
-        <a href="{% url 'services:index' %}#brand" class="link-arrow" style="margin-top:var(--space-5);">
-          <span class="link-arrow__label">Explore Brand services</span>
-          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
-        </a>
-      </div>
-      <div class="card" id="optimize" data-reveal data-reveal-delay="80">
-        <span class="index-number">04</span>
-        <h4 style="margin-top:var(--space-4);">Optimize — Performance &amp; automation</h4>
-        <p class="body small" style="margin-top:var(--space-3);">Analytics, conversion rate optimization, automation and ongoing maintenance so results compound instead of stalling.</p>
-        <a href="{% url 'services:index' %}#optimize" class="link-arrow" style="margin-top:var(--space-5);">
-          <span class="link-arrow__label">Explore Optimize services</span>
-          {% include "components/_icon_arrow.html" with icon_class="link-arrow__icon" %}
-        </a>
-      </div>
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="services-header">
+
+            <div>
+                <p class="eyebrow" data-reveal>
+                    What we do
+                </p>
+
+                <h2 class="services-heading" data-reveal>
+                    Built for where your
+                    <span>business is going.</span>
+                </h2>
+            </div>
+
+            <p class="services-intro" data-reveal>
+                We build the digital systems, visibility and experiences
+                that help ambitious businesses move forward.
+            </p>
+
+        </div>
+
+
+        <!-- SERVICES -->
+        <div class="services-list">
+
+
+<!-- ============ SERVICE 01 ============ -->
+<article class="service-card service-card--poster" data-reveal>
+
+    <!-- Background Poster / Right Side -->
+    <div class="service-poster">
+        <img
+            src="{% static 'images/services/newbuild.png' %}"
+            alt="Digital foundations"
+            loading="lazy"
+        >
     </div>
-  </div>
-</section>
 
+    <!-- Premium Overlay -->
+    <div class="service-overlay"></div>
+
+
+    <!-- Content -->
+    <div class="service-card-content">
+
+        <!-- Top -->
+        <div class="service-top">
+
+            <span class="service-number">01</span>
+
+            <span class="service-label">
+                FOUNDATION
+            </span>
+
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="service-content">
+
+            <p class="service-kicker">
+                BUILD
+            </p>
+
+            <h3>
+                Digital<br>
+                foundations
+            </h3>
+
+            <p class="service-description">
+                Websites, e-commerce and custom web applications built
+                for speed, clarity and long-term growth.
+            </p>
+
+
+            <!-- Tags -->
+            <div class="service-tags">
+                <span>Websites</span>
+                <span>E-commerce</span>
+                <span>Web Apps</span>
+            </div>
+
+
+            <!-- CTA -->
+            <a href="#contact" class="service-button">
+
+                <span>Explore Build services</span>
+
+                <span class="service-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Optional bottom accent -->
+    <div class="service-card-line"></div>
+
+</article>
+            <!-- SERVICE 02 -->
+            <article class="service-card" data-reveal>
+
+                <div class="service-top">
+
+                    <span class="service-number">
+                        02
+                    </span>
+
+                    <span class="service-label">
+                        Visibility
+                    </span>
+
+                </div>
+
+
+                <div class="service-main">
+
+                    <div class="service-content">
+
+                        <p class="service-kicker">
+                            Grow
+                        </p>
+
+                        <h3>
+                            Traffic & acquisition
+                        </h3>
+
+                        <p>
+                            We help the right people discover your business
+                            through search, campaigns, content and
+                            performance-driven marketing.
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-meta">
+
+                        <div class="service-tags">
+                            <span>SEO</span>
+                            <span>Paid Media</span>
+                            <span>Content</span>
+                        </div>
+
+                        <a href="#contact" class="service-link">
+                            Explore Growth services
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- SERVICE 03 -->
+            <article class="service-card" data-reveal>
+
+                <div class="service-top">
+
+                    <span class="service-number">
+                        03
+                    </span>
+
+                    <span class="service-label">
+                        Experience
+                    </span>
+
+                </div>
+
+
+                <div class="service-main">
+
+                    <div class="service-content">
+
+                        <p class="service-kicker">
+                            Convert
+                        </p>
+
+                        <h3>
+                            Brand & experiences
+                        </h3>
+
+                        <p>
+                            Strong brands and thoughtful digital experiences
+                            that build trust, create differentiation and
+                            turn attention into action.
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-meta">
+
+                        <div class="service-tags">
+                            <span>Branding</span>
+                            <span>UI / UX</span>
+                            <span>Creative</span>
+                        </div>
+
+                        <a href="#contact" class="service-link">
+                            Explore Creative services
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <!-- BOTTOM CTA -->
+        <div class="services-footer" data-reveal>
+
+            <p>
+                One connected digital partner.
+                <span>Not another collection of vendors.</span>
+            </p>
+
+            <a href="#contact" class="services-footer-link">
+                Let's build something better
+                <span>↗</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 <!-- ============ WHY US ============ -->
 <section class="section">
   <div class="container">
@@ -451,5 +968,44 @@
 
 <!-- ============ FINAL CTA ============ -->
 {% include "components/_final_cta.html" %}
+
+{% endblock %}
+{% block extra_scripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+
+<script>
+window.addEventListener("load", function () {
+
+    const heroVanta = document.getElementById("hero-vanta");
+
+    if (!heroVanta) return;
+
+    VANTA.NET({
+        el: "#hero-vanta",
+
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+
+        minHeight: 200,
+        minWidth: 200,
+
+        scale: 1.0,
+        scaleMobile: 1.0,
+
+        color: 0xb6923f,
+        backgroundColor: 0x000000,
+
+        points: 10.0,
+        maxDistance: 20.0,
+        spacing: 16.0,
+
+        showDots: true
+    });
+
+});
+</script>
 
 {% endblock %}
