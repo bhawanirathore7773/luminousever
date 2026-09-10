@@ -81,32 +81,11 @@
     });
   });
 
-  /* ---- CTA hover: fixed position + subtle scale only ---- */
+  /* ---- CTA buttons: fixed position, no cursor movement, no zoom ---- */
   const isTouch = window.matchMedia("(pointer: coarse)").matches;
   if (!prefersReduced && !isTouch && window.gsap) {
     document.querySelectorAll("[data-magnetic]").forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        gsap.killTweensOf(el);
-        gsap.to(el, {
-          x: 0,
-          y: 0,
-          scale: 1.04,
-          duration: 0.22,
-          ease: "power2.out",
-          overwrite: true,
-        });
-      });
-      el.addEventListener("mouseleave", () => {
-        gsap.killTweensOf(el);
-        gsap.to(el, {
-          x: 0,
-          y: 0,
-          scale: 1,
-          duration: 0.28,
-          ease: "power2.out",
-          overwrite: true,
-        });
-      });
+      gsap.set(el, { x: 0, y: 0, scale: 1 });
     });
   }
 
