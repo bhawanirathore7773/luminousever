@@ -8,7 +8,7 @@
   <title>{% block title %}{{ site_settings.default_meta_title|default:"Luminous Ever — Digital Growth Agency" }}{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}{{ site_settings.default_meta_description|default:'We build the digital foundation, visibility and growth systems that help ambitious businesses get discovered, trusted and chosen.' }}{% endblock %}">
   <link rel="canonical" href="{% block canonical_url %}{{ request.scheme }}://{{ request.get_host }}{{ request.path }}{% endblock %}">
-  <link rel="icon" type="image/svg+xml" href="{% static 'images/le-favicon.svg' %}">
+  <link rel="icon" type="image/png" href="{% static 'images/le-favicon-live.png' %}?v=3">
   {% if site_settings.favicon %}<link rel="alternate icon" href="{{ site_settings.favicon.url }}">{% endif %}
   {% if site_settings.google_search_console_verification %}<meta name="google-site-verification" content="{{ site_settings.google_search_console_verification }}">{% endif %}
   <meta property="og:type" content="{% block og_type %}website{% endblock %}">
