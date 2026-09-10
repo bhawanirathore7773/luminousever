@@ -81,19 +81,31 @@
     });
   });
 
-  /* ---- Magnetic CTA: [data-magnetic] — desktop pointer only ---- */
+  /* ---- CTA hover: fixed position + subtle scale only ---- */
   const isTouch = window.matchMedia("(pointer: coarse)").matches;
   if (!prefersReduced && !isTouch && window.gsap) {
     document.querySelectorAll("[data-magnetic]").forEach((el) => {
-      const strength = 0.35;
-      el.addEventListener("mousemove", (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(el, { x: x * strength, y: y * strength, duration: 0.4, ease: "expo.out" });
+      el.addEventListener("mouseenter", () => {
+        gsap.killTweensOf(el);
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          scale: 1.04,
+          duration: 0.22,
+          ease: "power2.out",
+          overwrite: true,
+        });
       });
       el.addEventListener("mouseleave", () => {
-        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.4)" });
+        gsap.killTweensOf(el);
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.28,
+          ease: "power2.out",
+          overwrite: true,
+        });
       });
     });
   }
