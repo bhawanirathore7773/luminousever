@@ -89,21 +89,23 @@
     });
   }
 
-  /* ---- Hero visual: locked position + smooth 3D hover zoom ---- */
+  /* ---- Hero visual: fixed nodes + anchored 3D hover ---- */
   const heroVisual = document.querySelector("[data-hero-visual]");
   if (heroVisual && !prefersReduced && !isTouch && window.gsap) {
-    const nodes = heroVisual.querySelectorAll("[data-hero-node]");
+    /*
+     * OUTER NODES
+     *
+     * These nodes are positioned with left/top percentages and therefore
+     * use xPercent/yPercent for their permanent centering. Their hover
+     * motion is deliberately subtle and never adds x/y movement.
+     */
+    const nodes = heroVisual.querySelectorAll(
+      "[data-hero-node]:not(.hero-node--center)"
+    );
 
-    // Use xPercent/yPercent for the permanent centering transform.
-    // This prevents GSAP's pixel transforms from fighting the CSS
-    // translate(-50%, -50%) and makes the node stay exactly in place.
     nodes.forEach((node) => {
-      const getScale = () => {
-        if (node.classList.contains("hero-node--center")) {
-          return node.classList.contains("is-hub-flow-active") ? 1.04 : 1;
-        }
-        return node.classList.contains("is-flow-active") ? 1.08 : 1;
-      };
+      const getScale = () =>
+        node.classList.contains("is-flow-active") ? 1.08 : 1;
 
       gsap.set(node, {
         xPercent: -50,
@@ -123,7 +125,7 @@
           x: 0,
           y: 0,
           scale: getScale() * 1.045,
-          duration: 0.48,
+          duration: 0.42,
           ease: "power3.out",
           overwrite: true,
         });
@@ -140,7 +142,7 @@
           scale: getScale() * 1.045,
           rotationY: px * 7,
           rotationX: py * -7,
-          duration: 0.5,
+          duration: 0.38,
           ease: "power3.out",
           overwrite: true,
         });
@@ -153,12 +155,80 @@
           scale: getScale(),
           rotationX: 0,
           rotationY: 0,
-          duration: 0.6,
+          duration: 0.52,
           ease: "power3.out",
           overwrite: true,
         });
       });
     });
+
+    /*
+     * CENTER HUB — IMPORTANT
+     *
+     * The center hub is positioned with left:50% / top:50% and CSS
+     * translate(-50%, -50%). Do NOT use GSAP x/xPercent/y/yPercent on this
+     * element while scaling or rotating it: those transforms are composed
+     * with the scale and can visually move the anchor.
+     *
+     * Instead, keep the complete centering transform permanently present
+     * and animate only CSS custom properties for scale + 3D tilt. The inline
+     * transform is marked !important so the generic .hero-node:hover rule
+     * cannot replace it with a transform that drops the centering translate.
+     */
+    const center = heroVisual.querySelector(".hero-node--center");
+
+    if (center) {
+      const setCenterTransform = () => {
+        center.style.setProperty(
+          "transform",
+          "perspective(1000px) translate(-50%, -50%) scale(var(--hero-center-scale, 1)) rotateX(var(--hero-center-rx, 0deg)) rotateY(var(--hero-center-ry, 0deg))",
+          "important"
+        );
+      };
+
+      center.style.setProperty("--hero-center-scale", "1");
+      center.style.setProperty("--hero-center-rx", "0deg");
+      center.style.setProperty("--hero-center-ry", "0deg");
+      center.style.setProperty("transform-origin", "50% 50% 0");
+      center.style.setProperty("transform-style", "preserve-3d");
+      center.style.setProperty("will-change", "transform");
+      setCenterTransform();
+
+      center.addEventListener("mouseenter", () => {
+        gsap.to(center, {
+          "--hero-center-scale": 1.07,
+          duration: 0.46,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      });
+
+      center.addEventListener("mousemove", (e) => {
+        const rect = center.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(center, {
+          "--hero-center-scale": 1.07,
+          "--hero-center-rx": `${py * -5}deg`,
+          "--hero-center-ry": `${px * 5}deg`,
+          duration: 0.28,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      });
+
+      center.addEventListener("mouseleave", () => {
+        gsap.to(center, {
+          "--hero-center-scale": 1,
+          "--hero-center-rx": "0deg",
+          "--hero-center-ry": "0deg",
+          duration: 0.55,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      });
+    }
   }
 
   /* ---- Header: transparent -> solid on scroll. Phase 3 adds the markup;
