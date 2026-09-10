@@ -117,6 +117,62 @@
       });
     }
 
+    /*
+     * Center hub hover: keep its percentage-based anchor completely
+     * separate from GSAP's x/y transform system. The old generic node
+     * handler could overwrite translate(-50%, -50%) and make the hub
+     * appear to jump sideways/down when the cursor entered it.
+     *
+     * The center now uses CSS custom properties for scale/tilt while the
+     * actual transform always contains the original centering translate.
+     */
+    if (center && window.gsap && !window.matchMedia("(pointer: coarse)").matches) {
+      const applyCenterTransform = () => {
+        center.style.setProperty(
+          "transform",
+          "perspective(900px) translate(-50%, -50%) scale(var(--hero-center-scale, 1)) rotateX(var(--hero-center-rx, 0deg)) rotateY(var(--hero-center-ry, 0deg))",
+          "important"
+        );
+      };
+
+      applyCenterTransform();
+      center.style.setProperty("--hero-center-scale", "1");
+      center.style.setProperty("--hero-center-rx", "0deg");
+      center.style.setProperty("--hero-center-ry", "0deg");
+      center.style.setProperty("transform-style", "preserve-3d");
+      center.style.setProperty("will-change", "transform");
+
+      center.addEventListener("mousemove", (e) => {
+        e.stopImmediatePropagation();
+
+        const rect = center.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+
+        window.gsap.to(center, {
+          "--hero-center-scale": 1.07,
+          "--hero-center-rx": `${py * -5}deg`,
+          "--hero-center-ry": `${px * 5}deg`,
+          duration: 0.32,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      }, true);
+
+      center.addEventListener("mouseleave", (e) => {
+        e.stopImmediatePropagation();
+
+        window.gsap.to(center, {
+          "--hero-center-scale": 1,
+          "--hero-center-rx": "0deg",
+          "--hero-center-ry": "0deg",
+          duration: 0.5,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      }, true);
+    }
+
     // Pause animation when browser tab is hidden.
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
