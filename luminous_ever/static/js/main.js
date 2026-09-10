@@ -89,21 +89,48 @@
     });
   }
 
-  /* ---- Hero visual: subtle cursor parallax on the network nodes ---- */
+  /* ---- Hero visual: fixed nodes + subtle 3D cursor tilt ---- */
   const heroVisual = document.querySelector("[data-hero-visual]");
   if (heroVisual && !prefersReduced && !isTouch && window.gsap) {
     const nodes = heroVisual.querySelectorAll("[data-hero-node]");
-    heroVisual.addEventListener("mousemove", (e) => {
-      const rect = heroVisual.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      nodes.forEach((node, i) => {
-        const depth = 8 + (i % 3) * 5;
-        gsap.to(node, { x: px * depth, y: py * depth, duration: 0.6, ease: "power2.out" });
+
+    nodes.forEach((node) => {
+      gsap.set(node, {
+        x: 0,
+        y: 0,
+        rotationX: 0,
+        rotationY: 0,
+        transformPerspective: 900,
+        transformOrigin: "center center",
       });
-    });
-    heroVisual.addEventListener("mouseleave", () => {
-      nodes.forEach((node) => gsap.to(node, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, 0.5)" }));
+
+      node.addEventListener("mousemove", (e) => {
+        const rect = node.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(node, {
+          x: 0,
+          y: 0,
+          rotationY: px * 10,
+          rotationX: py * -10,
+          duration: 0.35,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      });
+
+      node.addEventListener("mouseleave", () => {
+        gsap.to(node, {
+          x: 0,
+          y: 0,
+          rotationX: 0,
+          rotationY: 0,
+          duration: 0.55,
+          ease: "power3.out",
+          overwrite: true,
+        });
+      });
     });
   }
 
