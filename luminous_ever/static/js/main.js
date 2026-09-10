@@ -98,6 +98,7 @@
       gsap.set(node, {
         x: 0,
         y: 0,
+        scale: node.classList.contains("is-flow-active") ? 1.08 : 1,
         rotationX: 0,
         rotationY: 0,
         transformPerspective: 900,
@@ -108,10 +109,12 @@
         const rect = node.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
         const py = (e.clientY - rect.top) / rect.height - 0.5;
+        const activeScale = node.classList.contains("is-flow-active") ? 1.08 : 1;
 
         gsap.to(node, {
           x: 0,
           y: 0,
+          scale: activeScale,
           rotationY: px * 10,
           rotationX: py * -10,
           duration: 0.35,
@@ -121,9 +124,11 @@
       });
 
       node.addEventListener("mouseleave", () => {
+        const activeScale = node.classList.contains("is-flow-active") ? 1.08 : 1;
         gsap.to(node, {
           x: 0,
           y: 0,
+          scale: activeScale,
           rotationX: 0,
           rotationY: 0,
           duration: 0.55,
