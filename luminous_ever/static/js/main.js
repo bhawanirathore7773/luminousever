@@ -89,49 +89,71 @@
     });
   }
 
-  /* ---- Hero visual: fixed nodes + subtle 3D cursor tilt ---- */
+  /* ---- Hero visual: locked position + smooth 3D hover zoom ---- */
   const heroVisual = document.querySelector("[data-hero-visual]");
   if (heroVisual && !prefersReduced && !isTouch && window.gsap) {
     const nodes = heroVisual.querySelectorAll("[data-hero-node]");
 
+    // Use xPercent/yPercent for the permanent centering transform.
+    // This prevents GSAP's pixel transforms from fighting the CSS
+    // translate(-50%, -50%) and makes the node stay exactly in place.
     nodes.forEach((node) => {
+      const getScale = () => {
+        if (node.classList.contains("hero-node--center")) {
+          return node.classList.contains("is-hub-flow-active") ? 1.04 : 1;
+        }
+        return node.classList.contains("is-flow-active") ? 1.08 : 1;
+      };
+
       gsap.set(node, {
+        xPercent: -50,
+        yPercent: -50,
         x: 0,
         y: 0,
-        scale: node.classList.contains("is-flow-active") ? 1.08 : 1,
+        scale: getScale(),
         rotationX: 0,
         rotationY: 0,
-        transformPerspective: 900,
-        transformOrigin: "center center",
+        transformPerspective: 1000,
+        transformOrigin: "50% 50%",
+        force3D: true,
+      });
+
+      node.addEventListener("mouseenter", () => {
+        gsap.to(node, {
+          x: 0,
+          y: 0,
+          scale: getScale() * 1.045,
+          duration: 0.48,
+          ease: "power3.out",
+          overwrite: true,
+        });
       });
 
       node.addEventListener("mousemove", (e) => {
         const rect = node.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
         const py = (e.clientY - rect.top) / rect.height - 0.5;
-        const activeScale = node.classList.contains("is-flow-active") ? 1.08 : 1;
 
         gsap.to(node, {
           x: 0,
           y: 0,
-          scale: activeScale,
-          rotationY: px * 10,
-          rotationX: py * -10,
-          duration: 0.35,
+          scale: getScale() * 1.045,
+          rotationY: px * 7,
+          rotationX: py * -7,
+          duration: 0.5,
           ease: "power3.out",
           overwrite: true,
         });
       });
 
       node.addEventListener("mouseleave", () => {
-        const activeScale = node.classList.contains("is-flow-active") ? 1.08 : 1;
         gsap.to(node, {
           x: 0,
           y: 0,
-          scale: activeScale,
+          scale: getScale(),
           rotationX: 0,
           rotationY: 0,
-          duration: 0.55,
+          duration: 0.6,
           ease: "power3.out",
           overwrite: true,
         });
@@ -175,12 +197,7 @@
     });
   });
 
-  /* ---- Touch-friendly mega-menu (Phase 13) ----
-     :hover doesn't fire reliably on touch. On coarse-pointer/no-hover
-     devices, the first tap on a mega-menu trigger opens the menu instead
-     of navigating away; a second tap (menu already open) follows the
-     link normally. Only affects touch-capable devices at desktop-nav
-     widths (≥1080px) — narrow but real (touch laptops, large tablets). */
+  /* ---- Touch-friendly mega-menu (Phase 13) ---- */
   const isCoarsePointer = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   const megaMenuTriggers = document.querySelectorAll(".nav-item--has-menu > a");
   if (isCoarsePointer && megaMenuTriggers.length) {
@@ -205,7 +222,7 @@
     });
   }
 
-  /* ---- Mobile full-screen nav: [data-mobile-nav-toggle] + [data-mobile-nav] ---- */
+  /* ---- Mobile full-screen nav ---- */
   const mobileNavToggles = document.querySelectorAll("[data-mobile-nav-toggle]");
   const mobileNav = document.querySelector("[data-mobile-nav]");
   if (mobileNavToggles.length && mobileNav) {
@@ -224,7 +241,7 @@
     });
   }
 
-  /* ---- Portfolio filter tabs: [data-filter-tabs] + [data-filter-item] ---- */
+  /* ---- Portfolio filter tabs ---- */
   const filterTabsWrap = document.querySelector("[data-filter-tabs]");
   if (filterTabsWrap) {
     const tabs = filterTabsWrap.querySelectorAll("[data-filter-tab]");
@@ -241,10 +258,7 @@
     });
   }
 
-  /* ---- Newsletter form ----
-     Client-side only for now — the real subscribe endpoint is wired up
-     when the leads app lands in Phase 9. Always give feedback either way
-     rather than letting the submit silently do nothing. */
+  /* ---- Newsletter form ---- */
   const newsletterForm = document.querySelector("[data-newsletter-form]");
   if (newsletterForm) {
     const note = newsletterForm.parentElement.querySelector("[data-newsletter-note]");
