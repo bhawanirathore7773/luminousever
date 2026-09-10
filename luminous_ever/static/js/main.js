@@ -92,6 +92,12 @@
   /* ---- Hero visual: fixed nodes + anchored 3D hover ---- */
   const heroVisual = document.querySelector("[data-hero-visual]");
 
+  /* ---- Hero background network: keep it visually subordinate to content ---- */
+  const heroVanta = document.getElementById("hero-vanta");
+  if (heroVanta) {
+    heroVanta.style.setProperty("opacity", "0.32", "important");
+  }
+
   /*
    * CENTER HUB POSITION LOCK
    *
