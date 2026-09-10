@@ -91,6 +91,31 @@
 
   /* ---- Hero visual: fixed nodes + anchored 3D hover ---- */
   const heroVisual = document.querySelector("[data-hero-visual]");
+
+  /*
+   * CENTER HUB POSITION LOCK
+   *
+   * The hub uses left:50% / top:50%. Its centering transform must exist
+   * even when GSAP is unavailable or reduced-motion is enabled, otherwise
+   * the generic .hero-node:hover CSS rule can replace the transform and
+   * make the hub jump sideways. Lock the complete positioning transform
+   * before any optional animation code runs.
+   */
+  const centerHub = heroVisual?.querySelector(".hero-node--center");
+  if (centerHub) {
+    centerHub.style.setProperty("--hero-center-scale", "1");
+    centerHub.style.setProperty("--hero-center-rx", "0deg");
+    centerHub.style.setProperty("--hero-center-ry", "0deg");
+    centerHub.style.setProperty("transform-origin", "50% 50% 0", "important");
+    centerHub.style.setProperty("transform-style", "preserve-3d", "important");
+    centerHub.style.setProperty("will-change", "transform", "important");
+    centerHub.style.setProperty(
+      "transform",
+      "perspective(1000px) translate(-50%, -50%) scale(var(--hero-center-scale, 1)) rotateX(var(--hero-center-rx, 0deg)) rotateY(var(--hero-center-ry, 0deg))",
+      "important"
+    );
+  }
+
   if (heroVisual && !prefersReduced && !isTouch && window.gsap) {
     /*
      * OUTER NODES
@@ -175,7 +200,7 @@
      * transform is marked !important so the generic .hero-node:hover rule
      * cannot replace it with a transform that drops the centering translate.
      */
-    const center = heroVisual.querySelector(".hero-node--center");
+    const center = centerHub;
 
     if (center) {
       const setCenterTransform = () => {
@@ -186,12 +211,6 @@
         );
       };
 
-      center.style.setProperty("--hero-center-scale", "1");
-      center.style.setProperty("--hero-center-rx", "0deg");
-      center.style.setProperty("--hero-center-ry", "0deg");
-      center.style.setProperty("transform-origin", "50% 50% 0");
-      center.style.setProperty("transform-style", "preserve-3d");
-      center.style.setProperty("will-change", "transform");
       setCenterTransform();
 
       center.addEventListener("mouseenter", () => {
