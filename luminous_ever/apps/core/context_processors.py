@@ -1,3 +1,5 @@
+import os
+
 from django.db.utils import OperationalError, ProgrammingError
 
 from .models import SiteSettings
@@ -16,6 +18,23 @@ def site_settings(request):
         settings_obj = SiteSettings.load()
     except (OperationalError, ProgrammingError):
         return {"site_settings": None, "sitewide_schema_json": ""}
+
+    # Keep the Django SiteSettings value as the source of truth. If it is
+    # empty, allow Render's WHATSAPP_NUMBER environment variable to provide
+    # the number without requiring a database update or hardcoding a number.
+    if not settings_obj.whatsapp_number:
+        env_whatsapp = os.getenv("WHATSAPP_NUMBER", "").strip()
+        if env_whatsapp:
+            settings_obj.whatsapp_number = "".join(
+                ch for ch in env_whatsapp if ch.isdigit()
+            )
+
+    # Final fallback for existing deployments where a contact phone is set
+    # but a dedicated WhatsApp number has not yet been configured.
+    if not settings_obj.whatsapp_number and settings_obj.contact_phone:
+        settings_obj.whatsapp_number = "".join(
+            ch for ch in settings_obj.contact_phone if ch.isdigit()
+        )
 
     return {
         "site_settings": settings_obj,
