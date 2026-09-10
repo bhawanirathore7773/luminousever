@@ -82,6 +82,37 @@
       }
     }
 
+    // Keep CTA buttons fixed in place. The existing magnetic CTA effect
+    // moves elements toward the cursor; for the primary/header CTAs we want
+    // a stable button with only a subtle smooth scale on hover.
+    if (window.gsap && !window.matchMedia("(pointer: coarse)").matches) {
+      document.querySelectorAll("[data-magnetic]").forEach((el) => {
+        el.addEventListener("mousemove", () => {
+          window.gsap.killTweensOf(el);
+          window.gsap.to(el, {
+            x: 0,
+            y: 0,
+            scale: 1.04,
+            duration: 0.22,
+            ease: "power2.out",
+            overwrite: true,
+          });
+        });
+
+        el.addEventListener("mouseleave", () => {
+          window.gsap.killTweensOf(el);
+          window.gsap.to(el, {
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.28,
+            ease: "power2.out",
+            overwrite: true,
+          });
+        });
+      });
+    }
+
     // Pause animation when browser tab is hidden.
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
