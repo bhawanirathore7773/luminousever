@@ -83,7 +83,13 @@
 
 .surface-inverse .btn-outline:hover {
   background: var(--color-white);
-  color: var(--color-black);
+  color: var(--color-black) !important;
+  border-color: var(--color-white);
+}
+
+.surface-inverse .btn-outline:hover,
+.surface-inverse .btn-outline:hover * {
+  color: var(--color-black) !important;
 }
 
 .btn-sm {
