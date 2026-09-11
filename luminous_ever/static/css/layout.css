@@ -144,13 +144,19 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
 }
 
 /* ---- Mega menu ---- */
+/*
+   Keep the menu attached to the header rather than the Services text.
+   This prevents the menu from jumping sideways and, importantly, removes
+   the hover "dead zone" that used to make the menu disappear before a
+   submenu link could be clicked.
+*/
 .nav-item--has-menu {
-  position: relative;
+  position: static;
 }
 
 .mega-menu {
   position: absolute;
-  top: calc(100% + 1.75rem);
+  top: calc(100% + 0.5rem);
   left: 50%;
   transform: translateX(-50%) translateY(8px);
   width: min(1040px, 92vw);
@@ -159,6 +165,7 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card-hover);
   padding: var(--space-8);
+  z-index: calc(var(--z-header) + 2);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -173,6 +180,19 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
   visibility: visible;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
+}
+
+/* Invisible hover bridge: the small visual gap remains, but the pointer
+   can travel from Services into the mega menu without closing it. */
+.mega-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.5rem;
+  height: 0.5rem;
+  background: transparent;
+  pointer-events: auto;
 }
 
 .mega-menu__grid {
@@ -1505,4 +1525,39 @@ body .mobile-sticky-cta {
 body[data-hero-theme="dark"] .site-header:not(.is-scrolled) .mobile-nav-toggle {
   color: var(--text-inverse) !important;
   border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ---- SAP footer link: keep logo + label on one clean baseline ---- */
+.site-footer .footer-sap-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: fit-content;
+  min-height: 24px;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+.site-footer .footer-sap-link .sap-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 23px;
+  margin: 0;
+}
+
+.site-footer .footer-sap-link .sap-brand-badge img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 1079px) {
+  .mega-menu {
+    width: min(1040px, calc(100vw - 32px));
+  }
 }
