@@ -71,3 +71,8 @@
   .sap-service-grid{grid-template-columns:1fr;}
   .sap-service-card{min-height:auto;}
 }
+
+/* Homepage SAP secondary section CTA */
+.sap-section__cta {
+  margin-top: clamp(1.5rem, 2.5vw, 2.25rem);
+}
