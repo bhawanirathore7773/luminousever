@@ -95,6 +95,26 @@
 .site-header.is-scrolled::after {
   transform: scaleX(1);
 }
+/* Non-home/internal pages use a persistent light header. The homepage
+   explicitly opts into data-hero-theme="dark", so its transparent white header
+   behavior remains unchanged until scroll. */
+body:not([data-hero-theme="dark"]) .site-header {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom-color: var(--border);
+  box-shadow: 0 6px 24px rgba(5, 5, 5, 0.04);
+}
+
+body:not([data-hero-theme="dark"]) .site-header::before {
+  opacity: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body:not([data-hero-theme="dark"]) .site-header::after {
+  transform: scaleX(1);
+}
+
 /* Pages can opt into a dark hero by setting <body data-hero-theme="dark">
    — the header starts white-on-transparent and switches to the normal
    dark-on-glass state once scrolled. Unused until Phase 4 needs it. */
