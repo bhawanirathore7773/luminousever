@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %}SAP Consulting, Digital Growth & Web Solutions | Luminous Ever{% endblock %}
+{% block meta_description %}SAP consulting, S/4HANA, ERP, ABAP, BTP, integration and SAP support plus websites, SEO and digital marketing for businesses and manufacturers.{% endblock %}
+{% block og_title %}SAP Consulting & Digital Growth Solutions | Luminous Ever{% endblock %}
+{% block og_description %}Independent SAP consulting and digital growth services for businesses and manufacturers — S/4HANA, ERP, ABAP, BTP, integration, SEO, websites and marketing.{% endblock %}
 {% block body_attrs %} data-hero-theme="dark" {% endblock %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -20,7 +24,7 @@
     <div class="hero__content">
 
       <p class="eyebrow" data-reveal>
-        Digital Growth Partner
+        Digital Growth Partner · SAP Consulting
       </p>
 
 
@@ -34,8 +38,9 @@
         data-reveal
         data-reveal-delay="160"
       >
-        We build the digital foundation, visibility and growth systems that
-        help ambitious businesses get discovered, trusted and chosen.
+        We build digital growth systems and provide experienced SAP consulting
+        for businesses and manufacturers — from websites, SEO and marketing to
+        ERP, S/4HANA, ABAP, BTP, integration and ongoing SAP support.
       </p>
 
 
@@ -665,6 +670,100 @@
     </div>
 
 </section>
+<!-- ============ SAP CONSULTING / ENTERPRISE SOLUTIONS ============ -->
+<section class="section sap-section" id="sap-solutions">
+  <div class="container">
+    <div class="sap-section__grid">
+      <div class="sap-section__intro" data-reveal>
+        <div class="sap-section__eyebrow eyebrow">
+          <span class="sap-brand-badge"><img src="{% static 'images/sap-badge.svg' %}" alt="SAP"></span>
+          <span>SAP CONSULTING &amp; ENTERPRISE SOLUTIONS</span>
+        </div>
+
+        <h2 class="sap-section__title" data-reveal data-reveal-delay="80" style="margin-top:var(--space-5);">
+          SAP expertise for businesses that need their operations to work smarter.
+        </h2>
+
+        <p class="sap-section__lead" data-reveal data-reveal-delay="140">
+          Our experienced SAP team supports businesses and manufacturers across ERP,
+          S/4HANA, functional modules, ABAP and Fiori development, BTP integration,
+          analytics, migration and ongoing application support. We connect enterprise
+          systems with the digital growth capabilities your business needs.
+        </p>
+
+        <div class="sap-pill-row" data-reveal data-reveal-delay="180">
+          <span class="sap-pill">S/4HANA</span>
+          <span class="sap-pill">ECC Migration</span>
+          <span class="sap-pill">FI / CO</span>
+          <span class="sap-pill">MM</span>
+          <span class="sap-pill">SD</span>
+          <span class="sap-pill">PP</span>
+          <span class="sap-pill">ABAP &amp; Fiori</span>
+          <span class="sap-pill">BTP &amp; Integration</span>
+          <span class="sap-pill">Analytics</span>
+          <span class="sap-pill">AMS Support</span>
+        </div>
+
+        <div style="margin-top:var(--space-7);" data-reveal data-reveal-delay="220">
+          <a href="{% url 'services:index' %}#sap-consulting" class="btn btn-primary">
+            Explore SAP Solutions
+            {% include "components/_icon_arrow.html" with icon_class="btn__icon" %}
+          </a>
+        </div>
+      </div>
+
+      <div class="sap-service-grid" data-reveal data-reveal-delay="100">
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-s4hana-consulting' %}">
+          <span class="sap-service-card__icon">ERP</span>
+          <h3>S/4HANA Consulting</h3>
+          <p>Implementation, optimisation and business-process transformation.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-ecc-to-s4hana-migration' %}">
+          <span class="sap-service-card__icon">→</span>
+          <h3>ECC → S/4HANA Migration</h3>
+          <p>Readiness, custom code, data, integration, testing and cutover.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-pp-manufacturing' %}">
+          <span class="sap-service-card__icon">PP</span>
+          <h3>Manufacturing &amp; SAP PP</h3>
+          <p>MRP, production planning, BOMs, routings and plant processes.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-mm-procurement' %}">
+          <span class="sap-service-card__icon">MM</span>
+          <h3>MM &amp; Procurement</h3>
+          <p>Purchasing, inventory, material master and procure-to-pay.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-abap-fiori-development' %}">
+          <span class="sap-service-card__icon">DEV</span>
+          <h3>ABAP &amp; Fiori</h3>
+          <p>Custom reports, enhancements, interfaces, APIs and modern UX.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-btp-integration' %}">
+          <span class="sap-service-card__icon">BTP</span>
+          <h3>BTP &amp; Integration</h3>
+          <p>Integration Suite, APIs, extensions and SAP/non-SAP connectivity.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-analytics-cloud' %}">
+          <span class="sap-service-card__icon">BI</span>
+          <h3>Analytics &amp; Reporting</h3>
+          <p>SAP Analytics Cloud, KPIs, planning and management dashboards.</p>
+        </a>
+        <a class="sap-service-card" href="{% url 'services:detail' slug='sap-ams-support' %}">
+          <span class="sap-service-card__icon">AMS</span>
+          <h3>SAP AMS &amp; Support</h3>
+          <p>Functional and technical support, enhancements and optimisation.</p>
+        </a>
+      </div>
+    </div>
+
+    <p class="sap-disclaimer">
+      SAP and SAP product names are trademarks or registered trademarks of SAP SE or its affiliates.
+      Luminous Ever is presented as an independent SAP consulting and technology services provider
+      unless a formal SAP partnership is stated.
+    </p>
+  </div>
+</section>
+
 <!-- ============ WHY US ============ -->
 <section class="section">
   <div class="container">
