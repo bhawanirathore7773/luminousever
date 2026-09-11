@@ -1,4 +1,5 @@
 from django.db.models import Prefetch
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -7,6 +8,30 @@ from django.views.generic import DetailView, TemplateView
 from apps.core.schema import breadcrumb_list_schema, service_schema
 
 from .models import Industry, Service, ServiceCategory
+
+
+@method_decorator(cache_page(60 * 15), name="dispatch")
+class SAPConsultingView(TemplateView):
+    template_name = "services/sap.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["sap_category"] = get_object_or_404(
+            ServiceCategory.objects.prefetch_related(
+                Prefetch("services", queryset=Service.objects.filter(is_published=True).order_by("order"))
+            ),
+            slug="sap-consulting",
+        )
+        context["sap_industries"] = [
+            "Manufacturing",
+            "Automotive & Components",
+            "Engineering & Industrial",
+            "Wholesale & Distribution",
+            "FMCG & Consumer Goods",
+            "Pharma & Life Sciences",
+            "Professional Services",
+        ]
+        return context
 
 
 @method_decorator(cache_page(60 * 15), name="dispatch")
