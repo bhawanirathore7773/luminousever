@@ -17,7 +17,7 @@
         </a>
 
         <p class="footer-brand__desc">
-          {{ site_settings.tagline|default:"A digital growth and SAP consulting partner for ambitious businesses — strategy, websites, SEO, marketing and enterprise technology that bring growth and operations together." }}
+          {{ site_settings.tagline|default:"A digital growth partner for ambitious businesses — strategy, websites, SEO, branding, content and marketing systems built for growth." }}
         </p>
 
         <!-- Social -->
@@ -146,7 +146,10 @@
 
         <a href="{% url 'services:index' %}">Services</a>
 
-        <a href="{% url 'services:sap_consulting' %}">SAP Solutions</a>
+        <a href="https://luminousever.consulting/" target="_blank" rel="noopener" class="footer-sap-link">
+          <span class="sap-brand-badge"><img src="{% static 'images/sap-badge.svg' %}" alt="SAP"></span>
+          <span>SAP Solutions</span>
+        </a>
 
       </div>
 
