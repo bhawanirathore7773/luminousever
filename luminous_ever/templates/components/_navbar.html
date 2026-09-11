@@ -45,7 +45,7 @@
               <a class="mega-menu__link" href="{% url 'services:detail' slug='sap-s4hana-consulting' %}">S/4HANA Consulting</a>
               <a class="mega-menu__link" href="{% url 'services:detail' slug='sap-ecc-to-s4hana-migration' %}">ECC → S/4HANA Migration</a>
               <a class="mega-menu__link" href="{% url 'services:detail' slug='sap-abap-fiori-development' %}">ABAP & Fiori</a>
-              <a class="mega-menu__link" href="{% url 'services:index' %}#sap-consulting">All SAP Solutions</a>
+              <a class="mega-menu__link" href="{% url 'services:sap_consulting' %}">All SAP Solutions</a>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
 
   <nav class="mobile-nav__list" aria-label="Mobile">
     <a class="mobile-nav__link" href="{% url 'services:index' %}">Services</a>
-    <a class="mobile-nav__link" href="{% url 'services:index' %}#sap-consulting">SAP Solutions</a>
+    <a class="mobile-nav__link" href="{% url 'services:sap_consulting' %}">SAP Solutions</a>
     <a class="mobile-nav__link" href="{% url 'services:industries' %}">Solutions</a>
     <a class="mobile-nav__link" href="{% url 'portfolio:index' %}">Work</a>
     <a class="mobile-nav__link" href="{% url 'core:about' %}">About</a>
