@@ -4,7 +4,7 @@
 {% block title %}Digital Growth Services | Websites, SEO, Branding & Marketing | Luminous Ever{% endblock %}
 {% block meta_description %}Explore Luminous Ever's digital growth services: websites, e-commerce, SEO, paid media, branding, content, UI/UX, analytics and marketing automation.
 {% block og_title %}Services — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
-{% block og_description %}Explore SAP consulting, ERP, S/4HANA, ABAP, BTP and SAP support alongside websites, SEO, paid media, branding, automation and digital growth services.{% endblock %}
+{% block og_description %}Explore websites, e-commerce, SEO, paid media, branding, content, UI/UX, analytics and marketing automation from Luminous Ever.{% endblock %}
 
 {% block content %}
 <section class="section" style="padding-top:calc(var(--section-padding-y) + 4rem);">
@@ -25,7 +25,6 @@
   <div class="container">
     <p class="eyebrow" data-reveal>{{ category.tagline }}</p>
     <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); display:flex; align-items:center; gap:14px;">
-      {% if category.slug == 'sap-consulting' %}<span class="sap-brand-badge"><img src="{% static 'images/sap-badge.svg' %}" alt="SAP"></span>{% endif %}
       {{ category.name }}
     </h2>
     {% if category.description %}
