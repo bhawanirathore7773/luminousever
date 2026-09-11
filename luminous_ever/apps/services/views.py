@@ -1,5 +1,5 @@
 from django.db.models import Prefetch
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -12,26 +12,10 @@ from .models import Industry, Service, ServiceCategory
 
 @method_decorator(cache_page(60 * 15), name="dispatch")
 class SAPConsultingView(TemplateView):
-    template_name = "services/sap.html"
+    """Legacy route kept only as a clean bridge to the separate SAP site."""
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["sap_category"] = get_object_or_404(
-            ServiceCategory.objects.prefetch_related(
-                Prefetch("services", queryset=Service.objects.filter(is_published=True).order_by("order"))
-            ),
-            slug="sap-consulting",
-        )
-        context["sap_industries"] = [
-            "Manufacturing",
-            "Automotive & Components",
-            "Engineering & Industrial",
-            "Wholesale & Distribution",
-            "FMCG & Consumer Goods",
-            "Pharma & Life Sciences",
-            "Professional Services",
-        ]
-        return context
+    def get(self, request, *args, **kwargs):
+        return redirect("https://luminousever.consulting/")
 
 
 @method_decorator(cache_page(60 * 15), name="dispatch")
@@ -45,7 +29,9 @@ class ServiceIndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = (
-            ServiceCategory.objects.prefetch_related(
+            ServiceCategory.objects
+            .exclude(slug="sap-consulting")
+            .prefetch_related(
                 Prefetch("services", queryset=Service.objects.filter(is_published=True))
             )
             .order_by("order")
@@ -58,6 +44,11 @@ class ServiceDetailView(DetailView):
     model = Service
     template_name = "services/detail.html"
     context_object_name = "service"
+
+    def dispatch(self, request, *args, **kwargs):
+        if str(kwargs.get("slug", "")).startswith("sap-"):
+            return redirect("https://luminousever.consulting/")
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         return (
