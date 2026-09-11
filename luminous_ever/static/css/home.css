@@ -2245,3 +2245,60 @@
     }
 }
  
+
+/* --------------------------------------------------------------------------
+   DIGITAL GROWTH HERO + SECONDARY SAP LINK
+   -------------------------------------------------------------------------- */
+
+#hero.hero .hero-eyebrow{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+#hero.hero .hero-sap-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:rgba(255,255,255,.72);
+    text-decoration:none;
+    font-size:.72rem;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    transition:color .25s ease, opacity .25s ease;
+}
+
+#hero.hero .hero-sap-badge .sap-brand-badge{
+    width:42px;
+    height:23px;
+    border-radius:2px;
+    box-shadow:0 5px 18px rgba(0,112,242,.16);
+}
+
+#hero.hero .hero-sap-badge:hover{
+    color:#fff;
+    opacity:1;
+}
+
+#hero.hero .hero-sap-badge:focus-visible{
+    outline:2px solid rgba(255,255,255,.8);
+    outline-offset:5px;
+    border-radius:3px;
+}
+
+.sap-secondary{
+    margin-top:0;
+}
+
+.footer-sap-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+.footer-sap-link .sap-brand-badge{
+    width:42px;
+    height:23px;
+    border-radius:2px;
+}
