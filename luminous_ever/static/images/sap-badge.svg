@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 64" role="img" aria-labelledby="title desc">
+  <title id="title">SAP</title>
+  <desc id="desc">SAP wordmark badge</desc>
+  <defs>
+    <linearGradient id="sapBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a6ed1"/>
+      <stop offset="1" stop-color="#0070f2"/>
+    </linearGradient>
+  </defs>
+  <path d="M7 7h106v50H7z" fill="url(#sapBlue)"/>
+  <path d="M7 57V7h106" fill="none" stroke="#005eb8" stroke-width="2" opacity=".35"/>
+  <text x="60" y="45" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" letter-spacing="-1.5" fill="#fff">SAP</text>
+</svg>
