@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Services — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
-{% block meta_description %}Websites, e-commerce, SEO, ads, branding and automation — everything your business needs to grow online, grouped into Build, Grow, Brand and Optimize.{% endblock %}
+{% block meta_description %}SAP consulting, S/4HANA, ERP, ABAP, BTP, integration, analytics and SAP support plus websites, SEO, ads, branding and digital growth services.{% endblock %}
 {% block og_title %}Services — {{ site_settings.site_name|default:"Luminous Ever" }}{% endblock %}
 {% block og_description %}Websites, e-commerce, SEO, ads, branding and automation — everything your business needs to grow online, grouped into Build, Grow, Brand and Optimize.{% endblock %}
 
@@ -10,11 +11,12 @@
   <div class="container">
     <p class="eyebrow" data-reveal>Services</p>
     <h1 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); max-width:800px;">
-      Everything your business needs to grow online.
+      Digital growth, enterprise technology and SAP expertise — under one roof.
     </h1>
     <p class="body-lg" data-reveal data-reveal-delay="160" style="margin-top:var(--space-5); max-width:560px; color:var(--text-muted);">
-      Grouped into four pillars — build the foundation, grow your audience,
-      brand it consistently, and optimize what's already working.
+      Build the digital foundation, grow visibility, strengthen your brand,
+      optimize performance and support the enterprise systems behind the business.
+      Explore SAP consulting alongside our digital growth services.
     </p>
   </div>
 </section>
@@ -23,7 +25,13 @@
 <section class="section {% cycle '' 'surface-alt' %}" id="{{ category.slug }}">
   <div class="container">
     <p class="eyebrow" data-reveal>{{ category.tagline }}</p>
-    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4);">{{ category.name }}</h2>
+    <h2 data-reveal data-reveal-delay="80" style="margin-top:var(--space-4); display:flex; align-items:center; gap:14px;">
+      {% if category.slug == 'sap-consulting' %}<span class="sap-brand-badge"><img src="{% static 'images/sap-badge.svg' %}" alt="SAP"></span>{% endif %}
+      {{ category.name }}
+    </h2>
+    {% if category.description %}
+    <p class="body small" data-reveal data-reveal-delay="120" style="margin-top:var(--space-4); max-width:760px; color:var(--text-muted);">{{ category.description }}</p>
+    {% endif %}
 
     <div class="grid-3" style="margin-top:var(--space-8);">
       {% for service in category.services.all %}
