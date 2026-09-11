@@ -86,7 +86,12 @@ class IndustryDetailView(DetailView):
     context_object_name = "industry"
 
     def get_queryset(self):
-        return Industry.objects.filter(is_published=True).prefetch_related("relevant_services")
+        return Industry.objects.filter(is_published=True).prefetch_related(
+            Prefetch(
+                "relevant_services",
+                queryset=Service.objects.filter(is_published=True).exclude(category__slug="sap-consulting"),
+            )
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
