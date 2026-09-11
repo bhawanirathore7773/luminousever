@@ -56,7 +56,13 @@
 
 .surface-inverse .btn-primary:hover {
   background: var(--color-gray-200);
+  color: var(--color-black) !important;
   border-color: var(--color-gray-200);
+}
+
+.surface-inverse .btn-primary:hover,
+.surface-inverse .btn-primary:hover .btn__icon {
+  color: var(--color-black) !important;
 }
 
 .btn-outline {
