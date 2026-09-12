@@ -845,6 +845,21 @@
       {% for t in demo_testimonials %}
       <div class="card" data-reveal data-reveal-delay="{{ forloop.counter0|add:'0' }}0">
         <span class="badge" style="margin-bottom:var(--space-4);">Demo Testimonial</span>
+
+        <div class="testimonial-rating" aria-label="{{ t.rating }} out of 5 stars">
+          <span class="testimonial-rating__stars" aria-hidden="true">
+            {% if t.rating >= 1 %}★{% endif %}{% if t.rating >= 2 %}★{% endif %}{% if t.rating >= 3 %}★{% endif %}{% if t.rating >= 4 %}★{% endif %}{% if t.rating >= 5 %}★{% endif %}
+          </span>
+          <span class="testimonial-rating__score">{{ t.rating }}.0</span>
+          <span class="testimonial-rating__source">
+            {% if t.source == "google" %}
+              <span class="testimonial-rating__google">G</span> Google
+            {% else %}
+              Client rating
+            {% endif %}
+          </span>
+        </div>
+
         <p class="testimonial-card__quote">&ldquo;{{ t.quote }}&rdquo;</p>
         <div class="testimonial-card__author">
           <div class="testimonial-avatar">{{ t.initials }}</div>
