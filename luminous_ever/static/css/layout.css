@@ -56,6 +56,24 @@
     transform 550ms var(--ease-out-expo);
 }
 
+/* Homepage: the transparent state must be truly transparent at the top. */
+body[data-hero-theme="dark"] .site-header:not(.is-scrolled){
+  background:transparent !important;
+  border-bottom-color:transparent !important;
+  box-shadow:none !important;
+}
+
+body[data-hero-theme="dark"] .site-header:not(.is-scrolled)::before{
+  opacity:0 !important;
+  background:transparent !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+body[data-hero-theme="dark"] .site-header:not(.is-scrolled)::after{
+  transform:scaleX(0) !important;
+}
+
 /* Scrolled state */
 .site-header.is-scrolled {
   background: transparent;
@@ -163,83 +181,87 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
   }
 }
 
-/* ---- Mega menu ---- */
-/*
-   Keep the menu attached to the header rather than the Services text.
-   This prevents the menu from jumping sideways and, importantly, removes
-   the hover "dead zone" that used to make the menu disappear before a
-   submenu link could be clicked.
-*/
-.nav-item--has-menu {
-  position: static;
+/* ---- Mega menu — stable hover path ---- */
+.nav-item--has-menu{
+  position:static;
 }
 
-.mega-menu {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  width: min(1040px, 92vw);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card-hover);
-  padding: var(--space-8);
-  z-index: calc(var(--z-header) + 2);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity var(--duration-base) var(--ease-out-expo),
-    transform var(--duration-base) var(--ease-out-expo), visibility var(--duration-base);
+/*
+  No physical gap between the trigger and panel.
+  The previous 0.5rem gap created a dead zone: moving the pointer downward
+  briefly left the hover target, so the panel blinked closed/open.
+*/
+.mega-menu{
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%) translateY(-6px);
+  width:min(1040px,92vw);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-card-hover);
+  padding:var(--space-8);
+  z-index:calc(var(--z-header) + 2);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:
+    opacity 180ms var(--ease-out-expo),
+    transform 220ms var(--ease-out-expo),
+    visibility 0s linear 220ms;
 }
 
 .nav-item--has-menu:hover .mega-menu,
 .nav-item--has-menu:focus-within .mega-menu,
-.nav-item--has-menu.is-menu-open .mega-menu {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+.nav-item--has-menu.is-menu-open .mega-menu{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+  transition:
+    opacity 180ms var(--ease-out-expo),
+    transform 220ms var(--ease-out-expo),
+    visibility 0s;
 }
 
-/* Invisible hover bridge: the small visual gap remains, but the pointer
-   can travel from Services into the mega menu without closing it. */
-.mega-menu::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -0.5rem;
-  height: 0.5rem;
-  background: transparent;
-  pointer-events: auto;
+/* The panel itself remains one continuous pointer-safe surface. */
+.mega-menu::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-1px;
+  height:1px;
+  background:transparent;
+  pointer-events:auto;
 }
 
-.mega-menu__grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-6);
+.mega-menu__grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:var(--space-6);
 }
 
-.mega-menu__group-title {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  margin-bottom: var(--space-3);
+.mega-menu__group-title{
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  margin-bottom:var(--space-3);
 }
 
-.mega-menu__link {
-  display: block;
-  font-size: 0.9375rem;
-  padding-block: var(--space-2);
-  color: var(--text-muted);
-  transition: color var(--duration-fast) var(--ease-out);
+.mega-menu__link{
+  display:block;
+  font-size:.9375rem;
+  padding-block:var(--space-2);
+  color:var(--text-muted);
+  transition:color var(--duration-fast) var(--ease-out);
 }
 
-.mega-menu__link:hover {
-  color: var(--text);
+.mega-menu__link:hover{
+  color:var(--text);
 }
 
 /* ---- Mobile hamburger + full-screen nav ---- */
