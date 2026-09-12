@@ -542,41 +542,24 @@
             <!-- SERVICE 02 -->
             <article class="service-card" data-reveal>
 
-                <div class="service-top">
+                <div class="service-card-content">
 
-                    <span class="service-number">
-                        02
-                    </span>
-
-                    <span class="service-label">
-                        Visibility
-                    </span>
-
-                </div>
-
-
-                <div class="service-main">
+                    <div class="service-top">
+                        <span class="service-number">02</span>
+                        <span class="service-label">VISIBILITY</span>
+                    </div>
 
                     <div class="service-content">
 
-                        <p class="service-kicker">
-                            Grow
-                        </p>
+                        <p class="service-kicker">GROW</p>
 
-                        <h3>
-                            Traffic & acquisition
-                        </h3>
+                        <h3>Traffic & acquisition</h3>
 
-                        <p>
+                        <p class="service-description">
                             We help the right people discover your business
                             through search, campaigns, content and
                             performance-driven marketing.
                         </p>
-
-                    </div>
-
-
-                    <div class="service-meta">
 
                         <div class="service-tags">
                             <span>SEO</span>
@@ -584,9 +567,9 @@
                             <span>Content</span>
                         </div>
 
-                        <a href="#contact" class="service-link">
-                            Explore Growth services
-                            <span>→</span>
+                        <a href="{% url 'services:index' %}#grow" class="service-button">
+                            <span>Explore Growth services</span>
+                            <span class="service-arrow">→</span>
                         </a>
 
                     </div>
@@ -596,45 +579,27 @@
             </article>
 
 
-
             <!-- SERVICE 03 -->
             <article class="service-card" data-reveal>
 
-                <div class="service-top">
+                <div class="service-card-content">
 
-                    <span class="service-number">
-                        03
-                    </span>
-
-                    <span class="service-label">
-                        Experience
-                    </span>
-
-                </div>
-
-
-                <div class="service-main">
+                    <div class="service-top">
+                        <span class="service-number">03</span>
+                        <span class="service-label">EXPERIENCE</span>
+                    </div>
 
                     <div class="service-content">
 
-                        <p class="service-kicker">
-                            Convert
-                        </p>
+                        <p class="service-kicker">CONVERT</p>
 
-                        <h3>
-                            Brand & experiences
-                        </h3>
+                        <h3>Brand & experiences</h3>
 
-                        <p>
+                        <p class="service-description">
                             Strong brands and thoughtful digital experiences
                             that build trust, create differentiation and
                             turn attention into action.
                         </p>
-
-                    </div>
-
-
-                    <div class="service-meta">
 
                         <div class="service-tags">
                             <span>Branding</span>
@@ -642,9 +607,9 @@
                             <span>Creative</span>
                         </div>
 
-                        <a href="#contact" class="service-link">
-                            Explore Creative services
-                            <span>→</span>
+                        <a href="{% url 'services:index' %}#brand" class="service-button">
+                            <span>Explore Creative services</span>
+                            <span class="service-arrow">→</span>
                         </a>
 
                     </div>
@@ -652,9 +617,6 @@
                 </div>
 
             </article>
-
-        </div>
-
 
         <!-- BOTTOM CTA -->
         <div class="services-footer" data-reveal>
