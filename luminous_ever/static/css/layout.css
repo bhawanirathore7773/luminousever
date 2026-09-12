@@ -208,7 +208,7 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
   position:absolute;
   top:100%;
   left:50%;
-  transform:translateX(-50%) translateY(-6px);
+  transform:translateX(-50%) translateY(0);
   width:min(1040px,92vw);
   background:var(--surface);
   border:1px solid var(--border);
@@ -231,7 +231,7 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
   opacity:1;
   visibility:visible;
   pointer-events:auto;
-  transform:translateX(-50%) translateY(0);
+  transform:translateX(-50%) translateY(10px);
   transition:
     opacity 180ms var(--ease-out-expo),
     transform 220ms var(--ease-out-expo),
@@ -244,8 +244,8 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled) {
   position:absolute;
   left:0;
   right:0;
-  top:-1px;
-  height:1px;
+  top:-16px;
+  height:16px;
   background:transparent;
   pointer-events:auto;
 }
