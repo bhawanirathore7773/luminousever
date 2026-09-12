@@ -1266,12 +1266,7 @@
 }
  
 /* ==========================================================================
-   WHAT WE DO — THREE SERVICE BANNERS
-   --------------------------------------------------------------------------
-   The service content lives inside a fixed-height banner. No CTA or text is
-   positioned outside the card. The Build image is clipped and only zooms
-   slightly on hover. Grow and Convert use the same banner system with a
-   black visual field.
+   WHAT WE DO — THREE MATCHED SERVICE BANNERS
    ========================================================================== */
 
 .services-section{
@@ -1314,10 +1309,9 @@
   display:flex;
   flex-direction:column;
   gap:1.25rem;
-  border:0;
 }
 
-/* SAME SIZE FOR ALL THREE BANNERS */
+/* One exact visual frame for Build / Grow / Convert. */
 .service-card{
   position:relative;
   width:100%;
@@ -1333,7 +1327,22 @@
   color:#fff;
 }
 
-/* BUILD IMAGE — clipped by the card */
+.service-card:not(.service-card--poster){
+  background:
+    radial-gradient(circle at 82% 18%,rgba(182,146,63,.09),transparent 28%),
+    linear-gradient(135deg,#080808 0%,#020202 100%);
+}
+
+.service-card:not(.service-card--poster)::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.035),transparent 50%);
+}
+
+/* Build image — always clipped inside its banner. */
 .service-card--poster .service-poster{
   position:absolute;
   inset:0;
@@ -1351,7 +1360,6 @@
   object-fit:cover;
   object-position:center center;
   transform:scale(1);
-  filter:none;
   transition:transform .75s cubic-bezier(.16,1,.3,1);
   will-change:transform;
 }
@@ -1360,7 +1368,6 @@
   transform:scale(1.055);
 }
 
-/* BUILD OVERLAY */
 .service-card--poster .service-overlay{
   position:absolute;
   inset:0;
@@ -1381,29 +1388,10 @@
     );
 }
 
-/* GROW + CONVERT — same banner dimensions, black image field */
-.service-card:not(.service-card--poster){
-  background:
-    radial-gradient(circle at 82% 18%,rgba(182,146,63,.09),transparent 28%),
-    linear-gradient(135deg,#080808 0%,#020202 100%);
-}
-
-.service-card:not(.service-card--poster)::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(90deg,rgba(255,255,255,.035),transparent 50%);
-}
-
 /*
-   CONTENT FIX
-   --------------------------------------------------------------------------
-   The old implementation used a very large content stack inside a 425px
-   card. The button therefore fell below the card and was clipped.
-   Here the wrapper owns the exact banner height and the body is pushed
-   upward with margin-top:auto. Everything remains inside the box.
+   Matched content frame:
+   top row + content all share the same vertical system.
+   No absolute positioning is used for text or CTA.
 */
 .service-card-content{
   position:relative;
@@ -1414,7 +1402,7 @@
   height:100%;
   min-height:0;
   box-sizing:border-box;
-  padding:1.75rem clamp(1.5rem,3.2vw,2.75rem);
+  padding:1.55rem clamp(1.5rem,3.2vw,2.75rem);
 }
 
 .service-top{
@@ -1426,10 +1414,19 @@
   margin:0;
 }
 
+/* 01 and BUILD now sit much closer together. */
+.service-card--poster .service-content,
+.service-card:not(.service-card--poster) .service-content{
+  width:min(620px,64%);
+  max-width:620px;
+  min-width:0;
+  margin-top:2.15rem;
+}
+
 .service-number{
   margin:0;
   font-family:var(--font-display);
-  font-size:clamp(3.4rem,4.7vw,4.8rem);
+  font-size:clamp(3.35rem,4.5vw,4.7rem);
   font-weight:400;
   line-height:.72;
   letter-spacing:-.06em;
@@ -1437,41 +1434,22 @@
 }
 
 .service-label{
-  margin-top:.15rem;
-  color:rgba(255,255,255,.65);
-  font-size:.65rem;
-  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:32px;
+  box-sizing:border-box;
+  margin-top:.05rem;
+  padding:.48rem .85rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#080808;
+  font-size:.62rem;
+  font-weight:800;
   line-height:1;
-  letter-spacing:.18em;
+  letter-spacing:.15em;
   text-transform:uppercase;
-}
-
-/* BUILD CONTENT */
-.service-card--poster .service-content{
-  width:min(590px,62%);
-  max-width:590px;
-  min-width:0;
-  margin-top:auto;
-  padding-top:1rem;
-}
-
-/* GROW / CONVERT CONTENT */
-.service-main{
-  position:relative;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  flex:1 1 auto;
-  min-height:0;
-  gap:.8rem;
-  margin:0;
-  padding-top:1rem;
-}
-
-.service-main .service-content{
-  max-width:620px;
-  min-width:0;
+  box-shadow:0 5px 18px rgba(0,0,0,.16);
 }
 
 .service-kicker{
@@ -1498,25 +1476,14 @@
 .service-card--poster .service-content h3{
   font-size:clamp(2.5rem,4vw,4.15rem);
   line-height:.88;
-  color:#fff;
 }
 
-.service-content > p:last-child,
 .service-description{
-  max-width:600px;
+  max-width:620px;
   margin:.68rem 0 0;
   font-size:clamp(.88rem,1vw,1rem);
   line-height:1.46;
   color:rgba(255,255,255,.76);
-}
-
-.service-meta{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:.8rem 2rem;
-  flex:0 0 auto;
 }
 
 .service-tags{
@@ -1543,7 +1510,7 @@
   -webkit-backdrop-filter:blur(8px);
 }
 
-/* CTA NEVER LEAVES THE BANNER */
+/* Same CTA treatment for all three banners. */
 .service-button,
 .service-link{
   display:inline-flex;
@@ -1566,12 +1533,7 @@
   transition:color .25s ease,border-color .25s ease,gap .25s ease,transform .25s ease;
 }
 
-.service-button{
-  justify-content:flex-start;
-}
-
-.service-arrow,
-.service-link span{
+.service-arrow{
   font-size:1.05rem;
   transition:transform .25s ease;
 }
@@ -1589,17 +1551,13 @@
   transform:translateX(4px);
 }
 
-/* Disable the old white-on-hover service-card effect. */
-.service-card::after{
-  pointer-events:none;
-}
-
 .service-card:hover .service-number{
   color:rgba(255,255,255,.34);
 }
 
 .service-card:hover .service-label{
-  color:rgba(255,255,255,.72);
+  background:#fff;
+  color:#080808;
 }
 
 .service-card-line{
@@ -1663,16 +1621,14 @@
   }
 
   .service-card-content{
-    padding:1.75rem;
+    padding:1.6rem 1.75rem;
   }
 
-  .service-card--poster .service-content{
+  .service-card--poster .service-content,
+  .service-card:not(.service-card--poster) .service-content{
     width:min(680px,82%);
     max-width:680px;
-  }
-
-  .service-main .service-content{
-    max-width:680px;
+    margin-top:2rem;
   }
 }
 
@@ -1692,21 +1648,24 @@
   }
 
   .service-card-content{
-    padding:1.25rem;
+    padding:1.2rem 1.25rem;
   }
 
-  .service-card--poster .service-content{
+  .service-card--poster .service-content,
+  .service-card:not(.service-card--poster) .service-content{
     width:100%;
     max-width:none;
-    padding-top:1rem;
-  }
-
-  .service-main{
-    gap:.7rem;
+    margin-top:2rem;
   }
 
   .service-number{
     font-size:3.5rem;
+  }
+
+  .service-label{
+    min-height:30px;
+    padding:.44rem .72rem;
+    font-size:.58rem;
   }
 
   .service-content h3,
@@ -1715,7 +1674,6 @@
     line-height:.9;
   }
 
-  .service-content > p:last-child,
   .service-description{
     font-size:.86rem;
     line-height:1.46;
@@ -1736,10 +1694,6 @@
   .service-link{
     margin-top:.58rem;
     font-size:.70rem;
-  }
-
-  .service-meta{
-    align-items:flex-start;
   }
 
   .services-footer{
