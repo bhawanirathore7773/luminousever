@@ -1420,7 +1420,8 @@
   width:min(620px,64%);
   max-width:620px;
   min-width:0;
-  margin-top:2.15rem;
+  margin-top:auto;
+  padding-top:2.15rem;
 }
 
 .service-number{
@@ -1628,7 +1629,8 @@
   .service-card:not(.service-card--poster) .service-content{
     width:min(680px,82%);
     max-width:680px;
-    margin-top:2rem;
+    margin-top:auto;
+    padding-top:2rem;
   }
 }
 
@@ -1655,7 +1657,8 @@
   .service-card:not(.service-card--poster) .service-content{
     width:100%;
     max-width:none;
-    margin-top:2rem;
+    margin-top:auto;
+    padding-top:2rem;
   }
 
   .service-number{
@@ -2465,5 +2468,69 @@
   .trust-bar__logo img,
   .trust-bar__logo::after {
     transition: none;
+  }
+}
+
+
+/* ==========================================================================
+   CLIENT RATING — GOOGLE-STYLE SOCIAL PROOF
+   ========================================================================== */
+
+.testimonial-rating{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.62rem;
+  margin-top:1.05rem;
+}
+
+.testimonial-rating__stars{
+  display:inline-flex;
+  align-items:center;
+  gap:.16rem;
+  color:#f4b400;
+  font-family:Arial,sans-serif;
+  font-size:1.05rem;
+  line-height:1;
+  letter-spacing:.02em;
+}
+
+.testimonial-rating__score{
+  font-size:.78rem;
+  font-weight:700;
+  color:var(--text);
+}
+
+.testimonial-rating__source{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  color:var(--text-muted);
+  font-size:.72rem;
+  font-weight:600;
+}
+
+.testimonial-rating__google{
+  display:inline-grid;
+  place-items:center;
+  width:18px;
+  height:18px;
+  border:1px solid var(--border-strong);
+  border-radius:50%;
+  font-family:Arial,sans-serif;
+  font-size:.66rem;
+  font-weight:800;
+  color:#4285f4;
+  background:#fff;
+}
+
+@media (max-width:640px){
+  .testimonial-rating{
+    margin-top:.85rem;
+    gap:.5rem;
+  }
+
+  .testimonial-rating__stars{
+    font-size:1rem;
   }
 }
