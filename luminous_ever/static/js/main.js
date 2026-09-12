@@ -265,15 +265,47 @@
      rather than assuming they always match. ---- */
   const header = document.querySelector("[data-site-header]");
   if (header) {
+    /*
+     * Header state follows the actual scroll position.
+     * When the homepage reaches the very top, remove is-scrolled immediately
+     * so Lenis cannot leave a translucent white header hanging for a moment.
+     */
     const toggleHeaderState = (scrollY) => {
-      header.classList.toggle("is-scrolled", scrollY > 40);
+      const y = Number(scrollY) || 0;
+      const atTop = y <= 2;
+      header.classList.toggle("is-scrolled", !atTop && y > 40);
     };
+
     toggleHeaderState(window.scrollY);
+
     if (lenis) {
-      lenis.on("scroll", (e) => toggleHeaderState(e.scroll));
-    } else {
-      window.addEventListener("scroll", () => toggleHeaderState(window.scrollY), { passive: true });
+      lenis.on("scroll", (e) => {
+        const y = Number(e?.scroll) || 0;
+        toggleHeaderState(y);
+      });
     }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        toggleHeaderState(window.scrollY);
+      },
+      { passive: true }
+    );
+
+    /*
+     * Upward wheel/touch input at the very top should also clear the visual
+     * state immediately instead of waiting for the smooth-scroll easing tail.
+     */
+    window.addEventListener(
+      "wheel",
+      (event) => {
+        if (event.deltaY < 0 && window.scrollY <= 2) {
+          header.classList.remove("is-scrolled");
+        }
+      },
+      { passive: true }
+    );
   }
 
   /* ---- Inline form validation: <form data-validate> wrapping .field blocks ---- */
