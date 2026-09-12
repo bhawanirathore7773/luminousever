@@ -74,6 +74,19 @@ body[data-hero-theme="dark"] .site-header:not(.is-scrolled)::after{
   transform:scaleX(0) !important;
 }
 
+body[data-hero-theme="dark"] .site-header{
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+body[data-hero-theme="dark"] .site-header::before{
+  transition:
+    opacity 160ms ease,
+    backdrop-filter 160ms ease;
+}
+
 /* Scrolled state */
 .site-header.is-scrolled {
   background: transparent;
