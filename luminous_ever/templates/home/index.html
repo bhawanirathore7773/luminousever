@@ -682,10 +682,74 @@
   </div>
 </section>
 
-<!-- ============ PROCESS ============ -->
-<section class="section surface-alt">
-  <div class="container-narrow">
-    {% include "components/_process.html" %}
+<!-- ============ PRICING ============ -->
+<section class="section pricing-section" id="pricing">
+  <div class="container">
+    <div class="pricing-intro" data-reveal>
+      <div><p class="eyebrow">Growth plans</p><h2 style="margin-top:var(--space-4); max-width:760px;">Choose the level of growth your business needs.</h2></div>
+      <p class="body-lg pricing-intro__copy">Start where you are. Scale when you're ready. Every plan is built around clear priorities, measurable work and a long-term growth roadmap.</p>
+    </div>
+    <div class="pricing-grid">
+      <article class="pricing-card" data-reveal data-reveal-delay="40">
+        <div class="pricing-card__top"><p class="pricing-card__eyebrow">01 · Foundation</p><h3>Build the foundation.</h3><p class="pricing-card__description">For businesses getting serious about their digital presence and local visibility.</p><div class="pricing-card__price"><span>₹12,000</span><small>/ month</small></div></div>
+        <ul class="pricing-card__features"><li>Website health &amp; maintenance</li><li>Technical &amp; local SEO</li><li>Up to 10 target keywords</li><li>2 SEO/content pieces</li><li>Analytics &amp; Search Console</li><li>Monthly performance report</li><li>1 strategy call / month</li></ul>
+        <a href="{% url 'leads:contact' %}?plan=foundation" class="pricing-card__cta">Start a conversation <span>→</span></a>
+      </article>
+      <article class="pricing-card pricing-card--featured" data-reveal data-reveal-delay="80">
+        <div class="pricing-card__popular">MOST POPULAR</div>
+        <div class="pricing-card__top"><p class="pricing-card__eyebrow">02 · Growth</p><h3>Build a consistent lead engine.</h3><p class="pricing-card__description">For businesses ready to turn visibility into a repeatable flow of qualified opportunities.</p><div class="pricing-card__price"><span>₹24,000</span><small>/ month</small></div></div>
+        <ul class="pricing-card__features"><li>Everything in Foundation</li><li>Up to 25 target keywords</li><li>4 SEO/content pieces</li><li>Google Business Profile growth</li><li>8 social/content assets</li><li>Conversion optimization</li><li>Bi-weekly performance review</li><li>2 strategy calls / month</li></ul>
+        <a href="{% url 'leads:contact' %}?plan=growth" class="pricing-card__cta">Choose Growth <span>→</span></a>
+      </article>
+      <article class="pricing-card" data-reveal data-reveal-delay="120">
+        <div class="pricing-card__top"><p class="pricing-card__eyebrow">03 · Scale</p><h3>Accelerate acquisition.</h3><p class="pricing-card__description">For established businesses that want SEO, paid acquisition and conversion working together.</p><div class="pricing-card__price"><span>₹49,000</span><small>/ month</small></div></div>
+        <ul class="pricing-card__features"><li>Everything in Growth</li><li>Advanced technical SEO</li><li>6–8 content pieces</li><li>Google Ads management</li><li>Meta Ads management</li><li>Landing page &amp; CRO work</li><li>Weekly growth reporting</li><li>Weekly strategy meeting</li></ul>
+        <a href="{% url 'leads:contact' %}?plan=scale" class="pricing-card__cta">Talk about Scale <span>→</span></a>
+      </article>
+      <article class="pricing-card pricing-card--dark" data-reveal data-reveal-delay="160">
+        <div class="pricing-card__top"><p class="pricing-card__eyebrow">04 · Partner</p><h3>Your digital growth team.</h3><p class="pricing-card__description">For businesses that want Luminous Ever to operate as an extension of their team.</p><div class="pricing-card__price"><span>₹89,000</span><small>/ month</small></div></div>
+        <ul class="pricing-card__features"><li>Everything in Scale</li><li>Full-funnel growth strategy</li><li>Content &amp; creative engine</li><li>Marketing automation</li><li>WhatsApp / lead automation</li><li>Advanced analytics &amp; CRO</li><li>Priority development support</li><li>Dedicated account management</li></ul>
+        <a href="{% url 'leads:contact' %}?plan=partner" class="pricing-card__cta">Build a partnership <span>→</span></a>
+      </article>
+    </div>
+    <div class="pricing-notes" data-reveal>
+      <div><strong>Transparent scope.</strong><span>You know what we're working on and why.</span></div>
+      <div><strong>Clear reporting.</strong><span>See progress across traffic, leads and conversion signals.</span></div>
+      <div><strong>Flexible growth.</strong><span>Upgrade when your business outgrows the plan.</span></div>
+      <div><strong>No vanity metrics.</strong><span>We focus on meaningful business outcomes.</span></div>
+    </div>
+    <p class="pricing-footnote">Website, e-commerce and custom application projects are scoped separately. Advertising spend is paid directly to Google/Meta and is not included in management fees.</p>
+  </div>
+</section>
+
+<!-- ============ HOW WE WORK ============ -->
+<section class="section surface-inverse work-rhythm-section" id="how-we-work">
+  <div class="container">
+    <div class="work-rhythm__intro" data-reveal>
+      <div><p class="eyebrow">How we work</p><h2 style="margin-top:var(--space-4); max-width:780px;">A clear rhythm. A shared plan. No disappearing after the invoice.</h2></div>
+      <p class="body-lg">You should always know what we're doing, what changed and what happens next. Our communication cadence keeps strategy, execution and accountability connected.</p>
+    </div>
+    <div class="work-rhythm__steps">
+      <article class="work-rhythm__step" data-reveal><span>01</span><div><h3>Discover</h3><p>We understand your business, customers, competitors, analytics and biggest growth bottlenecks before deciding what to build.</p></div></article>
+      <article class="work-rhythm__step" data-reveal><span>02</span><div><h3>Plan</h3><p>Every month gets a clear roadmap: priorities, deliverables, owners, success signals and the reason behind each activity.</p></div></article>
+      <article class="work-rhythm__step" data-reveal><span>03</span><div><h3>Execute</h3><p>Design, development, SEO, content, ads, CRO and automation are executed as one connected growth system.</p></div></article>
+      <article class="work-rhythm__step" data-reveal><span>04</span><div><h3>Measure</h3><p>We track what moved: visibility, traffic, leads, conversion signals and the quality of the opportunities being generated.</p></div></article>
+      <article class="work-rhythm__step" data-reveal><span>05</span><div><h3>Improve</h3><p>What we learn feeds the next sprint, so the system gets smarter instead of repeating the same monthly checklist.</p></div></article>
+    </div>
+    <div class="communication-cadence" data-reveal>
+      <div class="communication-cadence__heading"><p class="eyebrow">Your communication cadence</p><h3>Daily visibility. Weekly conversation. Monthly strategy.</h3></div>
+      <div class="communication-cadence__grid">
+        <div><span>DAILY</span><strong>Progress visibility</strong><p>Task and launch updates through your agreed communication channel.</p></div>
+        <div><span>WEEKLY</span><strong>Growth meeting</strong><p>30–45 minutes to review work, blockers, results and next priorities.</p></div>
+        <div><span>MONTHLY</span><strong>Growth review</strong><p>Performance report, learning summary and the next month's roadmap.</p></div>
+        <div><span>QUARTERLY</span><strong>Strategy reset</strong><p>Step back, review the bigger picture and adjust the growth direction.</p></div>
+      </div>
+    </div>
+    <div class="expectations-grid" data-reveal>
+      <div><strong>No black-box marketing.</strong><span>You can see what we're doing and why.</span></div>
+      <div><strong>No random execution.</strong><span>Every activity connects to a larger growth plan.</span></div>
+      <div><strong>No one-size-fits-all strategy.</strong><span>Your roadmap is built around your business.</span></div>
+    </div>
   </div>
 </section>
 
