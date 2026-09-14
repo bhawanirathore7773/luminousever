@@ -20,11 +20,11 @@ urlpatterns = [
     path(
         "privacy-policy/",
         TemplateView.as_view(
-            template_name="core/coming_soon.html",
+            template_name="core/legal_page.html",
             extra_context={
-                "page_title": "Privacy Policy",
-                "phase_note": "Coming soon",
-                "page_description": "Real policy text goes here once the business's data-handling specifics are finalized — not something to draft generically.",
+                "policy_key": "privacy",
+                "policy_title": "Privacy Policy",
+                "policy_description": "How Luminous Ever collects, uses, protects and retains personal information.",
             },
         ),
         name="privacy_policy",
@@ -32,16 +32,24 @@ urlpatterns = [
     path(
         "terms/",
         TemplateView.as_view(
-            template_name="core/coming_soon.html",
-            extra_context={"page_title": "Terms of Service", "phase_note": "Coming soon"},
+            template_name="core/legal_page.html",
+            extra_context={
+                "policy_key": "terms",
+                "policy_title": "Terms & Conditions",
+                "policy_description": "The rules governing use of the website and Luminous Ever's professional services.",
+            },
         ),
         name="terms",
     ),
     path(
         "refund-policy/",
         TemplateView.as_view(
-            template_name="core/coming_soon.html",
-            extra_context={"page_title": "Refund Policy", "phase_note": "Coming soon"},
+            template_name="core/legal_page.html",
+            extra_context={
+                "policy_key": "refund",
+                "policy_title": "Refund Policy",
+                "policy_description": "A clear framework for cancellations, recurring services, project work and refunds.",
+            },
         ),
         name="refund_policy",
     ),
