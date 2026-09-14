@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ policy_title }} — Luminous Ever{% endblock %}
+{% block meta_description %}{{ policy_description }}{% endblock %}
+{% block robots_meta %}index, follow{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/legal.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="legal-page">
+  <header class="legal-hero">
+    <div class="container legal-hero__inner">
+      <div class="legal-hero__eyebrow">Luminous Ever · Legal</div>
+      <h1>{{ policy_title }}</h1>
+      <p>{{ policy_description }}</p>
+      <div class="legal-hero__meta">
+        <span>Effective date: 14 September 2026</span>
+        <span>Last updated: 14 September 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container legal-layout">
+    <aside class="legal-toc" aria-label="On this page">
+      <div class="legal-toc__label">On this page</div>
+      {% if policy_key == "privacy" %}
+        <a href="#privacy-overview">Overview</a>
+        <a href="#privacy-data">Information we collect</a>
+        <a href="#privacy-use">How we use information</a>
+        <a href="#privacy-sharing">Sharing &amp; processors</a>
+        <a href="#privacy-retention">Retention &amp; security</a>
+        <a href="#privacy-rights">Your choices &amp; rights</a>
+        <a href="#privacy-cookies">Cookies &amp; analytics</a>
+        <a href="#privacy-children">Children</a>
+        <a href="#privacy-changes">Policy changes</a>
+        <a href="#privacy-contact">Contact</a>
+      {% elif policy_key == "terms" %}
+        <a href="#terms-acceptance">Acceptance</a>
+        <a href="#terms-services">Our services</a>
+        <a href="#terms-projects">Projects &amp; approvals</a>
+        <a href="#terms-client">Client responsibilities</a>
+        <a href="#terms-third-party">Third-party platforms</a>
+        <a href="#terms-results">Results &amp; warranties</a>
+        <a href="#terms-ip">Intellectual property</a>
+        <a href="#terms-confidentiality">Confidentiality</a>
+        <a href="#terms-payment">Fees &amp; payment</a>
+        <a href="#terms-cancellation">Suspension &amp; termination</a>
+        <a href="#terms-liability">Liability</a>
+        <a href="#terms-law">Governing law</a>
+        <a href="#terms-contact">Contact</a>
+      {% else %}
+        <a href="#refund-overview">Overview</a>
+        <a href="#refund-subscriptions">Subscriptions</a>
+        <a href="#refund-projects">Project work</a>
+        <a href="#refund-eligible">Eligible refunds</a>
+        <a href="#refund-nonrefundable">Non-refundable amounts</a>
+        <a href="#refund-cancellation">Cancellation process</a>
+        <a href="#refund-timing">Refund timing</a>
+        <a href="#refund-exceptions">Legal exceptions</a>
+        <a href="#refund-contact">Contact</a>
+      {% endif %}
+    </aside>
+
+    <div class="legal-content">
+      {% if policy_key == "privacy" %}
+      <section id="privacy-overview" class="legal-section">
+        <div class="legal-section__number">01</div>
+        <div>
+          <h2>Overview</h2>
+          <p>This Privacy Policy explains how Luminous Ever collects, uses, stores and protects personal information when you visit our website, contact us, request a proposal, use a service or otherwise interact with us.</p>
+          <p>We aim to collect only information that is reasonably needed for the purpose for which it is provided. Where Indian data-protection law applies, we process personal data in accordance with the applicable legal requirements, including applicable provisions of the Digital Personal Data Protection Act, 2023 and rules as and when they apply to the relevant processing.</p>
+          <div class="legal-callout"><strong>Plain-English promise.</strong><span>We do not sell your personal information. We use information to communicate with you, operate the website, deliver services, protect our systems and improve our work.</span></div>
+        </div>
+      </section>
+
+      <section id="privacy-data" class="legal-section">
+        <div class="legal-section__number">02</div>
+        <div>
+          <h2>Information we collect</h2>
+          <h3>Information you provide</h3>
+          <ul>
+            <li>Name, business name and contact details when you submit an enquiry or request a proposal.</li>
+            <li>Email address, phone number and communication details when you contact us.</li>
+            <li>Project requirements, budgets, preferences, files, website details and other information you voluntarily provide.</li>
+            <li>Information required to administer an active client relationship, including project communications and approvals.</li>
+          </ul>
+          <h3>Information collected automatically</h3>
+          <ul>
+            <li>IP address, browser/device information, approximate location derived from technical data, pages visited, referring pages and basic usage information.</li>
+            <li>Cookies and similar technologies used for essential functionality, analytics or marketing where those technologies are enabled.</li>
+            <li>Campaign and referral information, including UTM parameters, where present.</li>
+          </ul>
+          <p>We do not intentionally request sensitive personal information through ordinary website enquiry forms. Please do not submit passwords, financial account credentials, government identity numbers or other sensitive information through a public form unless we specifically request it through an appropriate secure process.</p>
+        </div>
+      </section>
+
+      <section id="privacy-use" class="legal-section">
+        <div class="legal-section__number">03</div>
+        <div>
+          <h2>How we use information</h2>
+          <p>Depending on the context, information may be used to:</p>
+          <ul>
+            <li>Respond to enquiries and communicate about requested services.</li>
+            <li>Prepare proposals, estimates, scopes and project documentation.</li>
+            <li>Deliver, maintain and support websites, marketing, SEO, design, development and other agreed services.</li>
+            <li>Process and administer payments, invoices and contractual records where applicable.</li>
+            <li>Measure website performance, understand how visitors use our website and improve user experience.</li>
+            <li>Maintain security, prevent abuse, investigate incidents and enforce our terms.</li>
+            <li>Meet legal, regulatory, accounting or dispute-resolution obligations.</li>
+            <li>Send service-related communications. Promotional communications will be sent only where permitted and with the choices required by applicable law.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="privacy-sharing" class="legal-section">
+        <div class="legal-section__number">04</div>
+        <div>
+          <h2>Sharing &amp; service providers</h2>
+          <p>We may share information only when reasonably necessary to operate the business, deliver a service, comply with law or protect legitimate interests. This can include trusted providers for hosting, email, analytics, communications, payment processing, cloud storage, development infrastructure and security.</p>
+          <p>Where a client asks us to work with a third-party platform—such as Google, Meta, a CRM, advertising platform, hosting provider or analytics service—we may need to transmit or access relevant project information through that platform. Those providers operate under their own terms and privacy policies.</p>
+          <p>We may also disclose information where required by law, legal process, court order, governmental authority, or where reasonably necessary to protect the rights, safety or property of Luminous Ever, our clients or others.</p>
+          <p>We do not sell personal information as a business model.</p>
+        </div>
+      </section>
+
+      <section id="privacy-retention" class="legal-section">
+        <div class="legal-section__number">05</div>
+        <div>
+          <h2>Retention &amp; security</h2>
+          <p>We retain personal information only for as long as reasonably necessary for the purpose for which it was collected, to maintain legitimate business records, complete a client relationship, resolve disputes, enforce agreements or meet legal/accounting obligations.</p>
+          <p>We use reasonable technical and organisational safeguards appropriate to the nature of the information. No internet transmission, storage system or security control can be guaranteed to be completely secure, so we cannot promise absolute security.</p>
+          <p>When information is no longer reasonably required and there is no legal reason to retain it, we may delete, anonymise or securely dispose of it.</p>
+        </div>
+      </section>
+
+      <section id="privacy-rights" class="legal-section">
+        <div class="legal-section__number">06</div>
+        <div>
+          <h2>Your choices &amp; rights</h2>
+          <p>Depending on applicable law and your relationship with us, you may have rights relating to access to personal data, correction, updating, withdrawal of consent, deletion/erasure and grievance or complaint mechanisms.</p>
+          <p>To make a privacy request, contact us using the details below. We may need to verify your identity before acting on a request. We will handle valid requests within the period required by applicable law.</p>
+          <p>Withdrawal of consent does not affect processing that was lawfully completed before withdrawal, and it may not affect processing that we are permitted or required to carry out on another lawful basis.</p>
+        </div>
+      </section>
+
+      <section id="privacy-cookies" class="legal-section">
+        <div class="legal-section__number">07</div>
+        <div>
+          <h2>Cookies &amp; analytics</h2>
+          <p>Our website may use cookies or similar technologies for essential operation, preferences, analytics, security and marketing. Analytics or advertising tools are enabled only where configured for the website.</p>
+          <p>Our current application can be configured with Google Analytics and Meta Pixel. If those tools are enabled, they may collect technical and usage information according to their own policies. You can also control cookies through your browser settings, although disabling certain cookies may affect site functionality.</p>
+        </div>
+      </section>
+
+      <section id="privacy-children" class="legal-section">
+        <div class="legal-section__number">08</div>
+        <div>
+          <h2>Children</h2>
+          <p>Our website and professional services are intended for businesses and general audiences, not for children. We do not knowingly solicit personal information from children through our website.</p>
+        </div>
+      </section>
+
+      <section id="privacy-changes" class="legal-section">
+        <div class="legal-section__number">09</div>
+        <div>
+          <h2>Changes to this policy</h2>
+          <p>We may update this Privacy Policy when our services, technology, data practices or legal requirements change. The updated version will be published on this page with a revised “Last updated” date. Material changes may also be communicated through an appropriate channel where required.</p>
+        </div>
+      </section>
+
+      <section id="privacy-contact" class="legal-section">
+        <div class="legal-section__number">10</div>
+        <div>
+          <h2>Contact &amp; privacy requests</h2>
+          <p>For privacy questions, data requests or complaints, contact Luminous Ever:</p>
+          {% if site_settings.contact_email %}<p class="legal-contact"><strong>{{ site_settings.contact_email }}</strong></p>{% else %}<p class="legal-contact"><strong>Use the Contact page on this website.</strong></p>{% endif %}
+          <p class="legal-muted">Please include enough information for us to identify your request without sending passwords or unnecessary sensitive information.</p>
+        </div>
+      </section>
+
+      {% elif policy_key == "terms" %}
+      <section id="terms-acceptance" class="legal-section">
+        <div class="legal-section__number">01</div>
+        <div>
+          <h2>Acceptance of these terms</h2>
+          <p>These Terms &amp; Conditions govern your use of the Luminous Ever website and the provision of services by Luminous Ever. By using the website, requesting a proposal, approving a scope, or purchasing a service, you agree to these terms together with any written proposal, statement of work, order form or project-specific terms that apply.</p>
+          <p>If a signed or expressly accepted project agreement conflicts with these website terms, the project-specific agreement will control for that project to the extent of the conflict.</p>
+        </div>
+      </section>
+
+      <section id="terms-services" class="legal-section">
+        <div class="legal-section__number">02</div>
+        <div>
+          <h2>Our services</h2>
+          <p>Luminous Ever provides digital strategy, website design and development, SEO, branding, content, digital marketing, analytics, automation and related professional services. The exact services, deliverables, timelines, assumptions and fees are determined by the applicable proposal or scope.</p>
+          <p>We may use employees, contractors or specialist service providers to perform parts of a project while remaining responsible for coordinating the agreed service.</p>
+        </div>
+      </section>
+
+      <section id="terms-projects" class="legal-section">
+        <div class="legal-section__number">03</div>
+        <div>
+          <h2>Projects, scope &amp; approvals</h2>
+          <ul>
+            <li>Work begins after the relevant proposal/scope is accepted and any required advance payment or onboarding requirements are completed.</li>
+            <li>Deliverables are limited to the agreed scope. New functionality, additional pages, extra revisions or material scope changes may require a revised quote or change order.</li>
+            <li>Client approvals and feedback should be provided within the timeframe agreed for the project. Delayed feedback, missing assets or third-party dependencies can move delivery dates.</li>
+            <li>Unless specifically included in writing, domain names, hosting, paid media spend, premium software, stock/licensed assets, third-party subscriptions and platform fees are separate costs.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="terms-client" class="legal-section">
+        <div class="legal-section__number">04</div>
+        <div>
+          <h2>Client responsibilities</h2>
+          <p>The client is responsible for providing accurate information, lawful content, brand assets, approvals and access credentials needed for the project. The client must have the right to use any content, images, trademarks, software, data or other materials supplied to us.</p>
+          <p>Clients must not provide passwords or privileged credentials through insecure public channels. Where platform access is required, we may recommend appropriate collaborator, manager or delegated access instead.</p>
+        </div>
+      </section>
+
+      <section id="terms-third-party" class="legal-section">
+        <div class="legal-section__number">05</div>
+        <div>
+          <h2>Third-party platforms</h2>
+          <p>Digital work can depend on third-party platforms such as search engines, social networks, advertising networks, hosting providers, payment processors, app stores, domain registrars and APIs. Their availability, policies, algorithms, pricing and functionality are outside our control.</p>
+          <p>We are not responsible for losses caused solely by a third party changing, suspending, restricting or discontinuing its platform, provided we have performed our agreed responsibilities with reasonable care.</p>
+        </div>
+      </section>
+
+      <section id="terms-results" class="legal-section">
+        <div class="legal-section__number">06</div>
+        <div>
+          <h2>Results, performance &amp; warranties</h2>
+          <p>We provide professional services using reasonable skill and care. However, marketing and technology outcomes depend on factors outside our control. We do not guarantee a specific search ranking, number of leads, advertising return, revenue increase, conversion rate, traffic level or other commercial result unless a specific written agreement expressly provides otherwise.</p>
+          <p>We do not make “guaranteed #1 ranking”, “guaranteed leads” or similar promises merely because such outcomes are desired.</p>
+          <p>Except where prohibited by applicable law, the website and general information are provided without an implied promise that every page, feature or third-party integration will remain uninterrupted or error-free.</p>
+        </div>
+      </section>
+
+      <section id="terms-ip" class="legal-section">
+        <div class="legal-section__number">07</div>
+        <div>
+          <h2>Intellectual property</h2>
+          <p>Each party retains ownership of materials it owned before a project. Third-party assets remain subject to their licences.</p>
+          <p>Unless the project agreement states otherwise, upon full payment for the applicable deliverable, the client receives the agreed rights to the final client-specific deliverables created for that project. Our pre-existing code, frameworks, reusable components, internal tools, processes, templates, know-how and general techniques remain ours, and may be reused in other work.</p>
+          <p>We may display completed work in our portfolio only where the project agreement permits it or the client has given appropriate permission. Confidential work will not be publicly disclosed without authorisation.</p>
+        </div>
+      </section>
+
+      <section id="terms-confidentiality" class="legal-section">
+        <div class="legal-section__number">08</div>
+        <div>
+          <h2>Confidentiality</h2>
+          <p>Each party will use reasonable care to protect confidential information received from the other party and will use it only for the relevant business relationship. Confidential information does not include information that is public, independently developed, already lawfully known, or required to be disclosed by law.</p>
+        </div>
+      </section>
+
+      <section id="terms-payment" class="legal-section">
+        <div class="legal-section__number">09</div>
+        <div>
+          <h2>Fees &amp; payment</h2>
+          <p>Fees are stated in the relevant proposal, order, invoice or subscription plan. Unless otherwise agreed, recurring services are billed in advance for the applicable billing period and one-time projects may be divided into milestones.</p>
+          <p>Advertising spend, domain/hosting fees, premium software, third-party licences and other external costs are not included unless expressly stated.</p>
+          <p>Taxes, including GST where applicable, are additional unless the quoted price expressly states that they are included.</p>
+          <p>We may pause work where an undisputed invoice is overdue, after giving reasonable notice. Any resulting delay may affect the project schedule.</p>
+        </div>
+      </section>
+
+      <section id="terms-cancellation" class="legal-section">
+        <div class="legal-section__number">10</div>
+        <div>
+          <h2>Suspension &amp; termination</h2>
+          <p>Either party may end an ongoing service relationship according to the notice period stated in the applicable agreement. If no notice period is stated, either party may request cancellation with at least 7 days’ written notice before the next recurring billing date.</p>
+          <p>On termination, the client remains responsible for fees for work completed, approved third-party costs and other amounts already incurred under the applicable agreement. Refunds, if any, are handled under our Refund Policy and any project-specific agreement.</p>
+          <p>We may suspend or terminate services for serious breach, unlawful use, non-payment, abusive conduct, security risk or other circumstances where continued performance is not reasonably possible.</p>
+        </div>
+      </section>
+
+      <section id="terms-liability" class="legal-section">
+        <div class="legal-section__number">11</div>
+        <div>
+          <h2>Liability</h2>
+          <p>Nothing in these terms excludes or limits liability that cannot lawfully be excluded or limited.</p>
+          <p>To the maximum extent permitted by law, Luminous Ever will not be liable for indirect, incidental, special, consequential or purely speculative losses, or loss of anticipated profits, revenue, data or business opportunity arising from matters outside our reasonable control.</p>
+          <p>Where permitted by applicable law, our aggregate liability for a claim relating to a paid service will not exceed the fees actually paid to Luminous Ever for the specific service giving rise to that claim during the three months immediately preceding the event giving rise to the claim. This limitation does not apply to liabilities that cannot lawfully be limited.</p>
+        </div>
+      </section>
+
+      <section id="terms-law" class="legal-section">
+        <div class="legal-section__number">12</div>
+        <div>
+          <h2>Governing law &amp; disputes</h2>
+          <p>These terms are governed by the laws of India, subject to any mandatory consumer or other statutory protections that apply to you.</p>
+          <p>We encourage the parties to first try to resolve a dispute in good faith through written communication. If a dispute cannot be resolved amicably, it may be dealt with by a court or other competent forum having jurisdiction under applicable law.</p>
+        </div>
+      </section>
+
+      <section id="terms-contact" class="legal-section">
+        <div class="legal-section__number">13</div>
+        <div>
+          <h2>Contact</h2>
+          <p>Questions about these terms or a project should be sent through our Contact page or to the contact email published on this website.</p>
+          {% if site_settings.contact_email %}<p class="legal-contact"><strong>{{ site_settings.contact_email }}</strong></p>{% endif %}
+        </div>
+      </section>
+
+      {% else %}
+      <section id="refund-overview" class="legal-section">
+        <div class="legal-section__number">01</div>
+        <div>
+          <h2>Refund policy</h2>
+          <p>Luminous Ever provides professional digital services that are often customised, scheduled and performed specifically for a client. This policy explains how cancellations and refunds are handled for recurring services and one-time projects.</p>
+          <div class="legal-callout"><strong>Simple rule.</strong><span>You are charged for work that has been performed or committed, while genuinely unearned prepaid fees may be refundable where this policy, your project agreement or applicable law requires it.</span></div>
+        </div>
+      </section>
+
+      <section id="refund-subscriptions" class="legal-section">
+        <div class="legal-section__number">02</div>
+        <div>
+          <h2>Monthly subscriptions &amp; retainers</h2>
+          <p>Recurring plans are billed for the agreed service period. A cancellation request should be made at least 7 days before the next billing date unless your signed agreement specifies a different notice period.</p>
+          <ul>
+            <li>Work already performed during the current billing period is not refundable.</li>
+            <li>Committed third-party costs and non-cancellable expenses are not refundable.</li>
+            <li>If we receive a cancellation before the next billing period begins, the next period will not normally be charged.</li>
+            <li>Partial-month refunds are not normally provided after a recurring period has started, except where expressly agreed or required by applicable law.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="refund-projects" class="legal-section">
+        <div class="legal-section__number">03</div>
+        <div>
+          <h2>One-time projects</h2>
+          <p>For websites, branding, development, SEO setup and other fixed-scope projects, the applicable proposal or statement of work determines the deposit and milestone structure.</p>
+          <ul>
+            <li>Deposits cover project reservation, discovery, planning, resource allocation and work performed after approval.</li>
+            <li>Once work has started, the amount attributable to work completed and committed project costs is non-refundable.</li>
+            <li>If a project is cancelled before any substantive work begins, we will assess the amount of genuinely unearned fees and refund that amount where appropriate, after deducting any agreed non-refundable or already-incurred costs.</li>
+            <li>Where a project-specific agreement contains a different cancellation/refund arrangement, that agreement controls.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="refund-eligible" class="legal-section">
+        <div class="legal-section__number">04</div>
+        <div>
+          <h2>When a refund may be due</h2>
+          <p>A refund may be appropriate where:</p>
+          <ul>
+            <li>We have received money for a service that we have not started and have no committed non-refundable cost for, subject to the applicable agreement.</li>
+            <li>We agree in writing to refund an amount as part of a cancellation or resolution.</li>
+            <li>A refund is required by applicable consumer or other law.</li>
+            <li>We are unable to deliver an agreed service and the applicable agreement provides for a refund.</li>
+          </ul>
+          <p>Refund eligibility is assessed against the actual scope, work completed, payment history, third-party commitments and the applicable agreement.</p>
+        </div>
+      </section>
+
+      <section id="refund-nonrefundable" class="legal-section">
+        <div class="legal-section__number">05</div>
+        <div>
+          <h2>Amounts that are generally non-refundable</h2>
+          <ul>
+            <li>Work already completed or delivered.</li>
+            <li>Approved change requests or additional work already performed.</li>
+            <li>Third-party costs that have already been paid or cannot be cancelled.</li>
+            <li>Advertising spend already committed or spent on a client's behalf.</li>
+            <li>Premium software, licences, domains, hosting or other external purchases made specifically for the project where the provider does not permit cancellation/refund.</li>
+            <li>Amounts expressly identified as non-refundable in an accepted project agreement.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="refund-cancellation" class="legal-section">
+        <div class="legal-section__number">06</div>
+        <div>
+          <h2>How to request a cancellation or refund</h2>
+          <p>Send the request through our Contact page or the contact email published on this website. Include your name/business name, invoice or project reference if available, the service involved, the requested cancellation date and the reason for the request.</p>
+          <p>We may ask for reasonable information needed to verify the request. We will review the request against the applicable agreement and this policy and communicate the decision.</p>
+        </div>
+      </section>
+
+      <section id="refund-timing" class="legal-section">
+        <div class="legal-section__number">07</div>
+        <div>
+          <h2>Refund timing</h2>
+          <p>Where a refund is approved, we will initiate it using the original payment method where reasonably possible. The time taken for the amount to appear in your account can depend on the payment provider or bank.</p>
+          <p>We will not intentionally delay an approved refund beyond the period required by applicable law or the agreed payment terms.</p>
+        </div>
+      </section>
+
+      <section id="refund-exceptions" class="legal-section">
+        <div class="legal-section__number">08</div>
+        <div>
+          <h2>Mandatory legal rights</h2>
+          <p>This policy does not remove or restrict any right, remedy or refund entitlement that cannot lawfully be excluded or limited. If applicable consumer-protection, contract or other law gives you a mandatory right, that right will apply even if this policy says otherwise.</p>
+          <p>Nothing here is intended to create a waiver of statutory rights.</p>
+        </div>
+      </section>
+
+      <section id="refund-contact" class="legal-section">
+        <div class="legal-section__number">09</div>
+        <div>
+          <h2>Contact</h2>
+          <p>For cancellation or refund requests, use the Contact page or the contact email published on this website.</p>
+          {% if site_settings.contact_email %}<p class="legal-contact"><strong>{{ site_settings.contact_email }}</strong></p>{% endif %}
+        </div>
+      </section>
+      {% endif %}
+
+      <div class="legal-disclaimer">
+        <strong>Important:</strong> This page is written for Luminous Ever's current website and service model using the business information available in the project. It is not a substitute for advice from an Indian lawyer. Before accepting paid subscriptions, high-value contracts or processing sensitive/personal data at scale, have the final policies and any client agreement reviewed for the exact legal entity, operating location, services, payment flows and applicable regulatory obligations.
+      </div>
+    </div>
+  </div>
+</article>
+{% endblock %}
