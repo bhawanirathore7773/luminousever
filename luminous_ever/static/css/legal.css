@@ -1,0 +1,32 @@
+/* Luminous Ever — legal pages */
+.legal-page{background:var(--surface);color:var(--text);}
+.legal-hero{background:var(--surface-inverse);color:var(--text-inverse);padding:clamp(7rem,14vw,11rem) 0 4rem;border-bottom:1px solid var(--border-inverse);}
+.legal-hero__inner{max-width:1180px;}
+.legal-hero__eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--text-inverse-faint);margin-bottom:1.4rem;}
+.legal-hero h1{max-width:920px;margin:0;font-family:var(--font-display);font-size:clamp(3rem,7vw,6.8rem);line-height:.94;font-weight:450;letter-spacing:-.055em;}
+.legal-hero p{max-width:720px;margin:1.5rem 0 0;color:var(--text-inverse-muted);font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.7;}
+.legal-hero__meta{display:flex;flex-wrap:wrap;gap:.65rem 1.5rem;margin-top:2rem;color:var(--text-inverse-faint);font-size:.7rem;letter-spacing:.02em;}
+.legal-layout{display:grid;grid-template-columns:220px minmax(0,820px);gap:clamp(2.5rem,7vw,7rem);align-items:start;padding-top:clamp(3rem,6vw,6rem);padding-bottom:clamp(5rem,9vw,9rem);}
+.legal-toc{position:sticky;top:6.5rem;display:grid;gap:.2rem;padding:1rem 0;}
+.legal-toc__label{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:.75rem;}
+.legal-toc a{padding:.4rem 0;color:var(--text-muted);font-size:.72rem;line-height:1.35;text-decoration:none;transition:color .2s ease,transform .2s ease;}
+.legal-toc a:hover{color:var(--text);transform:translateX(3px);}
+.legal-content{min-width:0;}
+.legal-section{display:grid;grid-template-columns:44px minmax(0,1fr);gap:1.5rem;padding:0 0 clamp(3.2rem,6vw,5rem);margin:0 0 clamp(3.2rem,6vw,5rem);border-bottom:1px solid var(--border);}
+.legal-section__number{padding-top:.5rem;color:var(--text-faint);font-size:.68rem;font-weight:800;letter-spacing:.08em;}
+.legal-section h2{margin:0;font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:500;letter-spacing:-.03em;line-height:1.05;}
+.legal-section h3{margin:2rem 0 .65rem;font-size:.92rem;font-weight:750;}
+.legal-section p,.legal-section li{color:var(--text-muted);font-size:.9rem;line-height:1.85;}
+.legal-section p{margin:1rem 0 0;}
+.legal-section ul{margin:1rem 0 0;padding-left:1.2rem;}
+.legal-section li{padding-left:.25rem;margin:.45rem 0;}
+.legal-section li::marker{color:var(--text-faint);}
+.legal-callout{display:grid;grid-template-columns:auto 1fr;gap:.75rem 1rem;margin-top:1.5rem;padding:1.15rem 1.25rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface-subtle);}
+.legal-callout strong{font-size:.78rem;}
+.legal-callout span{color:var(--text-muted);font-size:.78rem;line-height:1.6;}
+.legal-contact{font-size:1rem!important;color:var(--text)!important;}
+.legal-muted{color:var(--text-faint)!important;font-size:.75rem!important;}
+.legal-disclaimer{margin-top:1rem;padding:1.25rem 1.4rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface-subtle);color:var(--text-muted);font-size:.72rem;line-height:1.7;}
+.legal-disclaimer strong{color:var(--text);}
+@media(max-width:900px){.legal-layout{grid-template-columns:1fr;gap:2rem;}.legal-toc{position:static;display:flex;gap:.55rem;overflow-x:auto;padding:.25rem 0 1rem;border-bottom:1px solid var(--border);scrollbar-width:none;}.legal-toc::-webkit-scrollbar{display:none}.legal-toc__label{display:none}.legal-toc a{flex:0 0 auto;padding:.55rem .7rem;border:1px solid var(--border);border-radius:999px;font-size:.66rem;}.legal-toc a:hover{transform:none;}}
+@media(max-width:600px){.legal-hero{padding-top:6.5rem;padding-bottom:3rem}.legal-hero h1{font-size:clamp(2.65rem,14vw,4.4rem)}.legal-hero p{font-size:.9rem}.legal-hero__meta{font-size:.62rem}.legal-layout{padding-top:2rem}.legal-section{grid-template-columns:1fr;gap:.65rem;padding-bottom:3rem;margin-bottom:3rem}.legal-section__number{padding-top:0}.legal-section h2{font-size:1.8rem}.legal-section p,.legal-section li{font-size:.82rem;line-height:1.75}.legal-callout{grid-template-columns:1fr;gap:.3rem;}.legal-disclaimer{font-size:.68rem;}}
