@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}E-commerce & Marketplace Account Management | Amazon, Flipkart, Meesho, Myntra & Shopify | Luminous Ever{% endblock %}
+{% block title %}E-commerce & Marketplace Account Management | Amazon, Flipkart, Meesho, Myntra & Shopify | Luminous Ever{% block extra_scripts %}<script>
+(function(){
+  const data={
+    amazon:{kicker:'AMAZON · SELLER CENTRAL',title:'Amazon account operations',desc:'Catalog, listings, account health, advertising, inventory, returns and seller-support workflows.',items:['New & existing listing management','Title, bullets, description & search-term optimisation','A+ / rich content where eligible','Sponsored advertising setup & optimisation','Inventory and suppressed-listing monitoring','Returns, cases and seller-support follow-up','Account health monitoring','Weekly / monthly performance reporting']},
+    flipkart:{kicker:'FLIPKART · SELLER HUB',title:'Flipkart account operations',desc:'Seller Hub catalogue, listings, advertising, pricing, fulfilment, returns and performance workflows.',items:['Catalogue creation & attribute mapping','Listing quality & content optimisation','Flipkart Ads setup & monitoring','Pricing and promotion coordination','Inventory, fulfilment & SLA monitoring','Returns, disputes & support follow-up','Sale-event readiness','Performance reporting']},
+    meesho:{kicker:'MEESHO · SUPPLIER PANEL',title:'Meesho account operations',desc:'Catalogue scaling, pricing, orders, returns, promotions and supplier performance monitoring.',items:['Catalogue creation / bulk operations','Product content & image readiness','SKU, pricing & stock coordination','Order & return monitoring','Promotion coordination','Supplier-panel issue follow-up','Performance tracking','Regular operating updates']},
+    myntra:{kicker:'MYNTRA · MARKETPLACE',title:'Myntra marketplace operations',desc:'For eligible brands: catalogue/style data, content, inventory, orders, returns and performance coordination.',items:['Style / catalogue data coordination','Images, size & attribute checks','Inventory readiness','Order & return workflow monitoring','Content QA','Performance coordination','Issue / ticket follow-up','Reporting & planning']},
+    shopify:{kicker:'SHOPIFY · D2C STORE',title:'Shopify store management',desc:'A managed D2C storefront layer covering catalogue, merchandising, orders, inventory and conversion-focused operations.',items:['Product & variant management','Collections & merchandising','Storefront content updates','Inventory & order operations','Apps / integration coordination','Basic SEO & conversion checks','Promotional landing-page updates','Store performance reporting']}
+  };
+  const tabs=document.querySelectorAll('.em-platform-tab'), title=document.getElementById('em-platform-title'), desc=document.getElementById('em-platform-desc'), kicker=document.getElementById('em-platform-kicker'), checks=document.getElementById('em-platform-checks');
+  function render(key){const d=data[key];kicker.textContent=d.kicker;title.textContent=d.title;desc.textContent=d.desc;checks.innerHTML=d.items.map(x=>'<span><i>✓</i>'+x+'</span>').join('');tabs.forEach(t=>{const active=t.dataset.platform===key;t.classList.toggle('is-active',active);t.setAttribute('aria-selected',active?'true':'false')})}
+  tabs.forEach(t=>t.addEventListener('click',()=>render(t.dataset.platform)));render('amazon');
+  const toggles=document.querySelectorAll('.em-plan-toggle');
+  toggles.forEach(t=>t.addEventListener('click',()=>{toggles.forEach(x=>x.classList.remove('is-active'));t.classList.add('is-active');const mode=t.dataset.planMode;document.querySelectorAll('.em-plan-price[data-monthly]').forEach(p=>{p.innerHTML=p.dataset[mode]+' <small>/ month</small>'})}));
+  document.querySelectorAll('[data-plan-select]').forEach(b=>b.addEventListener('click',()=>{const plan=b.dataset.planSelect;const url=new URL("{% url 'leads:contact' %}",window.location.origin);url.searchParams.set('service','ecommerce-account-management');url.searchParams.set('plan',plan);window.location.href=url.toString()}));
+})();
+</script>{% endblock %}{% endblock %}
 {% block meta_description %}End-to-end e-commerce account management for Amazon, Flipkart, Meesho, Myntra and Shopify: catalog, listing optimization, ads, inventory, orders, returns, account health and settlement reconciliation.{% endblock %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'css/ecommerce-management.css' %}">{% endblock %}
 {% block content %}
@@ -24,18 +40,87 @@
   </div>
 </section>
 
-<section class="section" id="platforms">
+<section class="section em-platform-section" id="platforms">
   <div class="container">
-    <p class="eyebrow">Platforms</p>
-    <h2>One team across the channels that matter.</h2>
-    <div class="em-platforms">
-      <article><b>Amazon</b><span>Seller Central operations, catalog/listing optimisation, A+ content where eligible, advertising, account health, inventory, returns and seller-support workflows.</span></article>
-      <article><b>Flipkart</b><span>Seller Hub catalog management, listing quality, pricing, advertising, fulfilment, returns, seller-performance issues and sale-event readiness.</span></article>
-      <article><b>Meesho</b><span>Supplier Panel catalog operations, SKU scaling, pricing, order/return monitoring, promotions and performance tracking.</span></article>
-      <article><b>Myntra</b><span>Marketplace operations for eligible brands, catalog/style data, imagery and size information, inventory, order/return workflows and performance coordination.</span></article>
-      <article><b>Shopify</b><span>Store administration, product/catalog management, collections, merchandising, inventory, orders, apps, storefront content and conversion-focused improvements.</span></article>
+    <div class="em-center-head">
+      <p class="eyebrow">Platforms we manage</p>
+      <h2>Choose one channel or build a multi-channel operation.</h2>
+      <p>Click a platform to see the operating areas we can manage. Availability depends on your seller type, category, account permissions and platform programme.</p>
     </div>
-    <p class="em-source-note">Capabilities vary by seller type, category, brand approval, platform programme and account permissions. We only promise and perform work that the platform makes available to the account.</p>
+    <div class="em-platform-switcher" role="tablist" aria-label="E-commerce platforms">
+      <button class="em-platform-tab is-active" type="button" role="tab" aria-selected="true" data-platform="amazon"><span class="em-logo em-logo--amazon">a</span><strong>Amazon</strong><small>Seller Central</small></button>
+      <button class="em-platform-tab" type="button" role="tab" aria-selected="false" data-platform="flipkart"><span class="em-logo em-logo--flipkart">F</span><strong>Flipkart</strong><small>Seller Hub</small></button>
+      <button class="em-platform-tab" type="button" role="tab" aria-selected="false" data-platform="meesho"><span class="em-logo em-logo--meesho">M</span><strong>Meesho</strong><small>Supplier Panel</small></button>
+      <button class="em-platform-tab" type="button" role="tab" aria-selected="false" data-platform="myntra"><span class="em-logo em-logo--myntra">M</span><strong>Myntra</strong><small>Partner ecosystem</small></button>
+      <button class="em-platform-tab" type="button" role="tab" aria-selected="false" data-platform="shopify"><span class="em-logo em-logo--shopify">S</span><strong>Shopify</strong><small>D2C store</small></button>
+    </div>
+    <div class="em-platform-panel" id="em-platform-panel">
+      <div class="em-platform-panel__copy">
+        <p class="eyebrow" id="em-platform-kicker">AMAZON · SELLER CENTRAL</p>
+        <h3 id="em-platform-title">Amazon account operations</h3>
+        <p id="em-platform-desc">Catalog, listings, account health, advertising, inventory, returns and seller-support workflows.</p>
+      </div>
+      <div class="em-platform-checks" id="em-platform-checks"></div>
+    </div>
+    <p class="em-source-note">Platform names and logos are shown only to identify the channels we can manage. Luminous Ever is not claiming ownership, endorsement or formal partnership unless explicitly stated.</p>
+  </div>
+</section>
+
+<section class="section em-plans" id="plans">
+  <div class="container">
+    <div class="em-center-head">
+      <p class="eyebrow">Management plans</p>
+      <h2>Pick the operating level that matches your catalogue.</h2>
+      <p>Product limits below are management-scope limits, not platform listing limits. You keep ownership of every marketplace account, sale and payout.</p>
+    </div>
+    <div class="em-plan-controls">
+      <button class="em-plan-toggle is-active" type="button" data-plan-mode="monthly">Monthly management</button>
+      <button class="em-plan-toggle" type="button" data-plan-mode="quarterly">Quarterly commitment <span>save 10%</span></button>
+    </div>
+    <div class="em-plan-grid">
+      <article class="em-plan" data-plan="starter">
+        <div class="em-plan-top"><span>01 · LAUNCH</span><span>For focused catalogues</span></div>
+        <h3>Starter</h3><p class="em-plan-price" data-monthly="₹7,500" data-quarterly="₹6,750">₹7,500 <small>/ month</small></p>
+        <p class="em-plan-desc">For a new or small marketplace operation that needs reliable catalogue and account hygiene.</p>
+        <div class="em-plan-cap"><strong>Up to 25 active products</strong><span>1 platform included</span></div>
+        <ul>
+          <li>Account health &amp; basic issue monitoring</li><li>Product listing / catalogue operations</li><li>Listing content optimisation</li><li>Basic inventory &amp; order monitoring</li><li>Return issue tracking</li><li>Monthly performance report</li><li>1 review / strategy call per month</li>
+        </ul>
+        <button class="em-plan-cta" type="button" data-plan-select="Starter">Choose Starter</button>
+      </article>
+      <article class="em-plan em-plan--featured" data-plan="growth">
+        <div class="em-plan-badge">MOST POPULAR</div>
+        <div class="em-plan-top"><span>02 · GROW</span><span>For scaling brands</span></div>
+        <h3>Growth</h3><p class="em-plan-price" data-monthly="₹15,000" data-quarterly="₹13,500">₹15,000 <small>/ month</small></p>
+        <p class="em-plan-desc">For brands ready to optimise catalogue, visibility and daily marketplace operations.</p>
+        <div class="em-plan-cap"><strong>Up to 100 active products</strong><span>Up to 2 platforms included</span></div>
+        <ul>
+          <li>Everything in Starter</li><li>Advanced listing &amp; catalogue optimisation</li><li>Marketplace ads setup &amp; management</li><li>Pricing &amp; promotion coordination</li><li>Inventory / fulfilment monitoring</li><li>Returns, cases &amp; support follow-up</li><li>Settlement / deduction reconciliation support</li><li>Weekly operating update</li><li>Monthly strategy review</li>
+        </ul>
+        <button class="em-plan-cta" type="button" data-plan-select="Growth">Choose Growth</button>
+      </article>
+      <article class="em-plan" data-plan="scale">
+        <div class="em-plan-top"><span>03 · SCALE</span><span>For multi-channel brands</span></div>
+        <h3>Scale</h3><p class="em-plan-price" data-monthly="₹30,000" data-quarterly="₹27,000">₹30,000 <small>/ month</small></p>
+        <p class="em-plan-desc">For brands running multiple channels and needing a structured operating partner.</p>
+        <div class="em-plan-cap"><strong>Up to 250 active products</strong><span>Up to 4 platforms included</span></div>
+        <ul>
+          <li>Everything in Growth</li><li>Multi-channel catalogue coordination</li><li>Advanced advertising optimisation</li><li>Sale-event planning &amp; readiness</li><li>Cross-channel inventory visibility</li><li>Detailed settlement / payout review</li><li>Account-health escalation coordination</li><li>Weekly performance report</li><li>Monthly growth meeting</li>
+        </ul>
+        <button class="em-plan-cta" type="button" data-plan-select="Scale">Choose Scale</button>
+      </article>
+      <article class="em-plan em-plan--enterprise" data-plan="enterprise">
+        <div class="em-plan-top"><span>04 · ENTERPRISE</span><span>High-volume operations</span></div>
+        <h3>Custom</h3><p class="em-plan-price">Let's scope</p>
+        <p class="em-plan-desc">For 250+ products, multiple brands, higher order volume, complex catalogues or dedicated operations.</p>
+        <div class="em-plan-cap"><strong>250+ products</strong><span>Custom platform mix</span></div>
+        <ul>
+          <li>Dedicated operating team</li><li>Custom catalogue / SKU workflows</li><li>Advanced ads &amp; performance management</li><li>Custom reporting / dashboards</li><li>Commercial &amp; profitability reviews</li><li>Process documentation &amp; SOPs</li><li>Priority operating cadence</li>
+        </ul>
+        <button class="em-plan-cta" type="button" data-plan-select="Enterprise">Build my scope</button>
+      </article>
+    </div>
+    <div class="em-plan-note"><strong>What is not included by default:</strong> marketplace commission/fees, ad spend, shipping/fulfilment, GST/taxes, product photography, video production, paid third-party software, platform subscription fees, major development work and out-of-scope bulk catalogues. These can be added to a written scope.</div>
   </div>
 </section>
 
