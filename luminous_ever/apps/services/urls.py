@@ -7,12 +7,13 @@ nothing that links via {% url %} needed to change; two new named routes
 
 from django.urls import path
 
-from .views import IndustryDetailView, IndustryIndexView, SAPConsultingView, ServiceDetailView, ServiceIndexView
+from .views import EcommerceManagementView, IndustryDetailView, IndustryIndexView, SAPConsultingView, ServiceDetailView, ServiceIndexView
 
 app_name = "services"
 
 urlpatterns = [
     path("sap-consulting/", SAPConsultingView.as_view(), name="sap_consulting"),
+    path("ecommerce-account-management/", EcommerceManagementView.as_view(), name="ecommerce_management"),
     path("services/", ServiceIndexView.as_view(), name="index"),
     path("services/<slug:slug>/", ServiceDetailView.as_view(), name="detail"),
     path("industries/", IndustryIndexView.as_view(), name="industries"),
