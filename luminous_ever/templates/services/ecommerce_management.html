@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}E-commerce & Marketplace Account Management | Amazon, Flipkart, Meesho, Myntra & Shopify | Luminous Ever{% endblock %}
+{% block meta_description %}End-to-end e-commerce account management for Amazon, Flipkart, Meesho, Myntra and Shopify: catalog, listing optimization, ads, inventory, orders, returns, account health and settlement reconciliation.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/ecommerce-management.css' %}">{% endblock %}
+{% block content %}
+<section class="em-hero">
+  <div class="container em-hero__grid">
+    <div>
+      <p class="eyebrow">E-commerce &amp; Marketplace Operations</p>
+      <h1>We manage the marketplace. You focus on the product.</h1>
+      <p class="em-lead">A dedicated operating layer for brands selling across Amazon, Flipkart, Meesho, Myntra and Shopify — covering catalog, listings, promotions, advertising, inventory, orders, returns, seller performance and reporting.</p>
+      <div class="em-actions">
+        <a class="btn btn-primary" href="{% url 'leads:contact' %}?service=ecommerce-account-management">Request an account audit <span>→</span></a>
+        <a class="btn btn-outline" href="#platforms">See what we manage</a>
+      </div>
+      <p class="em-note">Platform fees, advertising spend, shipping/fulfilment and third-party software are separate unless explicitly included in a written scope.</p>
+    </div>
+    <div class="em-hero__panel">
+      <span>ONE OPERATING TEAM</span>
+      <strong>Catalog → Traffic → Orders → Profitability</strong>
+      <div class="em-mini-grid"><span>Listing quality</span><span>Ads &amp; visibility</span><span>Inventory</span><span>Returns</span><span>Reconciliation</span><span>Reporting</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="platforms">
+  <div class="container">
+    <p class="eyebrow">Platforms</p>
+    <h2>One team across the channels that matter.</h2>
+    <div class="em-platforms">
+      <article><b>Amazon</b><span>Seller Central operations, catalog/listing optimisation, A+ content where eligible, advertising, account health, inventory, returns and seller-support workflows.</span></article>
+      <article><b>Flipkart</b><span>Seller Hub catalog management, listing quality, pricing, advertising, fulfilment, returns, seller-performance issues and sale-event readiness.</span></article>
+      <article><b>Meesho</b><span>Supplier Panel catalog operations, SKU scaling, pricing, order/return monitoring, promotions and performance tracking.</span></article>
+      <article><b>Myntra</b><span>Marketplace operations for eligible brands, catalog/style data, imagery and size information, inventory, order/return workflows and performance coordination.</span></article>
+      <article><b>Shopify</b><span>Store administration, product/catalog management, collections, merchandising, inventory, orders, apps, storefront content and conversion-focused improvements.</span></article>
+    </div>
+    <p class="em-source-note">Capabilities vary by seller type, category, brand approval, platform programme and account permissions. We only promise and perform work that the platform makes available to the account.</p>
+  </div>
+</section>
+
+<section class="section surface-alt">
+  <div class="container">
+    <div class="em-section-head"><div><p class="eyebrow">What we manage</p><h2>Account management means more than uploading products.</h2></div><p>Our workflow connects merchandising, marketplace operations, performance marketing and commercial reporting instead of treating each task as a separate service.</p></div>
+    <div class="em-services">
+      <article><span>01</span><h3>Catalog &amp; listing operations</h3><p>New SKU creation, bulk uploads, attribute mapping, category placement, titles, bullets/descriptions, search terms, variations, images, size charts, content QA and listing-error resolution.</p></article>
+      <article><span>02</span><h3>Listing optimisation</h3><p>Improve discoverability and conversion through structured titles, relevant search terms, clear value propositions, compliant attributes, imagery and content testing where platform tools permit.</p></article>
+      <article><span>03</span><h3>Ads &amp; marketplace visibility</h3><p>Campaign setup, product selection, budget allocation, bid/budget monitoring, search-term analysis and performance reviews. Advertising spend remains client-funded and is not included in management fees unless stated.</p></article>
+      <article><span>04</span><h3>Inventory &amp; order operations</h3><p>Stock availability checks, low-stock flags, order monitoring, fulfilment exceptions, cancellation trends and coordination with the client’s warehouse or fulfilment partner.</p></article>
+      <article><span>05</span><h3>Returns, claims &amp; seller support</h3><p>Return reason tracking, issue logging, support tickets, dispute documentation and escalation follow-up. Outcomes depend on platform policy and evidence available.</p></article>
+      <article><span>06</span><h3>Settlement &amp; reconciliation</h3><p>Order-level reconciliation support, fee/commission checks, deductions, returns and payout variance tracking, with escalation of identified discrepancies to the platform or finance team.</p></article>
+      <article><span>07</span><h3>Pricing, promotions &amp; sale events</h3><p>Competitor and margin-aware pricing reviews, promotion planning and marketplace event readiness. Final commercial pricing and discounts remain subject to client approval.</p></article>
+      <article><span>08</span><h3>Account health &amp; compliance</h3><p>Monitor available performance indicators, listing issues, policy warnings and operational risks. We do not guarantee reinstatement or approval; we prepare evidence and follow the platform process.</p></article>
+      <article><span>09</span><h3>Reporting &amp; growth planning</h3><p>Weekly operating updates and monthly performance reviews covering sales, orders, conversion, advertising, returns, inventory and actionable next steps.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">How we work</p>
+    <h2>A controlled operating rhythm, not random account activity.</h2>
+    <div class="em-process">
+      <article><b>01</b><h3>Audit</h3><p>Review account access, catalog health, top SKUs, pricing, inventory, ads, returns, performance signals and known operational gaps.</p></article>
+      <article><b>02</b><h3>Stabilise</h3><p>Fix high-impact listing, catalog, availability, order and account-health issues before pushing for scale.</p></article>
+      <article><b>03</b><h3>Optimise</h3><p>Improve priority listings, merchandising, advertising structure, promotions and operational controls.</p></article>
+      <article><b>04</b><h3>Scale</h3><p>Expand winning SKUs, campaigns and channels using measured performance rather than blanket spend or unsupported sales promises.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section surface-inverse">
+  <div class="container">
+    <p class="eyebrow">Client reporting</p>
+    <h2>Clear enough to know what happened — useful enough to decide what happens next.</h2>
+    <div class="em-report">
+      <div><b>Weekly</b><span>Key actions, blockers, account alerts, stock issues and priority changes.</span></div>
+      <div><b>Monthly</b><span>Sales, orders, ad performance, returns, catalogue progress and operating insights.</span></div>
+      <div><b>Quarterly</b><span>Channel mix, SKU opportunities, profitability questions and next-quarter growth priorities.</span></div>
+    </div>
+    <div class="em-final"><p>Start with an account audit. Then decide what should be managed continuously.</p><a class="btn btn-primary" href="{% url 'leads:contact' %}?service=ecommerce-account-management">Talk to Luminous Ever →</a></div>
+  </div>
+</section>
+{% endblock %}
