@@ -19,6 +19,15 @@ class SAPConsultingView(TemplateView):
 
 
 @method_decorator(cache_page(60 * 15), name="dispatch")
+class EcommerceManagementView(TemplateView):
+    template_name = "services/ecommerce_management.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class ServiceIndexView(TemplateView):
     """The /services/ hub — categories with their services, matching the
     #build #grow #brand #optimize anchors already linked from the navbar
